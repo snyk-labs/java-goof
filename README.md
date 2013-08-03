@@ -12,19 +12,25 @@ The goal is to implement the same application using different technologies and c
 
 Two types of frameworks are being compared:
 
- 1. Request based frameworks
+ 1. __Request based frameworks__
 
-  1.1 Servlet 3 / JSP 2.2 \\
-  1.2 Spring MVC 3.2 \\
-  1.3 Struts 2.3 \\
-  1.4 Groovy/Grails 2.2 (WIP) \\
-  1.5 Play Framework 2.1 (WIP) \\
+  1.1 Servlet 3 / JSP 2.2
 
- 2. Component based frameworks
+  1.2 Spring MVC 3.2
 
-  2.1 Tapestry 5.3 \\
-  2.2 JSF 2.2 (WIP) \\
-  2.3 Wicket 6.9 (WIP) \\
+  1.3 Struts 2.3
+
+  1.4 Groovy/Grails 2.2 (WIP)
+
+  1.5 Play Framework 2.1 (WIP)
+
+ 2. __Component based frameworks__
+
+  2.1 Tapestry 5.3
+
+  2.2 JSF 2.2 (WIP)
+
+  2.3 Wicket 6.9 (WIP)
 
 In order to compare these frameworks objectively, the best implementation should be provided for each framework. If you think
 you are an expert/ninja in some technology, please don't hesitate to fix/improve every single aspect of the current implementation.
