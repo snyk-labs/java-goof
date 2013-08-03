@@ -13,16 +13,18 @@ The goal is to implement the same application using different technologies and c
 Two types of frameworks are being compared:
 
  1. Request based frameworks
-  1.1 Servlet 3 /JSP 2.2
-  1.2 Spring MVC 3.2
-  1.3 Struts 2.3
-  1.4 Groovy/Grails 2.2 (WIP)
-  1.5 Play Framework 2.1 (WIP)
+
+  1.1 Servlet 3 / JSP 2.2 \\
+  1.2 Spring MVC 3.2 \\
+  1.3 Struts 2.3 \\
+  1.4 Groovy/Grails 2.2 (WIP) \\
+  1.5 Play Framework 2.1 (WIP) \\
 
  2. Component based frameworks
-  2.1 Tapestry 5.3
-  2.2 JSF 2.2 (WIP)
-  2.3 Wicket 6.9 (WIP)
+
+  2.1 Tapestry 5.3 \\
+  2.2 JSF 2.2 (WIP) \\
+  2.3 Wicket 6.9 (WIP) \\
 
 In order to compare these frameworks objectively, the best implementation should be provided for each framework. If you think
 you are an expert/ninja in some technology, please don't hesitate to fix/improve every single aspect of the current implementation.
@@ -42,7 +44,7 @@ Common web utilities (JSTL tags, Filters, Backing beans, etc) are packaged in a 
 
 Finally, for each web framework, a separate war module is created to implement ONLY the web layer of the application.
 
-Todolist MVC use [Twitter Bootstrap][] for presentation layer, here are some screenshots:
+Todolist MVC uses [Twitter Bootstrap][] for presentation layer, here are some screenshots:
 
 ![Index page](https://github.com/benas/todolist-mvc/raw/master/src/site/screenshots/todolist-index.png)
 
@@ -70,4 +72,5 @@ Todolist MVC goal is to be community driven. Every single contribution is welcom
 Todolist MVC is released under the [MIT License][].
 
 [TodoMVC]: http://todomvc.com/
+[Twitter Bootstrap]: http://twitter.github.io/bootstrap/
 [MIT License]: http://opensource.org/licenses/mit-license.php/
