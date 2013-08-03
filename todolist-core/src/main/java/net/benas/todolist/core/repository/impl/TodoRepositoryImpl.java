@@ -1,0 +1,77 @@
+package net.benas.todolist.core.repository.impl;
+
+import net.benas.todolist.core.domain.Priority;
+import net.benas.todolist.core.domain.Status;
+import net.benas.todolist.core.domain.Todo;
+import net.benas.todolist.core.repository.api.TodoRepository;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
+
+/**
+ * Implementation of {@link TodoRepository]
+ * @author benas (md.benhassine@gmail.com)
+ */
+@Repository
+public class TodoRepositoryImpl implements TodoRepository {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    public Todo getTodoById(final long id) {
+        return em.find(Todo.class, id);
+    }
+
+    public List<Todo> getTodoListByUser(final long userId) {
+        TypedQuery<Todo> query = em.createNamedQuery("findTodosByUser", Todo.class);
+        query.setParameter(1, userId);
+        return query.getResultList();
+    }
+
+    public List<Todo> getTodoListByUserAndStatus(final long userId, final Status status) {
+        TypedQuery<Todo> query = em.createNamedQuery("findTodosByStatus", Todo.class);
+        query.setParameter(1, userId);
+        query.setParameter(2, status);
+        return query.getResultList();
+    }
+
+    public List<Todo> getTodoListByUserAndPriority(final long userId, final Priority priority) {
+        TypedQuery<Todo> query = em.createNamedQuery("findTodosByPriority", Todo.class);
+        query.setParameter(1, userId);
+        query.setParameter(2, priority);
+        return query.getResultList();
+    }
+
+    public List<Todo> getTodoListByUserAndStatusAndPriority(final long userId, final Status status, final Priority priority) {
+        TypedQuery<Todo> query = em.createNamedQuery("findTodosByStatusAndPriority", Todo.class);
+        query.setParameter(1, userId);
+        query.setParameter(2, status);
+        query.setParameter(3, priority);
+        return query.getResultList();
+    }
+
+    public List<Todo> searchTodoListByTitleByUserId(final String title, final long userId) {
+        TypedQuery<Todo> query = em.createNamedQuery("searchTodoListByTitleByUserId", Todo.class);
+        query.setParameter(1, userId);
+        query.setParameter(2, title.toUpperCase());
+        return query.getResultList();
+    }
+
+    public Todo update(Todo todo) {
+        return em.merge(todo);
+    }
+
+    public Todo create(final Todo todo) {
+        em.persist(todo);
+        return todo;
+    }
+
+    public void remove(final Todo todo) {
+        Todo t = em.find(Todo.class, todo.getId());
+        em.remove(t);
+    }
+
+}

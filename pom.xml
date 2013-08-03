@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.benas</groupId>
+  <artifactId>todolist</artifactId>
+  <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>todolist-core</module>
+        <module>todolist-web-common</module>
+        <module>todolist-web-springmvc</module>
+        <module>todolist-web-tapestry</module>
+        <module>todolist-web-struts</module>
+        <module>todolist-web-servlet-jsp</module>
+        <module>todolist-web-grails</module>
+        <module>todolist-web-play</module>
+        <module>todolist-web-jsf</module>
+        <module>todolist-web-wicket</module>
+    </modules>
+    <packaging>pom</packaging>
+
+  <name>Todolist MVC is a simple yet complete web application used to compare several Java Web Frameworks</name>
+  <url>https://github.com/benas/todolist-mvc</url>
+
+    <developers>
+        <developer>
+            <id>benas</id>
+            <email>md.benhassine@gmail.com</email>
+        </developer>
+    </developers>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+</project>
