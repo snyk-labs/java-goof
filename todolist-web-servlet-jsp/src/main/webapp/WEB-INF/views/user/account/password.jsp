@@ -23,7 +23,7 @@
                     <div class="control-group">
                         <label class="control-label" for="currentpassword">Current password :</label>
                         <div class="controls">
-                            <input type="password" id="currentpassword" class="input-medium" placeholder="min 6 characters"/>
+                            <input type="password" id="currentpassword" name="currentpassword" class="input-medium" placeholder="min 6 characters"/>
                             <%--<p class="help-block"><sf:errors path="currentpassword" cssClass="error"/></p>--%>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                     <div class="control-group">
                         <label class="control-label" for="password">New password :</label>
                         <div class="controls">
-                            <input type="password" id="password" class="input-medium" placeholder="min 6 characters"/>
+                            <input type="password" id="password" name="password" class="input-medium" placeholder="min 6 characters"/>
                             <%--<p class="help-block"><sf:errors path="password" cssClass="error"/></p>--%>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="control-group">
                         <label class="control-label" for="confirmpassword">Confirm Password :</label>
                         <div class="controls">
-                            <input type="password" id="confirmpassword" class="input-medium" placeholder="min 6 characters"/>
+                            <input type="password" id="confirmpassword" name="confirmpassword" class="input-medium" placeholder="min 6 characters"/>
                             <%--<p class="help-block"><sf:errors path="confirmpassword" cssClass="error"/></p>--%>
                         </div>
                     </div>

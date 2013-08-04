@@ -22,21 +22,21 @@
                         <div class="control-group">
                             <label class="control-label" for="title">Title:</label>
                             <div class="controls">
-                                <input type="text" id="title" required="required" autofocus="autofocus" />
+                                <input type="text" id="title" name="title" required="required" autofocus="autofocus" />
                             </div>
                         </div>
 
                         <div class="control-group">
                             <label class="control-label" for="dueDate">Due date:</label>
                             <div class="controls">
-                                <input type="text" id="dueDate" value="${requestScope.today}" required="required" />
+                                <input type="text" id="dueDate" name="dueDate" value="${requestScope.today}" required="required" />
                             </div>
                         </div>
 
                         <div class="control-group">
                             <label class="control-label" for="priority">Priority:</label>
                             <div class="controls">
-                                <select id="priority">
+                                <select id="priority" name="priority">
                                   <option value="LOW">Low</option>
                                   <option value="MEDIUM">Medium</option>
                                   <option value="HIGH">High</option>

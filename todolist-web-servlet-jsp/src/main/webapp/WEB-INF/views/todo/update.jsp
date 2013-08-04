@@ -29,21 +29,21 @@
                         <div class="control-group">
                             <label class="control-label" for="title">Title:</label>
                             <div class="controls">
-                                <input type="text" id="title" value="${requestScope.todo.title}" required="required" autofocus="autofocus" />
+                                <input type="text" id="title" name="title" value="${requestScope.todo.title}" required="required" autofocus="autofocus" />
                             </div>
                         </div>
 
                         <div class="control-group">
                             <label class="control-label" for="dueDate">Due date:</label>
                             <div class="controls">
-                                <input type="text" id="dueDate" value="${requestScope.todo.dueDate}" required="required" />
+                                <input type="text" id="dueDate" name="dueDate" value="${requestScope.todo.dueDate}" required="required" />
                             </div>
                         </div>
 
                         <div class="control-group">
                             <label class="control-label" for="status">Status:</label>
                             <div class="controls">
-                                <select id="status">
+                                <select id="status" name="status">
                                   <option value="TODO">Todo</option>
                                   <option value="DONE">Done</option>
                               </select>
@@ -53,7 +53,7 @@
                         <div class="control-group">
                             <label class="control-label" for="priority">Priority:</label>
                             <div class="controls">
-                                <select id="priority">
+                                <select id="priority" name="priority">
                                   <option value="LOW">Low</option>
                                   <option value="MEDIUM">Medium</option>
                                   <option value="HIGH">High</option>
