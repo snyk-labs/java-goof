@@ -12,11 +12,7 @@
                 <h1>Sign in</h1>
             </div>
 
-            <c:if test="${error != null}">
-                <div class="alert alert-error">
-                    <strong>${error}</strong>
-                </div>
-            </c:if>
+            <%@ include file="../common/error.jspf"%>
 
             <sf:form class="well form-horizontal" method="post" action="/login.do" modelAttribute="loginForm">
                 <fieldset>
