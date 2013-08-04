@@ -68,19 +68,21 @@ public class LoginServlet extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
+        System.out.println("email = " + email);
+        System.out.println("password = " + password);
         //TODO populate login form bean and validate it using JSR 303
 
+        String nextPage;
         if (!userService.login(email, password)) {
             request.setAttribute("error", resourceBundle.getString("login.error.global.invalid"));
-            request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
-
+            nextPage = "/WEB-INF/views/user/login.jsp";
+        } else {
+            HttpSession session = request.getSession(true);//create session
+            User user = userService.getUserByEmail(email);
+            session.setAttribute(TodolistUtils.SESSION_USER, user);
+            nextPage = "/user/todos";
         }
-
-        HttpSession session = request.getSession(true);//create session
-        User user = userService.getUserByEmail(email);
-        session.setAttribute(TodolistUtils.SESSION_USER, user);
-        request.getRequestDispatcher("/user/todos").forward(request, response);
+        request.getRequestDispatcher(nextPage).forward(request, response);
     }
 
 }
