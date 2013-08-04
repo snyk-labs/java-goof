@@ -31,7 +31,7 @@ import net.benas.todolist.core.domain.User;
 import net.benas.todolist.core.service.api.ExportService;
 import net.benas.todolist.core.service.api.TodoService;
 import net.benas.todolist.core.util.ExportFormat;
-import net.benas.todolist.web.common.util.TodoUtils;
+import net.benas.todolist.web.common.util.TodolistUtils;
 import net.benas.todolist.web.springmvc.util.ExportFormatPropertyEditor;
 import net.benas.todolist.web.springmvc.util.SessionData;
 import net.benas.todolist.web.springmvc.util.TodoPriorityPropertyEditor;
@@ -77,7 +77,7 @@ public class TodoController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(TodoUtils.DATE_FORMAT);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(TodolistUtils.DATE_FORMAT);
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
         binder.registerCustomEditor(Priority.class, new TodoPriorityPropertyEditor());
@@ -127,7 +127,7 @@ public class TodoController {
 
     @RequestMapping("/user/todos/new")
     public String redirectToCreateTodoPage(Model model) {
-        model.addAttribute("today", new SimpleDateFormat(TodoUtils.DATE_FORMAT).format(new Date()));
+        model.addAttribute("today", new SimpleDateFormat(TodolistUtils.DATE_FORMAT).format(new Date()));
         model.addAttribute("todo", new Todo());
         return "todo/create";
     }
