@@ -14,11 +14,7 @@
 
             <sf:form class="well form-horizontal" method="post" modelAttribute="registrationForm" action="/register.do">
 
-                <c:if test="${error != null}">
-                    <div class="alert alert-error">
-                        <strong>${error}</strong>
-                    </div>
-                </c:if>
+                <%@ include file="../common/error.jspf"%>
 
                 <fieldset>
 
