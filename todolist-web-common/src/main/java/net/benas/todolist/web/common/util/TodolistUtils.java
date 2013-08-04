@@ -30,7 +30,7 @@ package net.benas.todolist.web.common.util;
  */
 public class TodolistUtils {
 
-    public static final String SESSION_USER = "loggedUser";
+    public static final String SESSION_USER = "user";
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
