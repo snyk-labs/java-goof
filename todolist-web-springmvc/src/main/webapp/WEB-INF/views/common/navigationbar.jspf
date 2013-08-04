@@ -5,7 +5,7 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="/index">Online Todo List</a>
+            <a class="brand" href="/index">Todolist MVC</a>
 
             <%--logged in mode --%>
             <c:if test="${sessionScope['scopedTarget.sessionData'].user != null}">

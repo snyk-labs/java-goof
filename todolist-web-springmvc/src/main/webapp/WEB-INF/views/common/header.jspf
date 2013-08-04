@@ -5,7 +5,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="shortcut icon" href="/static/img/todolist.ico"/>
 
-<title>Online Todo List</title>
+<title>Todolist MVC</title>
 
 <!-- Le styles -->
 <link href="/static/css/bootstrap.min.css" rel="stylesheet">

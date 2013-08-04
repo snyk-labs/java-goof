@@ -8,9 +8,9 @@
             <div class="row">
 
                 <div class="span5">
-                    <h2>Welcome to Online Todo List</h2>
+                    <h2>Welcome to Todolist MVC</h2>
                     <p>
-                    <h4>Online Todo List is a web-based task manager which allows you to :</h4>
+                    <h4>Todolist MVC is a web-based task manager which allows you to :</h4>
                     <ul>
                         <li>Save and organize your todo list</li>
                         <li>Search easily your todo list</li>
