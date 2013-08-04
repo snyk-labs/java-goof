@@ -66,7 +66,7 @@ Todolist MVC uses [Twitter Bootstrap][] for presentation layer, here are some sc
 
 1.  Check out the project source code from github : `git clone https://github.com/benas/todolist-mvc.git`
 2.  Open a terminal and run the following command from root directory : `mvn install`
-3.  Choose a web framework to test and run it. For example : `cd todolist-web-springmvc && mvn tomcat:run`
+3.  Choose a web framework to test and run it. For example : `cd todolist-web-springmvc && mvn tomcat7:run`
 4.  Browse the following URL : `localhost:8080/`
 5.  You can register a new account or login using the following credentials : foo@bar.org / foobar
 
