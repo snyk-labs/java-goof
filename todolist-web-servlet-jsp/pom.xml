@@ -9,16 +9,93 @@
     <artifactId>todolist-web-servlet-jsp</artifactId>
     <packaging>war</packaging>
     <name>todolist-web-servlet-jsp Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+
+    <properties>
+        <spring.version>3.2.3.RELEASE</spring.version>
+    </properties>
+
     <dependencies>
+
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>net.benas</groupId>
+            <artifactId>todolist-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>net.benas</groupId>
+            <artifactId>todolist-web-common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax</groupId>
+                    <artifactId>javaee-web-api</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- javaee web api -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- spring web -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
     </dependencies>
+
     <build>
-        <finalName>todolist-web-servlet-jsp</finalName>
+        <finalName>todolist</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>install</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>sources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <warName>todolist</warName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <warFile>target/todolist.war</warFile>
+                    <path>/</path>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
