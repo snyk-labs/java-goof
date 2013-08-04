@@ -22,47 +22,26 @@
  *  THE SOFTWARE.
  */
 
-package net.benas.todolist.web.springmvc.form;
+package net.benas.todolist.web.common.form;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Size;
 
 /**
- * Registration form backing bean.
+ * Login form backing bean.
  * @author benas (md.benhassine@gmail.com)
  */
-public class RegistrationForm {
+public class LoginForm {
 
-    private String firstname;
-
-    private String lastname;
-
+    @NotEmpty(message = "{login.error.email.required}")
+    @Email(message = "{login.error.email.invalid}")
     private String email;
 
+    @NotEmpty(message = "{login.error.password.required}")
+    @Size(min = 6, message = "{login.error.password.size}")
     private String password;
-
-    private String confirmationPassword;
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getPassword() {
         return password;
@@ -72,24 +51,11 @@ public class RegistrationForm {
         this.password = password;
     }
 
-    public String getConfirmationPassword() {
-        return confirmationPassword;
+    public String getEmail() {
+        return email;
     }
 
-    public void setConfirmationPassword(String confirmationPassword) {
-        this.confirmationPassword = confirmationPassword;
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("RegistrationForm");
-        sb.append("{firstname='").append(firstname).append('\'');
-        sb.append(", lastname='").append(lastname).append('\'');
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", confirmationPassword='").append(confirmationPassword).append('\'');
-        sb.append('}');
-        return sb.toString();
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

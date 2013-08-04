@@ -29,17 +29,14 @@ import net.benas.todolist.core.domain.Todo;
 import net.benas.todolist.core.domain.User;
 import net.benas.todolist.core.service.api.TodoService;
 import net.benas.todolist.core.service.api.UserService;
-import net.benas.todolist.web.springmvc.form.ChangePasswordForm;
-import net.benas.todolist.web.springmvc.form.RegistrationForm;
-import net.benas.todolist.web.springmvc.form.RegistrationFormValidator;
+import net.benas.todolist.web.common.form.ChangePasswordForm;
+import net.benas.todolist.web.common.form.RegistrationForm;
 import net.benas.todolist.web.springmvc.util.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,11 +66,6 @@ public class UserController {
     @Autowired
     private SessionData sessionData;
 
-    @InitBinder(value = "registrationForm")
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(new RegistrationFormValidator());
-    }
-
     /*
     **********************
     * Registration Process
@@ -93,6 +85,11 @@ public class UserController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", messageProvider.getMessage("register.error.global", null, sessionData.getLocale()));
+            return "user/register";
+        }
+
+        if (!registrationForm.getPassword().equals(registrationForm.getConfirmationPassword())) {
+            model.addAttribute("error", messageProvider.getMessage("register.error.password.confirmation.error", null, sessionData.getLocale()));
             return "user/register";
         }
 

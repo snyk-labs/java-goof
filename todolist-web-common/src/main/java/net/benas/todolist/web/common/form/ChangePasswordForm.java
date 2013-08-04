@@ -22,26 +22,37 @@
  *  THE SOFTWARE.
  */
 
-package net.benas.todolist.web.springmvc.form;
+package net.benas.todolist.web.common.form;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Size;
 
 /**
- * Login form backing bean.
+ * Change password form backing bean.
  * @author benas (md.benhassine@gmail.com)
  */
-public class LoginForm {
+public class ChangePasswordForm {
 
-    @NotEmpty(message = "{login.error.email.required}")
-    @Email(message = "{login.error.email.invalid}")
-    private String email;
+    @NotEmpty(message = "{update.currentpassword.required}")
+    @Size(min = 6, message = "{update.currentpassword.size}")
+    private String currentpassword;
 
-    @NotEmpty(message = "{login.error.password.required}")
-    @Size(min = 6, message = "{login.error.password.size}")
+    @NotEmpty(message = "{update.password.required}")
+    @Size(min = 6, message = "{update.password.size}")
     private String password;
+
+    @NotEmpty(message = "{update.confirmpassword.required}")
+    @Size(min = 6, message = "{update.confirmpassword.size}")
+    private String confirmpassword;
+
+    public String getCurrentpassword() {
+        return currentpassword;
+    }
+
+    public void setCurrentpassword(String currentpassword) {
+        this.currentpassword = currentpassword;
+    }
 
     public String getPassword() {
         return password;
@@ -51,11 +62,11 @@ public class LoginForm {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getConfirmpassword() {
+        return confirmpassword;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setConfirmpassword(String confirmpassword) {
+        this.confirmpassword = confirmpassword;
     }
 }

@@ -56,11 +56,11 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!--hibernate validator-->
+        <!-- slf4j -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>4.2.0.Final</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
         </dependency>
 
     </dependencies>

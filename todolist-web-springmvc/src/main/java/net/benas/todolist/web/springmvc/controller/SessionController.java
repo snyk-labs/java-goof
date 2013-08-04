@@ -25,7 +25,7 @@
 package net.benas.todolist.web.springmvc.controller;
 
 import net.benas.todolist.core.service.api.UserService;
-import net.benas.todolist.web.springmvc.form.LoginForm;
+import net.benas.todolist.web.common.form.LoginForm;
 import net.benas.todolist.web.springmvc.util.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

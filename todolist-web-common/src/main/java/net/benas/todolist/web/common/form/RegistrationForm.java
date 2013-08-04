@@ -22,37 +22,59 @@
  *  THE SOFTWARE.
  */
 
-package net.benas.todolist.web.springmvc.form;
+package net.benas.todolist.web.common.form;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Size;
 
 /**
- * Change password form backing bean.
+ * Registration form backing bean.
  * @author benas (md.benhassine@gmail.com)
  */
-public class ChangePasswordForm {
+public class RegistrationForm {
 
-    @NotEmpty(message = "{update.currentpassword.required}")
-    @Size(min = 6, message = "{update.currentpassword.size}")
-    private String currentpassword;
+    @NotEmpty(message = "{registration.error.firstname.required}")
+    private String firstname;
 
-    @NotEmpty(message = "{update.password.required}")
-    @Size(min = 6, message = "{update.password.size}")
+    @NotEmpty(message = "{registration.error.lastname.required}")
+    private String lastname;
 
+    @NotEmpty(message = "{registration.error.email.required}")
+    @Email(message = "{registration.error.email.invalid}")
+    private String email;
+
+    @NotEmpty(message = "{registration.error.password.required}")
+    @Size(min = 6, message = "{registration.error.password.size}")
     private String password;
 
-    @NotEmpty(message = "{update.confirmpassword.required}")
-    @Size(min = 6, message = "{update.confirmpassword.size}")
-    private String confirmpassword;
+    @NotEmpty(message = "{registration.error.confirmpassword.required}")
+    @Size(min = 6, message = "{registration.error.confirmpassword.size}")
+    private String confirmationPassword;
 
-    public String getCurrentpassword() {
-        return currentpassword;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setCurrentpassword(String currentpassword) {
-        this.currentpassword = currentpassword;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -63,11 +85,12 @@ public class ChangePasswordForm {
         this.password = password;
     }
 
-    public String getConfirmpassword() {
-        return confirmpassword;
+    public String getConfirmationPassword() {
+        return confirmationPassword;
     }
 
-    public void setConfirmpassword(String confirmpassword) {
-        this.confirmpassword = confirmpassword;
+    public void setConfirmationPassword(String confirmationPassword) {
+        this.confirmationPassword = confirmationPassword;
     }
+
 }
