@@ -19,11 +19,7 @@
                     <fieldset>
                         <legend>Personal informations</legend>
 
-                    <c:if test="${error != null}">
-                        <div class="alert alert-error">
-                            <strong>${error}</strong>
-                        </div>
-                    </c:if>
+                    <%@ include file="../../common/error.jspf"%>
 
                     <div class="control-group">
                         <label class="control-label" for="identifier">User Id:</label>
