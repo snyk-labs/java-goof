@@ -49,7 +49,8 @@
                                         <p>Are you sure to delete todo ${currentTodo.id} '${currentTodo.title}' ?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <form action="/user/todos/${currentTodo.id}/delete" method="post">
+                                        <form action="/user/todos/delete.do" method="post">
+                                            <input type="hidden" name="todoId" value="${currentTodo.id}">
                                             <a href="#" class="btn" data-dismiss="modal">Cancel</a> <button type="submit" class="btn btn-primary">Confirm</button>
                                         </form>
                                     </div>
