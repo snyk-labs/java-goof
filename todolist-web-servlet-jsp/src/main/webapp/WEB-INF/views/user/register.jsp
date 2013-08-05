@@ -20,7 +20,7 @@
                     <div class="control-group">
                         <label class="control-label" for="firstname">First Name :</label>
                         <div class="controls">
-                            <input id="firstname" name="firstname" type="text" class="input-medium"/>
+                            <input id="firstname" name="firstname" type="text" class="input-medium" required="required"/>
                             <%--<p class="help-block"><sf:errors path="firstname" cssClass="error"/></p>--%>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                     <div class="control-group">
                         <label class="control-label" for="lastname">Last Name :</label>
                         <div class="controls">
-                            <input id="lastname" name="lastname" type="text" class="input-medium"/>
+                            <input id="lastname" name="lastname" type="text" class="input-medium" required="required"/>
                             <%--<p class="help-block"><sf:errors path="lastname" cssClass="error"/></p>--%>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                     <div class="control-group">
                         <label class="control-label" for="email">Email :</label>
                         <div class="controls">
-                            <input id="email" name="email" type="text" class="input-medium" placeholder="your@email.com"/>
+                            <input id="email" name="email" type="email" class="input-medium" placeholder="your@email.com" required="required"/>
                             <%--<p class="help-block"><sf:errors path="email" cssClass="error"/></p>--%>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     <div class="control-group">
                         <label class="control-label" for="password">Password :</label>
                         <div class="controls">
-                            <input type="password" id="password" name="password" class="input-medium" placeholder="min 6 characters"/>
+                            <input type="password" id="password" name="password" class="input-medium" placeholder="min 6 characters" required="required"/>
                             <%--<p class="help-block"><sf:errors path="password" cssClass="error"/></p>--%>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                     <div class="control-group">
                         <label class="control-label" for="confirmationPassword">Confirm Password :</label>
                         <div class="controls">
-                            <input type="password" id="confirmationPassword" name="confirmationPassword" class="input-medium" placeholder="min 6 characters"/>
+                            <input type="password" id="confirmationPassword" name="confirmationPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
                             <%--<p class="help-block"><sf:errors path="confirmationPassword" cssClass="error"/></p>--%>
                         </div>
                     </div>
