@@ -1,0 +1,58 @@
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+<div class="row">
+    <div class="span3">
+        <bean t:type="sidebar"/>
+    </div>
+    <div class="span9">
+        <div class="well">
+            <div class="page-header">
+                <h1>Update my account</h1>
+            </div>
+
+            <form t:type="form" t:id="updateAccountForm" method="post" class="form-horizontal">
+
+                <fieldset>
+                    <legend>Personal informations</legend>
+
+                    <div class="control-group">
+                        <label class="control-label" t:type="label" t:for="identifier">User Id:</label>
+                        <div class="controls">
+                            <input t:type="textField" t:id="identifier" t:value="prop:loggedUser.id" class="input-medium" t:disabled="true"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="firstName">First Name :</label>
+                        <div class="controls">
+                            <input t:type="textField" t:id="firstName" t:value="prop:loggedUser.firstname" class="input-medium" required="required"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="lastName">Last Name :</label>
+                        <div class="controls">
+                            <input t:type="textField" t:id="lastName" t:value="prop:loggedUser.lastname" class="input-medium" required="required"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="email">Email :</label>
+                        <div class="controls">
+                            <input t:type="textField" t:id="email" t:value="prop:loggedUser.email" t:validate="email" class="input-medium" required="required"/>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"><i class="icon-refresh icon-white"></i> Update</button>&nbsp;<a t:type="pageLink" t:page="user/account/details" class="btn"><i class="icon-remove"></i> Cancel</a>
+                    </div>
+
+                </fieldset>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</html>

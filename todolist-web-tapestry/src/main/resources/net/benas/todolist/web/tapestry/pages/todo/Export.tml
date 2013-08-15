@@ -1,0 +1,58 @@
+<html t:type="layout" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+<div class="row">
+    <div class="span3">
+        <bean t:type="sidebar"/>
+    </div>
+    <div class="span9">
+        <div class="well">
+            <div class="page-header">
+                <h1>Export my Todo list</h1>
+            </div>
+
+            <form t:type="form" t:id="exportTodoListForm" method="post" class="form-horizontal">
+
+                <fieldset>
+
+                    <div class="control-group">
+                        <label class="control-label" t:type="label" t:for="filename">File name:</label>
+                        <div class="controls">
+                            <input t:type="textfield" t:id="filename" required="required" autofocus="autofocus" />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" t:type="label" t:for="statusFilter">Status filter:</label>
+                        <div class="controls">
+                            <select t:type="select" t:id="statusFilter" blankOption="never"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" t:type="label" t:for="priorityFilter">Priority filter:</label>
+                        <div class="controls">
+                            <select t:type="select" t:id="priorityFilter" blankOption="never"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" t:type="label" t:for="format">Export Format:</label>
+                        <div class="controls">
+                            <select t:type="select" t:id="format" blankOption="never"/>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"> <i class="icon-download-alt icon-white"></i> Export </button>&nbsp;
+                        <button type="button" class="btn" onclick="history.go(-1)">Cancel</button>
+                    </div>
+
+                </fieldset>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</html>
