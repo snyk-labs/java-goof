@@ -1,6 +1,6 @@
 ## Todolist MVC
 
-Todolist MVC is like [TodoMVC][] but for Java Web Frameworks instead of Javascript Web Frameworks.
+Todolist MVC is like [TodoMVC][] but for Java Web Frameworks instead of Javascript Frameworks.
 
 The goal is to implement the same application using different technologies and compare them according to:
 
@@ -12,7 +12,7 @@ The goal is to implement the same application using different technologies and c
 
 Two types of frameworks are being compared:
 
- 1. __Request based frameworks__
+ __1. Request based frameworks__
 
   1.1 Servlet 3 / JSP 2.2
 
@@ -24,7 +24,7 @@ Two types of frameworks are being compared:
 
   1.5 Play Framework 2.1 (WIP)
 
- 2. __Component based frameworks__
+ __2. Component based frameworks__
 
   2.1 Tapestry 5.3
 
@@ -32,9 +32,14 @@ Two types of frameworks are being compared:
 
   2.3 Wicket 6.9 (WIP)
 
+  2.4 Waadin 7.1 (WIP)
+
 In order to compare these frameworks objectively, the best implementation should be provided for each framework. If you think
 you are an expert/ninja in some technology, please don't hesitate to fix/improve every single aspect of the current implementation.
 If your favorite framework is not addressed, you are welcome to add it to the list by providing your own implementation of the application.
+
+Please note that performance comparison is not addressed here, there are many excellent benchmarks on the web like [TechEmpower's Framework Benchmarks][].
+We are comparing especially features set and developer productivity using each framework : form handling, request parameters binding, Ajax support, I18N support, etc.
 
 The comparison table will be available once all implementations will be finished/provided.
 
@@ -44,9 +49,9 @@ Todolist MVC is a simple yet complete CRUD web application to store todo list on
 Some features like search todos, export todolist, user and session management go beyond CRUD operations to make the use case complete and allows covering most of the features of each framework.
 
 The application backend is developed using Spring and JPA/Hibernate. Data is persisted in an in-memory HSQL database to make testing/running the application relatively easy.
-This module is common to all web layers and is a good use case to see how web frameworks integrate with Spring.
+This module, named `todolist-core`, is common to all web layers and is a good use case to see how web frameworks integrate with Spring.
 
-Common web utilities (JSTL tags, Filters, Backing beans, etc) are packaged in a separate common web module.
+Common web utilities (JSTL tags, Filters, Backing beans, etc) are packaged in a separate common web module named `todolist-web-common`.
 
 Finally, for each web framework, a separate war module is created to implement ONLY the web layer of the application.
 
@@ -61,6 +66,212 @@ Todolist MVC uses [Twitter Bootstrap][] for presentation layer, here are some sc
 ![Search page](https://github.com/benas/todolist-mvc/raw/master/src/site/screenshots/todolist-search.png)
 
 ![User account page](https://github.com/benas/todolist-mvc/raw/master/src/site/screenshots/todolist-account.png)
+
+Todolist MVC URLs and actions are designed as follows :
+
+<table border="1">
+<thead>
+<tr>
+    <th>Type</th>
+    <th>Parameters</th>
+    <th>Action</th>
+    <th>Model</th>
+    <th>View</th>
+    <th>/</th>
+
+    <th>Request</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td rowspan="6">public</td>
+    <td>/index</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>redirect to welcome page</td>
+    <td>N/A</td>
+    <td>index.jsp</td>
+</tr>
+<tr>
+    <td>/about</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>redirect to about page</td>
+    <td>N/A</td>
+    <td>about.jsp</td>
+</tr>
+<tr>
+    <td>/login</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>redirect to login page</td>
+    <td>N/A</td>
+    <td>user/login.jsp</td>
+</tr>
+<tr>
+    <td>/login.do</td>
+    <td>POST</td>
+    <td>login form bean</td>
+    <td>process user login</td>
+    <td>todo list</td>
+    <td>user/home.jsp</td>
+</tr>
+<tr>
+    <td>/register</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>redirect to register page</td>
+    <td>N/A</td>
+    <td>user/register.jsp</td>
+</tr>
+<tr>
+    <td>/register.do</td>
+    <td>POST</td>
+    <td>registration form bean</td>
+    <td>process user registration</td>
+    <td>todo list</td>
+    <td>user/home.jsp</td>
+</tr>
+<tr>
+    <td rowspan="8">user</td>
+    <td>/user/account</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>load user details</td>
+    <td>user, todo stats</td>
+    <td>user/account/details.jsp</td>
+</tr>
+<tr>
+    <td>/user/account/update</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>redirect to account update page</td>
+    <td>user</td>
+    <td>user/account/update.jsp</td>
+</tr>
+<tr>
+    <td>/user/account/update.do</td>
+    <td>POST</td>
+    <td>user</td>
+    <td>update account details</td>
+    <td>user</td>
+    <td>user/account/details.jsp</td>
+</tr>
+<tr>
+    <td>/user/account/password</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>redirect to password change page</td>
+    <td>N/A</td>
+    <td>user/account/password.jsp</td>
+</tr>
+<tr>
+    <td>/user/account/password.do</td>
+    <td>POST</td>
+    <td>change password form bean</td>
+    <td>process password change</td>
+    <td>N/A</td>
+    <td>user/account/details.jsp</td>
+</tr>
+<tr>
+    <td>/user/account/delete</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>redirect to account deletion page</td>
+    <td>N/A</td>
+    <td>user/account/delete.jsp</td>
+</tr>
+<tr>
+    <td>/user/account/delete.do</td>
+    <td>POST</td>
+    <td>N/A</td>
+    <td>process account deletion</td>
+    <td>N/A</td>
+    <td>index.jsp</td>
+</tr>
+<tr>
+    <td>/user/logout</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>process logout</td>
+    <td>N/A</td>
+    <td>index.jsp</td>
+</tr>
+<tr>
+    <td rowspan="9">todo</td>
+    <td>/user/todos</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>load user todos</td>
+    <td>todolist</td>
+    <td>user/home.jsp</td>
+</tr>
+<tr>
+    <td>/user/todos/new</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>redirect to todo creation page</td>
+    <td>N/A</td>
+    <td>todo/create.jsp</td>
+</tr>
+<tr>
+    <td>/user/todos/new.do</td>
+    <td>POST</td>
+    <td>todo bean</td>
+    <td>process todo creation</td>
+    <td>todolist</td>
+    <td>user/home.jsp</td>
+</tr>
+<tr>
+    <td>/user/todos/{todoId}/update</td>
+    <td>GET</td>
+    <td>todoId</td>
+    <td>redirect to todo update page</td>
+    <td>todo bean</td>
+    <td>todo/update.jsp</td>
+</tr>
+<tr>
+    <td>/user/todos/update.do</td>
+    <td>POST</td>
+    <td>todo bean</td>
+    <td>process todo update</td>
+    <td>todolist</td>
+    <td>user/home.jsp</td>
+</tr>
+<tr>
+    <td>/user/todos/{todoId}/delete</td>
+    <td>POST</td>
+    <td>todoId</td>
+    <td>process todo deletion</td>
+    <td>todolist</td>
+    <td>user/home.jsp</td>
+</tr>
+<tr>
+    <td>/user/todos/search/{query}</td>
+    <td>GET</td>
+    <td>search query</td>
+    <td>search todos</td>
+    <td>todolist, query</td>
+    <td>todo/search.jsp</td>
+</tr>
+<tr>
+    <td>/user/todos/export</td>
+    <td>GET</td>
+    <td>N/A</td>
+    <td>redirect to export page</td>
+    <td>N/A</td>
+    <td>todo/export.jsp</td>
+</tr>
+<tr>
+    <td>/user/todos/export.do</td>
+    <td>POST</td>
+    <td>status/priority filters, export format, filename</td>
+    <td>process todolist export</td>
+    <td>N/A</td>
+    <td>todo/export.jsp</td>
+</tr>
+</tbody>
+</table>
 
 ## Build and run Todolist MVC
 
@@ -78,5 +289,6 @@ Todolist MVC goal is to be community driven. Every single contribution is welcom
 Todolist MVC is released under the [MIT License][].
 
 [TodoMVC]: http://todomvc.com/
+[TechEmpower's Framework Benchmarks]: https://github.com/TechEmpower/FrameworkBenchmarks
 [Twitter Bootstrap]: http://twitter.github.io/bootstrap/
 [MIT License]: http://opensource.org/licenses/mit-license.php/
