@@ -20,19 +20,19 @@ Two types of frameworks are being compared:
 
   1.3 Struts 2.3
 
-  1.4 Groovy/Grails 2.2 (WIP)
+  1.4 Groovy/Grails 2.2 __(WIP)__
 
-  1.5 Play Framework 2.1 (WIP)
+  1.5 Play Framework 2.1 __(WIP)__
 
  __2. Component based frameworks__
 
   2.1 Tapestry 5.3
 
-  2.2 JSF 2.2 (WIP)
+  2.2 JSF 2.2 __(WIP)__
 
-  2.3 Wicket 6.9 (WIP)
+  2.3 Wicket 6.9 __(WIP)__
 
-  2.4 Waadin 7.1 (WIP)
+  2.4 Waadin 7.1 __(WIP)__
 
 In order to compare these frameworks objectively, the best implementation should be provided for each framework. If you think
 you are an expert/ninja in some technology, please don't hesitate to fix/improve every single aspect of the current implementation.
@@ -72,14 +72,13 @@ Todolist MVC URLs and actions are designed as follows :
 <table border="1">
 <thead>
 <tr>
+    <th> </th>
+    <th>Request</th>
     <th>Type</th>
     <th>Parameters</th>
     <th>Action</th>
     <th>Model</th>
     <th>View</th>
-    <th>/</th>
-
-    <th>Request</th>
 </tr>
 </thead>
 <tbody>
@@ -272,6 +271,8 @@ Todolist MVC URLs and actions are designed as follows :
 </tr>
 </tbody>
 </table>
+
+Note that view technology may vary for each framework. Here, JSP views are (re)used for most of current implementations.
 
 ## Build and run Todolist MVC
 
