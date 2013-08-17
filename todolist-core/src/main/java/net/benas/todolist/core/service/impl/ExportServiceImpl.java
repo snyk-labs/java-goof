@@ -53,6 +53,9 @@ public class ExportServiceImpl implements ExportService {
         gson = new Gson();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public byte[] exportTodoList(final List<Todo> todoList, final ExportFormat exportFormat) {
 
         if (exportFormat.equals(ExportFormat.XML)) {

@@ -19,25 +19,40 @@ public class UserRepositoryImpl implements UserRepository {
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * {@inheritDoc}
+     */
     public User create(final User user) {
         em.persist(user);
         return user;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public User update(User user) {
         return em.merge(user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void remove(final User user) {
         em.createNativeQuery("DELETE FROM todo t WHERE t.userId = " + user.getId()).executeUpdate();
         User u = em.find(User.class, user.getId()); //Entity must be attached to the PC before being removed, or else => java.lang.IllegalArgumentException. Entity must be managed to call remove (em.merge(odo) does not fix the pb).
         em.remove(u);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public User getUserById(final long id) {
         return em.find(User.class, id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public User getUserByEmail(final String email) {
         TypedQuery<User> query = em.createNamedQuery("findUserByEmail", User.class);
         query.setParameter("p_email", email);
@@ -45,6 +60,9 @@ public class UserRepositoryImpl implements UserRepository {
         return (users != null && !users.isEmpty()) ? users.get(0) : null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean login(final String email, final String password) {
         TypedQuery<User> query = em.createNamedQuery("findUserByEmailAndPassword", User.class);
         query.setParameter("p_email", email);

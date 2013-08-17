@@ -42,28 +42,46 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     public User create(final User user) {
         return userRepository.create(user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public User update(User user) {
         return userRepository.update(user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void remove(final User user) {
         userRepository.remove(user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
     public User getUserById(final long id) {
         return userRepository.getUserById(id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
     public User getUserByEmail(final String email) {
         return userRepository.getUserByEmail(email);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional(readOnly = true)
     public boolean login(final String email, final String password) {
         return userRepository.login(email, password);

@@ -21,16 +21,25 @@ public class TodoRepositoryImpl implements TodoRepository {
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * {@inheritDoc}
+     */
     public Todo getTodoById(final long id) {
         return em.find(Todo.class, id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Todo> getTodoListByUser(final long userId) {
         TypedQuery<Todo> query = em.createNamedQuery("findTodosByUser", Todo.class);
         query.setParameter(1, userId);
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Todo> getTodoListByUserAndStatus(final long userId, final Status status) {
         TypedQuery<Todo> query = em.createNamedQuery("findTodosByStatus", Todo.class);
         query.setParameter(1, userId);
@@ -38,6 +47,9 @@ public class TodoRepositoryImpl implements TodoRepository {
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Todo> getTodoListByUserAndPriority(final long userId, final Priority priority) {
         TypedQuery<Todo> query = em.createNamedQuery("findTodosByPriority", Todo.class);
         query.setParameter(1, userId);
@@ -45,6 +57,9 @@ public class TodoRepositoryImpl implements TodoRepository {
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Todo> getTodoListByUserAndStatusAndPriority(final long userId, final Status status, final Priority priority) {
         TypedQuery<Todo> query = em.createNamedQuery("findTodosByStatusAndPriority", Todo.class);
         query.setParameter(1, userId);
@@ -53,6 +68,9 @@ public class TodoRepositoryImpl implements TodoRepository {
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Todo> searchTodoListByTitleByUserId(final String title, final long userId) {
         TypedQuery<Todo> query = em.createNamedQuery("searchTodoListByTitleByUserId", Todo.class);
         query.setParameter(1, userId);
@@ -60,15 +78,24 @@ public class TodoRepositoryImpl implements TodoRepository {
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Todo update(Todo todo) {
         return em.merge(todo);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Todo create(final Todo todo) {
         em.persist(todo);
         return todo;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void remove(final Todo todo) {
         Todo t = em.find(Todo.class, todo.getId());
         em.remove(t);
