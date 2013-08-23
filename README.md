@@ -108,7 +108,7 @@ Todolist MVC URLs and actions are designed as follows :
     <td>user/login.jsp</td>
 </tr>
 <tr>
-    <td>/login.do</td>
+    <td>/login</td>
     <td>POST</td>
     <td>login form bean</td>
     <td>process user login</td>
@@ -124,7 +124,7 @@ Todolist MVC URLs and actions are designed as follows :
     <td>user/register.jsp</td>
 </tr>
 <tr>
-    <td>/register.do</td>
+    <td>/register</td>
     <td>POST</td>
     <td>registration form bean</td>
     <td>process user registration</td>
@@ -132,7 +132,7 @@ Todolist MVC URLs and actions are designed as follows :
     <td>user/home.jsp</td>
 </tr>
 <tr>
-    <td rowspan="8">user</td>
+    <td rowspan="4">user</td>
     <td>/user/account</td>
     <td>GET</td>
     <td>N/A</td>
@@ -141,49 +141,17 @@ Todolist MVC URLs and actions are designed as follows :
     <td>user/account/details.jsp</td>
 </tr>
 <tr>
-    <td>/user/account/update</td>
-    <td>GET</td>
-    <td>N/A</td>
-    <td>redirect to account update page</td>
-    <td>user</td>
-    <td>user/account/update.jsp</td>
-</tr>
-<tr>
-    <td>/user/account/update.do</td>
-    <td>POST</td>
+    <td>/user/account</td>
+    <td>PUT</td>
     <td>user</td>
     <td>update account details</td>
     <td>user</td>
     <td>user/account/details.jsp</td>
 </tr>
 <tr>
-    <td>/user/account/password</td>
-    <td>GET</td>
-    <td>N/A</td>
-    <td>redirect to password change page</td>
-    <td>N/A</td>
-    <td>user/account/password.jsp</td>
-</tr>
-<tr>
-    <td>/user/account/password.do</td>
-    <td>POST</td>
-    <td>change password form bean</td>
-    <td>process password change</td>
-    <td>N/A</td>
-    <td>user/account/details.jsp</td>
-</tr>
-<tr>
-    <td>/user/account/delete</td>
-    <td>GET</td>
-    <td>N/A</td>
-    <td>redirect to account deletion page</td>
-    <td>N/A</td>
-    <td>user/account/delete.jsp</td>
-</tr>
-<tr>
-    <td>/user/account/delete.do</td>
-    <td>POST</td>
-    <td>N/A</td>
+    <td>/user/account</td>
+    <td>DELETE</td>
+    <td>user</td>
     <td>process account deletion</td>
     <td>N/A</td>
     <td>index.jsp</td>
@@ -198,7 +166,7 @@ Todolist MVC URLs and actions are designed as follows :
 </tr>
 <tr>
     <td rowspan="9">todo</td>
-    <td>/user/todos</td>
+    <td>/todos</td>
     <td>GET</td>
     <td>N/A</td>
     <td>load user todos</td>
@@ -206,7 +174,7 @@ Todolist MVC URLs and actions are designed as follows :
     <td>user/home.jsp</td>
 </tr>
 <tr>
-    <td>/user/todos/new</td>
+    <td>/todos/new</td>
     <td>GET</td>
     <td>N/A</td>
     <td>redirect to todo creation page</td>
@@ -214,7 +182,7 @@ Todolist MVC URLs and actions are designed as follows :
     <td>todo/create.jsp</td>
 </tr>
 <tr>
-    <td>/user/todos/new.do</td>
+    <td>/todos/new</td>
     <td>POST</td>
     <td>todo bean</td>
     <td>process todo creation</td>
@@ -222,31 +190,31 @@ Todolist MVC URLs and actions are designed as follows :
     <td>user/home.jsp</td>
 </tr>
 <tr>
-    <td>/user/todos/{todoId}/update</td>
+    <td>/todos/{todoId}</td>
     <td>GET</td>
     <td>todoId</td>
-    <td>redirect to todo update page</td>
+    <td>redirect to todo details/update page</td>
     <td>todo bean</td>
     <td>todo/update.jsp</td>
 </tr>
 <tr>
-    <td>/user/todos/update.do</td>
-    <td>POST</td>
+    <td>/todos/{todoId}</td>
+    <td>PUT</td>
     <td>todo bean</td>
     <td>process todo update</td>
     <td>todolist</td>
     <td>user/home.jsp</td>
 </tr>
 <tr>
-    <td>/user/todos/{todoId}/delete</td>
-    <td>POST</td>
+    <td>/todos/{todoId}</td>
+    <td>DELETE</td>
     <td>todoId</td>
     <td>process todo deletion</td>
     <td>todolist</td>
     <td>user/home.jsp</td>
 </tr>
 <tr>
-    <td>/user/todos/search/{query}</td>
+    <td>/todos/search/{query}</td>
     <td>GET</td>
     <td>search query</td>
     <td>search todos</td>
@@ -254,7 +222,7 @@ Todolist MVC URLs and actions are designed as follows :
     <td>todo/search.jsp</td>
 </tr>
 <tr>
-    <td>/user/todos/export</td>
+    <td>/todos/export</td>
     <td>GET</td>
     <td>N/A</td>
     <td>redirect to export page</td>
@@ -262,9 +230,9 @@ Todolist MVC URLs and actions are designed as follows :
     <td>todo/export.jsp</td>
 </tr>
 <tr>
-    <td>/user/todos/export.do</td>
+    <td>/todos/export</td>
     <td>POST</td>
-    <td>status/priority filters, export format, filename</td>
+    <td>export form bean</td>
     <td>process todolist export</td>
     <td>N/A</td>
     <td>todo/export.jsp</td>
@@ -272,7 +240,12 @@ Todolist MVC URLs and actions are designed as follows :
 </tbody>
 </table>
 
-Note that view technology may vary for each framework. Here, JSP views are (re)used for most of current implementations.
+URLs under `/user/*` and `/todos/*` must be accessible to only logged users. 
+This requirement should be implemented using a servlet filter or equivalent (Struts interceptor, Spring MVC interceptor, etc)
+
+Note that security is not addressed since not all frameworks provide security support.
+
+Finally, view technology may vary for each framework. Here, JSP views are (re)used for most of current implementations.
 
 ## Build and run Todolist MVC
 
