@@ -32,7 +32,7 @@
                     <c:forEach items="${requestScope.todoList}" var="currentTodo">
                         <tr>
                             <td>${currentTodo.id}</td>
-                            <td><tl:highlight pattern="${param.title}" cssClass="highlight">${currentTodo.title}</tl:highlight></td>
+                            <td><tl:highlight pattern="${param.title}" cssClass="warning">${currentTodo.title}</tl:highlight></td>
                             <td><fmt:formatDate value="${currentTodo.dueDate}" pattern="dd/MM/yyyy"/></td>
                             <td><i class="icon-circle-arrow-<tl:priorityIcon priority="${currentTodo.priority}"/>"></i> ${currentTodo.priority}</td>
                             <td><span class="label <tl:statusLabel status="${currentTodo.status}"/>"> ${currentTodo.status}</span></td>
