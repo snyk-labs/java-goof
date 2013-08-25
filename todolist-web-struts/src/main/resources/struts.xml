@@ -43,11 +43,13 @@
 
         <action name="new" class="net.benas.todolist.web.struts.action.todo.TodoAction" method="create">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result>/WEB-INF/views/todo/create.jsp</result>
         </action>
 
         <action name="new.do" class="net.benas.todolist.web.struts.action.todo.TodoAction" method="doCreate">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result type="redirectAction">
                 <param name="actionName">home</param>
                 <param name="namespace">/user</param>
@@ -56,11 +58,13 @@
 
         <action name="update" class="net.benas.todolist.web.struts.action.todo.TodoAction" method="update">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result>/WEB-INF/views/todo/update.jsp</result>
         </action>
 
         <action name="update.do" class="net.benas.todolist.web.struts.action.todo.TodoAction" method="doUpdate">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result type="redirectAction">
                 <param name="actionName">home</param>
                 <param name="namespace">/user</param>
@@ -69,6 +73,7 @@
 
         <action name="delete.do" class="net.benas.todolist.web.struts.action.todo.TodoAction" method="doDelete">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result type="redirectAction">
                 <param name="actionName">home</param>
                 <param name="namespace">/user</param>
@@ -77,11 +82,13 @@
 
         <action name="export" class="net.benas.todolist.web.struts.action.todo.ExportTodoAction" method="export">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result>/WEB-INF/views/todo/export.jsp</result>
         </action>
 
         <action name="export.do" class="net.benas.todolist.web.struts.action.todo.ExportTodoAction" method="doExport">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result name="success" type="stream">
                 <param name="contentDisposition">attachment;filename="${fileName}"</param>
                 <param name="contentType">${contentType}</param>
@@ -92,6 +99,7 @@
 
         <action name="search" class="net.benas.todolist.web.struts.action.todo.SearchTodoAction">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result>/WEB-INF/views/todo/search.jsp</result>
         </action>
 
@@ -110,11 +118,13 @@
 
         <action name="home" class="net.benas.todolist.web.struts.action.user.HomeAction">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result>/WEB-INF/views/user/home.jsp</result>
         </action>
 
         <action name="logout" class="net.benas.todolist.web.struts.action.user.SessionAction" method="doLogout">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result type="redirectAction">
                 <param name="actionName">index</param>
                 <param name="namespace">/</param>
@@ -123,17 +133,20 @@
 
         <action name="account" class="net.benas.todolist.web.struts.action.user.AccountAction" method="account">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result>/WEB-INF/views/user/account.jsp</result>
         </action>
 
         <action name="update.do" class="net.benas.todolist.web.struts.action.user.AccountAction" method="doUpdate">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result name="input">/WEB-INF/views/account.jsp</result>
             <result>/WEB-INF/views/user/account.jsp</result>
         </action>
 
         <action name="delete.do" class="net.benas.todolist.web.struts.action.user.AccountAction" method="doDelete">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result type="redirectAction">
                 <param name="actionName">index</param>
                 <param name="namespace">/</param>
@@ -142,6 +155,7 @@
 
         <action name="changePassword.do" class="net.benas.todolist.web.struts.action.user.AccountAction" method="doChangePassword">
             <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
             <result name="input">/WEB-INF/views/user/account.jsp</result>
             <result>/WEB-INF/views/user/account.jsp</result>
         </action>

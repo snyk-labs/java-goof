@@ -48,7 +48,7 @@ public class BaseAction extends ActionSupport {
 
     protected UserService userService;
 
-    protected Map<String, Object> session = ActionContext.getContext().getSession();;
+    protected Map<String, Object> session = ActionContext.getContext().getSession();
 
     protected User getSessionUser() {
         return (User) session.get(TodolistUtils.SESSION_USER);

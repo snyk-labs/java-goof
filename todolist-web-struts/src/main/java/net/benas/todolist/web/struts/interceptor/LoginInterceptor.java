@@ -49,7 +49,6 @@ public class LoginInterceptor extends AbstractInterceptor {
         if (user != null) {
             return invocation.invoke();
         } else {
-            System.out.println("ppp");
             return Action.LOGIN;
         }
 

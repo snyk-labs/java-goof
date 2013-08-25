@@ -25,15 +25,12 @@
 package net.benas.todolist.web.struts.action.user;
 
 import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
 import net.benas.todolist.core.domain.Status;
 import net.benas.todolist.core.domain.Todo;
 import net.benas.todolist.core.domain.User;
-import net.benas.todolist.web.common.util.TodolistUtils;
 import net.benas.todolist.web.struts.action.BaseAction;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Action class to load user's todo list in home page.
@@ -45,8 +42,7 @@ public class HomeAction extends BaseAction {
     List<Todo> todoList;
 
     public String execute() {
-        Map<String, Object> session = ActionContext.getContext().getSession();
-        User user = (User)session.get(TodolistUtils.SESSION_USER);
+        User user = getSessionUser();
         todoList = todoService.getTodoListByUser(user.getId());
         return Action.SUCCESS;
     }
