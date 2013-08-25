@@ -18,17 +18,17 @@
                 <fieldset>
 
                     <div class="control-group">
-                        <label class="control-label" for="firstname">First Name :</label>
+                        <label class="control-label" for="firstName">First Name :</label>
                         <div class="controls">
-                            <input id="firstname" name="firstname" type="text" class="input-medium" required="required"/>
+                            <input id="firstName" name="firstName" type="text" class="input-medium" required="required"/>
                             <%--<p class="help-block"><sf:errors path="firstname" cssClass="error"/></p>--%>
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="lastname">Last Name :</label>
+                        <label class="control-label" for="lastName">Last Name :</label>
                         <div class="controls">
-                            <input id="lastname" name="lastname" type="text" class="input-medium" required="required"/>
+                            <input id="lastName" name="lastName" type="text" class="input-medium" required="required"/>
                             <%--<p class="help-block"><sf:errors path="lastname" cssClass="error"/></p>--%>
                         </div>
                     </div>
@@ -50,9 +50,9 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="confirmationPassword">Confirm Password :</label>
+                        <label class="control-label" for="confirmPassword">Confirm Password :</label>
                         <div class="controls">
-                            <input type="password" id="confirmationPassword" name="confirmationPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
                             <%--<p class="help-block"><sf:errors path="confirmationPassword" cssClass="error"/></p>--%>
                         </div>
                     </div>

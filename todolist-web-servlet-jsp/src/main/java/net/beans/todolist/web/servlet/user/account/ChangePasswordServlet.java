@@ -22,7 +22,7 @@
  *   THE SOFTWARE.
  */
 
-package net.beans.todolist.web.servlet.user;
+package net.beans.todolist.web.servlet.user.account;
 
 import net.benas.todolist.core.domain.User;
 import net.benas.todolist.core.service.api.UserService;
@@ -38,15 +38,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 /**
  * @author benas (md.benhassine@gmail.com)
  */
 
-@WebServlet(name = "RegisterServlet",urlPatterns = {"/register","/register.do"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "ChangePasswordServlet", urlPatterns = "/user/account/password.do")
+public class ChangePasswordServlet extends HttpServlet {
 
     private UserService userService;
 
@@ -60,37 +59,32 @@ public class RegisterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("registerTabStyle", "active");
-        request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String currentPassword = request.getParameter("currentPassword");
+        String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        //TODO populate register form bean and validate it using JSR 303
+        //TODO populate change password form bean and validate it using JSR 303
 
-        if (!confirmPassword.equals(password)) {
-            request.setAttribute("error", resourceBundle.getString("register.error.password.confirmation.error"));
-            request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
+
+        if (!confirmPassword.equals(newPassword)) {
+            request.setAttribute("error", resourceBundle.getString("account.password.confirmation.error"));
+            request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
         }
 
-        if (userService.getUserByEmail(email) != null ) {
-            request.setAttribute("error", MessageFormat.format(resourceBundle.getString("register.error.global.account"), email));
-            request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
+        if (!currentPassword.equals(user.getPassword())){
+            request.setAttribute("error", resourceBundle.getString("account.password.error"));
+            request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
         }
 
-        User user = new User(firstName, lastName, email, password);
-        user = userService.create(user);
-        HttpSession session = request.getSession(true);
+        user.setPassword(newPassword);
+        userService.update(user);
         session.setAttribute(TodolistUtils.SESSION_USER, user);
-        request.getRequestDispatcher("/user/todos").forward(request, response);
+        request.setAttribute("updatePasswordSuccessMessage", resourceBundle.getString("account.password.update.success"));
+        request.getRequestDispatcher("/user/account").forward(request, response);
 
     }
 

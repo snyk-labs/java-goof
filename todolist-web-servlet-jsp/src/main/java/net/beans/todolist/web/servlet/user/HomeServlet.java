@@ -24,6 +24,7 @@
 
 package net.beans.todolist.web.servlet.user;
 
+import net.benas.todolist.core.domain.Status;
 import net.benas.todolist.core.domain.Todo;
 import net.benas.todolist.core.domain.User;
 import net.benas.todolist.core.service.api.TodoService;
@@ -68,6 +69,10 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("todoList", todoList);
 
         request.setAttribute("homeTabStyle","active");
+        request.setAttribute("totalCount", todoService.getTodoListByUser(user.getId()).size());
+        request.setAttribute("doneCount", todoService.getTodoListByStatus(user.getId(), Status.DONE).size());
+        request.setAttribute("todoCount", todoService.getTodoListByStatus(user.getId(), Status.TODO).size());
+
         request.getRequestDispatcher("/WEB-INF/views/user/home.jsp").forward(request, response);
     }
 

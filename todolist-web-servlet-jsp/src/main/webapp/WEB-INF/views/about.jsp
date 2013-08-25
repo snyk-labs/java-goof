@@ -36,7 +36,7 @@
                     </tr>
                     <tr>
                         <td><a href="http://www.springsource.org/about">Spring</a></td>
-                        <td>3.2.3</td>
+                        <td>3.2.4</td>
                     </tr>
                     <tr>
                         <td><a href="http://www.hibernate.org/">Hibernate</a></td>

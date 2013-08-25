@@ -60,6 +60,13 @@
                     </c:forEach>
 
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2"><div align="center">Total = <span class="badge badge-inverse">${requestScope.totalCount}</span></div></td>
+                        <td colspan="2"><div align="center">Todo = <span class="badge">${requestScope.todoCount}</span></div></td>
+                        <td colspan="2"><div align="center">Done = <span class="badge badge-success">${requestScope.doneCount}</span></div></td>
+                    </tr>
+                    </tfoot>
                 </table>
 
                 <c:if test="${empty requestScope.todoList}">

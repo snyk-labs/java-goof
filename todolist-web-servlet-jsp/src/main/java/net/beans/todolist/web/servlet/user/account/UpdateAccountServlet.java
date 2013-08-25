@@ -22,7 +22,7 @@
  *   THE SOFTWARE.
  */
 
-package net.beans.todolist.web.servlet.user;
+package net.beans.todolist.web.servlet.user.account;
 
 import net.benas.todolist.core.domain.User;
 import net.benas.todolist.core.service.api.UserService;
@@ -45,8 +45,8 @@ import java.util.ResourceBundle;
  * @author benas (md.benhassine@gmail.com)
  */
 
-@WebServlet(name = "RegisterServlet",urlPatterns = {"/register","/register.do"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "UpdateAccountServlet", urlPatterns = "/user/account/update.do")
+public class UpdateAccountServlet extends HttpServlet {
 
     private UserService userService;
 
@@ -60,37 +60,27 @@ public class RegisterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("registerTabStyle", "active");
-        request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String firstname = request.getParameter("firstname");
+        String lastname = request.getParameter("lastname");
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
 
-        //TODO populate register form bean and validate it using JSR 303
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
 
-        if (!confirmPassword.equals(password)) {
-            request.setAttribute("error", resourceBundle.getString("register.error.password.confirmation.error"));
-            request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
+        if (userService.getUserByEmail(email) != null && !email.equals(user.getEmail())) {
+            request.setAttribute("error", MessageFormat.format(resourceBundle.getString("account.email.alreadyUsed"), email));
+            request.setAttribute("user", user);
+            request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
+        } else { // validation ok
+            user.setFirstname(firstname);
+            user.setLastname(lastname);
+            user.setEmail(email);
+            userService.update(user);
+            request.setAttribute("updateProfileSuccessMessage", resourceBundle.getString("account.profile.update.success"));
+            request.getRequestDispatcher("/user/account").forward(request, response);
         }
-
-        if (userService.getUserByEmail(email) != null ) {
-            request.setAttribute("error", MessageFormat.format(resourceBundle.getString("register.error.global.account"), email));
-            request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
-        }
-
-        User user = new User(firstName, lastName, email, password);
-        user = userService.create(user);
-        HttpSession session = request.getSession(true);
-        session.setAttribute(TodolistUtils.SESSION_USER, user);
-        request.getRequestDispatcher("/user/todos").forward(request, response);
 
     }
 

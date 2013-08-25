@@ -22,7 +22,7 @@
  *   THE SOFTWARE.
  */
 
-package net.beans.todolist.web.servlet.user;
+package net.beans.todolist.web.servlet.user.account;
 
 import net.benas.todolist.core.domain.User;
 import net.benas.todolist.core.service.api.UserService;
@@ -38,60 +38,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.ResourceBundle;
 
 /**
  * @author benas (md.benhassine@gmail.com)
  */
 
-@WebServlet(name = "RegisterServlet",urlPatterns = {"/register","/register.do"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "DeleteAccountServlet", urlPatterns = "/user/account/delete.do")
+public class DeleteAccountServlet extends HttpServlet {
 
     private UserService userService;
-
-    private ResourceBundle resourceBundle;
 
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(servletConfig.getServletContext());
         userService = applicationContext.getBean(UserService.class);
-        resourceBundle = ResourceBundle.getBundle("todolist");
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("registerTabStyle", "active");
-        request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
-
-        //TODO populate register form bean and validate it using JSR 303
-
-        if (!confirmPassword.equals(password)) {
-            request.setAttribute("error", resourceBundle.getString("register.error.password.confirmation.error"));
-            request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
-        }
-
-        if (userService.getUserByEmail(email) != null ) {
-            request.setAttribute("error", MessageFormat.format(resourceBundle.getString("register.error.global.account"), email));
-            request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
-        }
-
-        User user = new User(firstName, lastName, email, password);
-        user = userService.create(user);
-        HttpSession session = request.getSession(true);
-        session.setAttribute(TodolistUtils.SESSION_USER, user);
-        request.getRequestDispatcher("/user/todos").forward(request, response);
-
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
+        userService.remove(user);
+        session.invalidate();
+        request.getRequestDispatcher("/index").forward(request, response);
     }
 
 }
