@@ -67,7 +67,7 @@ Todolist MVC uses [Twitter Bootstrap][] for presentation layer, here are some sc
 
 ![User account page](https://github.com/benas/todolist-mvc/raw/master/src/site/screenshots/todolist-account.png)
 
-Todolist MVC URLs and actions are designed as follows :
+Ideally, Todolist MVC URLs and actions should be designed as follows :
 
 <table border="1">
 <thead>
