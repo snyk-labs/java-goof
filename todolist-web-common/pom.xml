@@ -18,6 +18,13 @@
 
     <dependencies>
 
+        <!-- todolist core module-->
+        <dependency>
+            <groupId>net.benas</groupId>
+            <artifactId>todolist-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- javaee web api -->
         <dependency>
             <groupId>javax</groupId>
