@@ -43,4 +43,10 @@ public class IndexServlet extends HttpServlet {
         request.setAttribute("indexTabStyle","active");
         request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        doGet(httpServletRequest, httpServletResponse);
+    }
+
 }

@@ -43,4 +43,9 @@ public class AccountServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        doGet(httpServletRequest, httpServletResponse);
+    }
+
 }
