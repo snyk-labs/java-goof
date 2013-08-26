@@ -20,9 +20,7 @@
                         <label class="control-label" for="email">Email :</label>
                         <div class="controls">
                             <input id="email" name="email" type="email" class="input-medium" placeholder="your@email.com" required="required"/>
-                            <c:if test="${requestScope.errorEmail != null}">
-                                <p class="help-block alert-error"><c:out value="${requestScope.errorEmail}"/></p>
-                            </c:if>
+                            <p class="help-block alert-error"><c:out value="${requestScope.errorEmail}"/></p>
                         </div>
                     </div>
 
@@ -30,9 +28,7 @@
                         <label class="control-label" for="password">Password :</label>
                         <div class="controls">
                             <input type="password" id="password" name="password" class="input-medium" placeholder="min 6 characters" required="required"/>
-                            <c:if test="${requestScope.errorPassword != null}">
-                                <p class="help-block alert-error"><c:out value="${requestScope.errorPassword}"/></p>
-                            </c:if>
+                            <p class="help-block alert-error"><c:out value="${requestScope.errorPassword}"/></p>
                         </div>
                     </div>
 
