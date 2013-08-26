@@ -26,6 +26,8 @@ package net.beans.todolist.web.servlet.user;
 
 import net.benas.todolist.core.domain.User;
 import net.benas.todolist.core.service.api.UserService;
+import net.benas.todolist.web.common.form.LoginForm;
+import net.benas.todolist.web.common.form.RegistrationForm;
 import net.benas.todolist.web.common.util.TodolistUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -37,9 +39,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * @author benas (md.benhassine@gmail.com)
@@ -52,10 +59,20 @@ public class RegisterServlet extends HttpServlet {
 
     private ResourceBundle resourceBundle;
 
+    private Validator validator;
+
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
+        //initialize Spring user service
         ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(servletConfig.getServletContext());
         userService = applicationContext.getBean(UserService.class);
+
+        resourceBundle = ResourceBundle.getBundle("todolist");
+
+        //initialize JSR 303 validator
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+
         resourceBundle = ResourceBundle.getBundle("todolist");
     }
 
@@ -68,22 +85,71 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        /**************************/
+        /** Get request parameters*/
+        /**************************/
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        //TODO populate register form bean and validate it using JSR 303
+        /**************************/
+        /** Validate user input   */
+        /**************************/
+        RegistrationForm registrationForm = new RegistrationForm();
+        registrationForm.setFirstname(firstName);
+        registrationForm.setLastname(lastName);
+        registrationForm.setEmail(email);
+        registrationForm.setPassword(password);
+        registrationForm.setConfirmationPassword(confirmPassword);
+
+        String nextPage = "/WEB-INF/views/user/register.jsp";
+
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "firstname");
+        if (constraintViolations.size() > 0) {
+            request.setAttribute("errorFirstName", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("error",resourceBundle.getString("register.error.global"));
+        }
+
+        constraintViolations = validator.validateProperty(registrationForm, "lastname");
+        if (constraintViolations.size() > 0) {
+            request.setAttribute("errorLastName", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("error",resourceBundle.getString("register.error.global"));
+        }
+
+        constraintViolations = validator.validateProperty(registrationForm, "email");
+        if (constraintViolations.size() > 0) {
+            request.setAttribute("errorEmail", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("error",resourceBundle.getString("register.error.global"));
+        }
+
+        constraintViolations = validator.validateProperty(registrationForm, "password");
+        if (constraintViolations.size() > 0) {
+            request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("error",resourceBundle.getString("register.error.global"));
+        }
+
+        constraintViolations = validator.validateProperty(registrationForm, "confirmationPassword");
+        if (constraintViolations.size() > 0) {
+            request.setAttribute("errorConfirmPassword", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("error",resourceBundle.getString("register.error.global"));
+        }
 
         if (!confirmPassword.equals(password)) {
-            request.setAttribute("error", resourceBundle.getString("register.error.password.confirmation.error"));
-            request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
+            request.setAttribute("errorConfirmPasswordMatching", resourceBundle.getString("register.error.password.confirmation.error"));
+            request.setAttribute("error",resourceBundle.getString("register.error.global"));
+        }
+
+        if (request.getAttribute("error") != null) {
+            request.getRequestDispatcher(nextPage).forward(request, response);
+            return;//if invalid input, do not continue to business constraints validation
         }
 
         if (userService.getUserByEmail(email) != null ) {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("register.error.global.account"), email));
             request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
+            return;
         }
 
         User user = new User(firstName, lastName, email, password);
