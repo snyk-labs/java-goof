@@ -86,7 +86,7 @@ public class UpdateTodoServlet extends HttpServlet {
 
         Todo todo = todoService.getTodoById(todoId);
         todo.setTitle(title);
-        todo.setDueDate(new Date(dueDate));//FIXME issue with date values
+        todo.setDueDate(new Date(dueDate));
         todo.setStatus(Status.valueOf(status));
         todo.setPriority(Priority.valueOf(priority));
         todoService.update(todo);

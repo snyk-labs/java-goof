@@ -36,7 +36,8 @@
                         <div class="control-group">
                             <label class="control-label" for="dueDate">Due date:</label>
                             <div class="controls">
-                                <input type="text" id="dueDate" name="dueDate" value="${requestScope.todo.dueDate}" required="required" />
+                                <input type="text" id="dueDate" name="dueDate" value="<fmt:formatDate pattern='dd/MM/yyyy' value='${requestScope.todo.dueDate}' />" required="required" />
+
                             </div>
                         </div>
 
@@ -61,7 +62,7 @@
                             </div>
                         </div>
 
-                        <input type="hidden" value="${requestScope.todo.userId}"/>
+                        <input type="hidden" name="todoId" value="${requestScope.todo.id}"/>
 
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary"> <i class="icon-refresh icon-white"></i> Update</button>
@@ -72,7 +73,7 @@
 
                     <script>
                         $('#dueDate').datepicker({
-                            format : 'yyyy-mm-dd'
+                            format : 'dd/mm/yyyy'
                         });
                     </script>
 
