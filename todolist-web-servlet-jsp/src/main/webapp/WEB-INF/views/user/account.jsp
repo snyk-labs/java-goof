@@ -14,6 +14,8 @@
                     <h1>My settings</h1>
                 </div>
 
+                <%@ include file="../common/error.jspf"%>
+
                 <div class="row">
                     <div class="span8">
                         <form action="/user/account/update.do" method="post" class="form-horizontal">
@@ -42,7 +44,7 @@
                                     <label class="control-label" for="email">Email :</label>
 
                                     <div class="controls">
-                                        <input name="email" id="email" value="${sessionScope.user.email}" type="text" class="input-medium" required="required"/>
+                                        <input name="email" id="email" value="${sessionScope.user.email}" type="email" class="input-medium" required="required"/>
                                         <p class="help-block alert-error"></p>
                                     </div>
                                 </div>
