@@ -32,12 +32,12 @@
                     <c:forEach items="${requestScope.todoList}" var="currentTodo">
                         <tr>
                             <td>${currentTodo.id}</td>
-                            <td><tl:highlight pattern="${param.title}" cssClass="warning">${currentTodo.title}</tl:highlight></td>
+                            <td><tl:highlight pattern="${param.title}" cssClass="label label-warning">${currentTodo.title}</tl:highlight></td>
                             <td><fmt:formatDate value="${currentTodo.dueDate}" pattern="dd/MM/yyyy"/></td>
                             <td><i class="icon-circle-arrow-<tl:priorityIcon priority="${currentTodo.priority}"/>"></i> ${currentTodo.priority}</td>
-                            <td><span class="label <tl:statusLabel status="${currentTodo.status}"/>"> ${currentTodo.status}</span></td>
+                            <td><span class="label <tl:statusLabel status="${currentTodo.status}"/> "> ${currentTodo.status}</span></td>
                             <td>
-                                <a class="btn btn-mini btn-primary" href="/user/todos/${currentTodo.id}/update"><i class="icon-edit icon-white"></i> Edit</a>
+                                <a class="btn btn-mini btn-primary" href="/user/todos/update?todoId=${currentTodo.id}"><i class="icon-edit icon-white"></i> Edit</a>
                                 <a class="btn btn-mini btn-danger" data-toggle="modal" href="#confirm_delete_${currentTodo.id}"><i class="icon-remove icon-white"></i> Delete</a>
                                 <%-- hmm,I know, I should use only one div and pass todo's id through javascript..  --%>
                                 <div class="modal hide" id="confirm_delete_${currentTodo.id}">
