@@ -14,7 +14,7 @@
         <li class="nav-header">Search todo</li>
         <li>
             <s:form cssClass="form-search" namespace="/todo" action="search" id="searchForm" method="get">
-                <s:textfield name="title" cssClass="input-small search-query" placeholder="title" required="required"/>
+                <s:textfield name="title" cssClass="input-small search-query" placeholder="search by title.." required="required"/>
                 <s:submit cssClass="btn" value="Go!" />
             </s:form>
         </li>

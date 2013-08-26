@@ -11,7 +11,7 @@
             <li class="nav-header">Search todo</li>
             <li>
                 <form t:type="form" class="form-search" t:id="searchForm" method="get">
-                    <input t:type="TextField" t:id="searchInput" class="input-small search-query" placeholder="id , title" required="required"/>&nbsp;
+                    <input t:type="TextField" t:id="searchInput" class="input-small search-query" placeholder="search by title.." required="required"/>&nbsp;
                     <input type="submit" class="btn" value="Go!"/>
                 </form>
             </li>
