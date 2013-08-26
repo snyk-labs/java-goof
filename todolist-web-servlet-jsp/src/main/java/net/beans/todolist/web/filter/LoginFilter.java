@@ -34,10 +34,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Filter to ensure that access to private resources is allowed only for logged users
+ * Filter to ensure that access to private resources is allowed only to logged users.
  * @author benas (md.benhassine@gmail.com)
  */
-@WebFilter(filterName = "LoginFilter",urlPatterns = "/user/*")
+@WebFilter(filterName = "LoginFilter",urlPatterns = { "/user/*", "/todos/*" })
 public class LoginFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
@@ -48,10 +48,12 @@ public class LoginFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
         User user = (User)session.getAttribute(TodolistUtils.SESSION_USER);
-        if ( user != null )
+        if ( user != null ) {
             chain.doFilter(request, response);
-        else
+        }
+        else {
             request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
+        }
     }
 
 
