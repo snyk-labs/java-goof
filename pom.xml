@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.benas</groupId>
-  <artifactId>todolist</artifactId>
+  <artifactId>todolist-mvc</artifactId>
   <version>1.0-SNAPSHOT</version>
     <modules>
         <module>todolist-core</module>
