@@ -49,4 +49,10 @@
         <listener-class> org.springframework.web.context.request.RequestContextListener </listener-class>
     </listener>
 
+    <!-- serve static resources with default servlet (Tomcat's default servlet does not take the ServletPath into account) -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/static/*</url-pattern>
+    </servlet-mapping>
+
 </web-app>
