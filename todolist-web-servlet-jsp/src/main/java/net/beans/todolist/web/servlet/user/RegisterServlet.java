@@ -67,8 +67,6 @@ public class RegisterServlet extends HttpServlet {
         ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(servletConfig.getServletContext());
         userService = applicationContext.getBean(UserService.class);
 
-        resourceBundle = ResourceBundle.getBundle("todolist");
-
         //initialize JSR 303 validator
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
