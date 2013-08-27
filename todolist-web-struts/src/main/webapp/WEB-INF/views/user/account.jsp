@@ -15,6 +15,8 @@
                     <h1>My settings</h1>
                 </div>
 
+                <%@ include file="../common/error.jspf"%>
+
                 <div class="row">
                     <div class="span8">
                         <s:form cssClass="form-horizontal" namespace="/user" method="post" action="update.do">
@@ -25,8 +27,7 @@
                                     <label class="control-label" for="firstname">First Name :</label>
 
                                     <div class="controls">
-                                        <s:textfield name="user.firstname" id="firstname" cssClass="input-medium"/>
-                                        <p class="help-block alert-error"></p>
+                                        <s:textfield name="user.firstname" id="firstname" cssClass="input-medium" required="required"/>
                                     </div>
                                 </div>
 
@@ -34,8 +35,7 @@
                                     <label class="control-label" for="lastname">Last Name :</label>
 
                                     <div class="controls">
-                                        <s:textfield name="user.lastname" id="lastname" cssClass="input-medium"/>
-                                        <p class="help-block alert-error"></p>
+                                        <s:textfield name="user.lastname" id="lastname" cssClass="input-medium" required="required"/>
                                     </div>
                                 </div>
 
@@ -43,7 +43,7 @@
                                     <label class="control-label" for="email">Email :</label>
 
                                     <div class="controls">
-                                        <s:textfield name="user.email" id="email" cssClass="input-medium"/>
+                                        <s:textfield name="user.email" id="email" cssClass="input-medium" required="required"/>
                                         <p class="help-block alert-error"></p>
                                     </div>
                                 </div>
