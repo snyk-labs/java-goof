@@ -39,7 +39,6 @@
                             <td>
                                 <a class="btn btn-mini btn-primary" href="/user/todos/update?todoId=${currentTodo.id}"><i class="icon-edit icon-white"></i> Edit</a>
                                 <a class="btn btn-mini btn-danger" data-toggle="modal" href="#confirm_delete_${currentTodo.id}"><i class="icon-remove icon-white"></i> Delete</a>
-                                <%-- hmm,I know, I should use only one div and pass todo's id through javascript..  --%>
                                 <div class="modal hide" id="confirm_delete_${currentTodo.id}">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">×</button>
