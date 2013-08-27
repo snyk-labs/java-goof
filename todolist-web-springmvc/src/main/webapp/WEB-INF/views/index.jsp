@@ -8,7 +8,7 @@
             <div class="row">
 
                 <div class="span5">
-                    <h2>Welcome to Todolist MVC</h2>
+                    <h3>Welcome to Todolist MVC</h3>
                     <p>
                     <h4>Todolist MVC is a web-based task manager which allows you to :</h4>
                     <ul>
