@@ -31,7 +31,7 @@
 
                     <tbody>
                     <c:forEach items="${requestScope.todoList}" var="currentTodo">
-                        <tr class="info">
+                        <tr>
                             <td>${currentTodo.id}</td>
                             <td>${currentTodo.title}</td>
                             <td><fmt:formatDate value="${currentTodo.dueDate}" pattern="dd/MM/yyyy"/></td>
@@ -68,7 +68,6 @@
                             <td colspan="2"><div align="center">Done = <span class="badge badge-success">${requestScope.doneCount}</span></div></td>
                         </tr>
                     </tfoot>
-
                 </table>
 
                 <c:if test="${empty requestScope.todoList}">
