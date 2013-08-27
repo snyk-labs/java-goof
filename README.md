@@ -32,7 +32,7 @@ Two types of frameworks are being compared:
 
   2.3 Wicket 6.9 __(WIP)__
 
-  2.4 Waadin 7.1 __(WIP)__
+  2.4 Vaadin 7.1 __(WIP)__
 
 In order to compare these frameworks objectively, the best implementation should be provided for each framework. If you think
 you are an expert/ninja in some technology, please don't hesitate to fix/improve every single aspect of the current implementation.
