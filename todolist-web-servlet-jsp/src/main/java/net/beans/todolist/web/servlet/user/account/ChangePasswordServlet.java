@@ -26,6 +26,8 @@ package net.beans.todolist.web.servlet.user.account;
 
 import net.benas.todolist.core.domain.User;
 import net.benas.todolist.core.service.api.UserService;
+import net.benas.todolist.web.common.form.ChangePasswordForm;
+import net.benas.todolist.web.common.form.RegistrationForm;
 import net.benas.todolist.web.common.util.TodolistUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -37,8 +39,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.io.IOException;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * @author benas (md.benhassine@gmail.com)
@@ -51,33 +58,76 @@ public class ChangePasswordServlet extends HttpServlet {
 
     private ResourceBundle resourceBundle;
 
+    private Validator validator;
+
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         ApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(servletConfig.getServletContext());
         userService = applicationContext.getBean(UserService.class);
         resourceBundle = ResourceBundle.getBundle("todolist");
+
+        //initialize JSR 303 validator
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        /**************************/
+        /** Get request parameters*/
+        /**************************/
         String currentPassword = request.getParameter("currentPassword");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        //TODO populate change password form bean and validate it using JSR 303
+        /**************************/
+        /** Validate user input   */
+        /**************************/
+        ChangePasswordForm changePasswordForm = new ChangePasswordForm();
+        changePasswordForm.setCurrentpassword(currentPassword);
+        changePasswordForm.setPassword(newPassword);
+        changePasswordForm.setConfirmpassword(confirmPassword);
+
+        String nextPage = "/WEB-INF/views/user/account.jsp";
+
+        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations = validator.validateProperty(changePasswordForm, "currentpassword");
+        if (constraintViolations.size() > 0) {
+            request.setAttribute("errorCurrentPassword", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
+        }
+        constraintViolations = validator.validateProperty(changePasswordForm, "password");
+        if (constraintViolations.size() > 0) {
+            request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
+        }
+
+        constraintViolations = validator.validateProperty(changePasswordForm, "confirmpassword");
+        if (constraintViolations.size() > 0) {
+            request.setAttribute("errorConfirmPassword", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
+        }
+
+        if (request.getAttribute("error") != null) {
+            request.getRequestDispatcher(nextPage).forward(request, response);
+            return;//if invalid input, do not continue to business constraints validation
+        }
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
 
         if (!confirmPassword.equals(newPassword)) {
-            request.setAttribute("error", resourceBundle.getString("account.password.confirmation.error"));
+            request.setAttribute("errorConfirmPassword", resourceBundle.getString("account.password.confirmation.error"));
+            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
             request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
+            return;
         }
 
         if (!currentPassword.equals(user.getPassword())){
-            request.setAttribute("error", resourceBundle.getString("account.password.error"));
+            request.setAttribute("errorCurrentPassword", resourceBundle.getString("account.password.error"));
+            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
             request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
+            return;
         }
 
         user.setPassword(newPassword);

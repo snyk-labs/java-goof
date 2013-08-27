@@ -27,7 +27,6 @@
 
                                     <div class="controls">
                                         <input name="firstname" id="firstname" value="${sessionScope.user.firstname}" type="text" class="input-medium" required="required"/>
-                                        <p class="help-block alert-error"></p>
                                     </div>
                                 </div>
 
@@ -36,7 +35,6 @@
 
                                     <div class="controls">
                                         <input name="lastname" id="lastname" value="${sessionScope.user.lastname}" type="text" class="input-medium" required="required"/>
-                                        <p class="help-block alert-error"></p>
                                     </div>
                                 </div>
 
@@ -45,7 +43,6 @@
 
                                     <div class="controls">
                                         <input name="email" id="email" value="${sessionScope.user.email}" type="email" class="input-medium" required="required"/>
-                                        <p class="help-block alert-error"></p>
                                     </div>
                                 </div>
 
@@ -70,8 +67,8 @@
                                     <label class="control-label" for="currentPassword">Current password :</label>
 
                                     <div class="controls">
-                                        <input type="password" id="currentPassword" name="currentPassword" class="input-medium" placeholder="min 6 characters"/>
-                                        <p class="help-inline error"></p>
+                                        <input type="password" id="currentPassword" name="currentPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <p class="help-block alert-error"><c:out value="${requestScope.errorCurrentPassword}"/></p>
                                     </div>
                                 </div>
 
@@ -79,8 +76,8 @@
                                     <label class="control-label" for="newPassword">New password :</label>
 
                                     <div class="controls">
-                                        <input type="password" id="newPassword" name="newPassword" class="input-medium" placeholder="min 6 characters"/>
-                                        <p class="help-block"></p>
+                                        <input type="password" id="newPassword" name="newPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <p class="help-block alert-error"><c:out value="${requestScope.errorPassword}"/></p>
                                     </div>
                                 </div>
 
@@ -88,8 +85,8 @@
                                     <label class="control-label" for="confirmPassword">Confirm Password :</label>
 
                                     <div class="controls">
-                                        <input type="password" id="confirmPassword" name="confirmPassword" class="input-medium" placeholder="min 6 characters"/>
-                                        <p class="help-block"></p>
+                                        <input type="password" id="confirmPassword" name="confirmPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmPassword}"/></p>
                                     </div>
                                 </div>
 
