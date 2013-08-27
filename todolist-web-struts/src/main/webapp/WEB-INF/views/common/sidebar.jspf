@@ -14,8 +14,10 @@
         <li class="nav-header">Search todo</li>
         <li>
             <s:form cssClass="form-search" namespace="/todo" action="search" id="searchForm" method="get">
-                <s:textfield name="title" cssClass="input-small search-query" placeholder="search by title.." required="required"/>
-                <s:submit cssClass="btn" value="Go!" />
+                <div class="input-append">
+                    <s:textfield name="title" cssClass="input-small search-query" placeholder="search by title" required="required"/>
+                    <s:submit cssClass="btn" value="Go!" />
+                </div>
             </s:form>
         </li>
     </ul>
