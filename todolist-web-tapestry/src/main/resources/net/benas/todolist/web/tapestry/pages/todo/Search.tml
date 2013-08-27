@@ -26,7 +26,7 @@
                 <tbody>
                 <tr t:type="loop" t:source="todoList" t:value="currentTodo">
                     <td>${currentTodo.id}</td>
-                    <!--<td><tl:highlight pattern="${param.title}" cssClass="highlight">${currentTodo.title}</tl:highlight></td>-->
+                    <!--<td><tl:highlight pattern="${param.title}" cssClass="label label-warning">${currentTodo.title}</tl:highlight></td>-->
                     <td>${currentTodo.title}</td>
                     <td>${currentDueDate}</td>
                     <td><i class="icon-circle-arrow-${currentPriorityIcon}"></i> ${currentTodo.priority}</td>
