@@ -10,7 +10,7 @@
             <%--logged in mode --%>
             <c:if test="${sessionScope.user != null}">
             <ul class="nav">
-                <li class="${requestScope.homeTabStyle}"><a href="/user/todos">Home</a></li>
+                <li class="${requestScope.homeTabStyle}"><a href="/todos">Home</a></li>
                 <li class="${requestScope.aboutTabStyle}"><a href="/about">About</a></li>
             </ul>
             <div class="btn-group pull-right">

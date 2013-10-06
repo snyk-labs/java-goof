@@ -28,7 +28,7 @@
 
                     <c:if test="${sessionScope.user != null}">
                         <p>
-                            <a class="btn btn-primary btn-large" href="/user/todos"> Go to my Home page </a>
+                            <a class="btn btn-primary btn-large" href="/todos"> Go to my Home page </a>
                         </p>
                     </c:if>
 

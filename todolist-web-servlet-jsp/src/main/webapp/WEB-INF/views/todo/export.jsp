@@ -15,7 +15,7 @@
                     <h1>Export my Todo list</h1>
                 </div>
 
-                <form action="/user/todos/export.do" method="post" class="form-horizontal">
+                <form action="/todos/export.do" method="post" class="form-horizontal">
 
                     <fieldset>
 

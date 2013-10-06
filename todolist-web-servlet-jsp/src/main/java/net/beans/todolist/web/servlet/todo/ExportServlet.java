@@ -50,7 +50,7 @@ import java.util.List;
  * @author benas (md.benhassine@gmail.com)
  */
 
-@WebServlet(name = "ExportServlet", urlPatterns = {"/user/todos/export", "/user/todos/export.do"})
+@WebServlet(name = "ExportServlet", urlPatterns = {"/todos/export", "/todos/export.do"})
 public class ExportServlet extends HttpServlet {
 
     private TodoService todoService;

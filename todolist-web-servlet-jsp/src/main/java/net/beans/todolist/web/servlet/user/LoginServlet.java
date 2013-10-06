@@ -127,7 +127,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession(true);//create session
             User user = userService.getUserByEmail(email);
             session.setAttribute(TodolistUtils.SESSION_USER, user);
-            nextPage = "/user/todos";
+            nextPage = "/todos";
         }
         request.getRequestDispatcher(nextPage).forward(request, response);
     }

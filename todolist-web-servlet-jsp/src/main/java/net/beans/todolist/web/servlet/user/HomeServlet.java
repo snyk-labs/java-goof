@@ -46,7 +46,7 @@ import java.util.List;
  * @author benas (md.benhassine@gmail.com)
  */
 
-@WebServlet(name = "HomeServlet" ,urlPatterns = "/user/todos")
+@WebServlet(name = "HomeServlet" ,urlPatterns = "/todos")
 public class HomeServlet extends HttpServlet {
 
     private TodoService todoService;

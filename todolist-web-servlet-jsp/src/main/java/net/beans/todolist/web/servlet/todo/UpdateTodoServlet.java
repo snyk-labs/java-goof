@@ -46,7 +46,7 @@ import java.util.ResourceBundle;
  * @author benas (md.benhassine@gmail.com)
  */
 
-@WebServlet(name = "UpdateTodoServlet",urlPatterns = {"/user/todos/update", "/user/todos/update.do"}) // url should be restful /user/todos/{todoId}/update
+@WebServlet(name = "UpdateTodoServlet",urlPatterns = {"/todos/update", "/todos/update.do"}) // url should be restful /todos/{todoId}/update
 public class UpdateTodoServlet extends HttpServlet {
 
     private TodoService todoService;
@@ -90,7 +90,7 @@ public class UpdateTodoServlet extends HttpServlet {
         todo.setStatus(Status.valueOf(status));
         todo.setPriority(Priority.valueOf(priority));
         todoService.update(todo);
-        request.getRequestDispatcher("/user/todos").forward(request, response);
+        request.getRequestDispatcher("/todos").forward(request, response);
 
     }
 

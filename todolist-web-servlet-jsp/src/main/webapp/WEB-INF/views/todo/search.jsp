@@ -37,7 +37,7 @@
                             <td><i class="icon-circle-arrow-<tl:priorityIcon priority="${currentTodo.priority}"/>"></i> ${currentTodo.priority}</td>
                             <td><span class="label <tl:statusLabel status="${currentTodo.status}"/> "> ${currentTodo.status}</span></td>
                             <td>
-                                <a class="btn btn-mini btn-primary" href="/user/todos/update?todoId=${currentTodo.id}"><i class="icon-edit icon-white"></i> Edit</a>
+                                <a class="btn btn-mini btn-primary" href="/todos/update?todoId=${currentTodo.id}"><i class="icon-edit icon-white"></i> Edit</a>
                                 <a class="btn btn-mini btn-danger" data-toggle="modal" href="#confirm_delete_${currentTodo.id}"><i class="icon-remove icon-white"></i> Delete</a>
                                 <div class="modal hide" id="confirm_delete_${currentTodo.id}">
                                     <div class="modal-header">
@@ -48,7 +48,7 @@
                                         <p>Are you sure to delete todo ${currentTodo.id} '${currentTodo.title}' ?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <form action="/user/todos/delete.do" method="post">
+                                        <form action="/todos/delete.do" method="post">
                                             <input type="hidden" name="todoId" value="${currentTodo.id}">
                                             <a href="#" class="btn" data-dismiss="modal">Cancel</a> <button type="submit" class="btn btn-primary">Confirm</button>
                                         </form>

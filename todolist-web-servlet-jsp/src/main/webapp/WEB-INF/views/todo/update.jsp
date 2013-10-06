@@ -15,7 +15,7 @@
                     <h1>Update todo</h1>
                 </div>
 
-                <form action="/user/todos/update.do" method="post" class="form-horizontal">
+                <form action="/todos/update.do" method="post" class="form-horizontal">
 
                     <fieldset>
 
@@ -37,7 +37,6 @@
                             <label class="control-label" for="dueDate">Due date:</label>
                             <div class="controls">
                                 <input type="text" id="dueDate" name="dueDate" value="<fmt:formatDate pattern='dd/MM/yyyy' value='${requestScope.todo.dueDate}' />" required="required" />
-
                             </div>
                         </div>
 

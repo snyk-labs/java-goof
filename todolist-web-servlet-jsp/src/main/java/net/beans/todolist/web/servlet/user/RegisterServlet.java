@@ -154,7 +154,7 @@ public class RegisterServlet extends HttpServlet {
         user = userService.create(user);
         HttpSession session = request.getSession(true);
         session.setAttribute(TodolistUtils.SESSION_USER, user);
-        request.getRequestDispatcher("/user/todos").forward(request, response);
+        request.getRequestDispatcher("/todos").forward(request, response);
 
     }
 

@@ -15,7 +15,7 @@
                     <h1>Create a new todo</h1>
                 </div>
 
-                <form id="createTodoForm" action="/user/todos/new.do" method="post" class="form-horizontal">
+                <form id="createTodoForm" action="/todos/new.do" method="post" class="form-horizontal">
 
                     <fieldset>
 

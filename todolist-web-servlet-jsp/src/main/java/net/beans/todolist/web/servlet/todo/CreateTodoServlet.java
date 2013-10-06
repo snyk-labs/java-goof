@@ -48,7 +48,7 @@ import java.util.Date;
  * @author benas (md.benhassine@gmail.com)
  */
 
-@WebServlet(name = "CreateTodoServlet",urlPatterns = {"/user/todos/new", "/user/todos/new.do"})
+@WebServlet(name = "CreateTodoServlet",urlPatterns = {"/todos/new", "/todos/new.do"})
 public class CreateTodoServlet extends HttpServlet {
 
     private TodoService todoService;
@@ -77,7 +77,7 @@ public class CreateTodoServlet extends HttpServlet {
 
         Todo todo = new Todo(user.getId(), title, Status.TODO, Priority.valueOf(priority), new Date(dueDate));
         todoService.create(todo);
-        request.getRequestDispatcher("/user/todos").forward(request, response);
+        request.getRequestDispatcher("/todos").forward(request, response);
 
     }
 

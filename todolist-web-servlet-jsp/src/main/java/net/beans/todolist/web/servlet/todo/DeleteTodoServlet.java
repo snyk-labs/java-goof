@@ -43,7 +43,7 @@ import java.util.ResourceBundle;
  * @author benas (md.benhassine@gmail.com)
  */
 
-@WebServlet(name = "DeleteTodoServlet",urlPatterns = "/user/todos/delete.do") // URL should be restful /user/todos/{todoId}/delete
+@WebServlet(name = "DeleteTodoServlet",urlPatterns = "/todos/delete.do") // URL should be restful /todos/{todoId}/delete
 public class DeleteTodoServlet extends HttpServlet {
 
     private TodoService todoService;
@@ -64,7 +64,7 @@ public class DeleteTodoServlet extends HttpServlet {
             Todo todo = todoService.getTodoById(todoId);
             if (todo != null) {
                 todoService.remove(todo);
-                request.getRequestDispatcher("/user/todos").forward(request, response);
+                request.getRequestDispatcher("/todos").forward(request, response);
             }  else {
                 request.setAttribute("error", MessageFormat.format(resourceBundle.getString("no.such.todo"), todoId));
                 request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
