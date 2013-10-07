@@ -39,6 +39,8 @@ public class SessionAction extends BaseAction {
 
     private LoginForm loginForm;
 
+    private String error;
+
     public String login() {
         return Action.SUCCESS;
     }
@@ -49,7 +51,7 @@ public class SessionAction extends BaseAction {
             session.put(TodolistUtils.SESSION_USER, user);
             return Action.SUCCESS;
         } else {
-            //Todo set errors
+            error = getText("login.error.global.invalid");
             return Action.INPUT;
         }
     }
@@ -79,6 +81,10 @@ public class SessionAction extends BaseAction {
 
     public String getLoginTabStyle() {
         return "active";
+    }
+
+    public String getError() {
+        return error;
     }
 
 }
