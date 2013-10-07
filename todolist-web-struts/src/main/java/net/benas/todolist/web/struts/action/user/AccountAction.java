@@ -121,15 +121,19 @@ public class AccountAction extends BaseAction {
     }
 
     public String doUpdate() {
-        //Todo validate profile update form (check existing email)
         User user = getSessionUser();
-        user.setFirstname(this.user.getFirstname());
-        user.setLastname(this.user.getLastname());
-        user.setEmail(this.user.getEmail());
-        userService.update(user);
-        session.put(TodolistUtils.SESSION_USER, user);
-        updateProfileSuccessMessage = getText("account.profile.update.success");
-        return Action.SUCCESS;
+        if (userService.getUserByEmail(this.user.getEmail()) != null && !this.user.getEmail().equals(user.getEmail())) {
+            error = MessageFormat.format(getText("account.email.alreadyUsed"), this.user.getEmail());
+            return Action.INPUT;
+        } else { // validation ok
+            user.setFirstname(this.user.getFirstname());
+            user.setLastname(this.user.getLastname());
+            user.setEmail(this.user.getEmail());
+            userService.update(user);
+            session.put(TodolistUtils.SESSION_USER, user);
+            updateProfileSuccessMessage = getText("account.profile.update.success");
+            return Action.SUCCESS;
+        }
     }
 
     public String doDelete() {

@@ -140,7 +140,7 @@
         <action name="update.do" class="net.benas.todolist.web.struts.action.user.AccountAction" method="doUpdate">
             <interceptor-ref name="loginInterceptor"/>
             <interceptor-ref name="defaultStack"/>
-            <result name="input">/WEB-INF/views/account.jsp</result>
+            <result name="input">/WEB-INF/views/user/account.jsp</result>
             <result>/WEB-INF/views/user/account.jsp</result>
         </action>
 
