@@ -68,7 +68,7 @@
                                     <label class="control-label" for="currentpassword">Current password :</label>
 
                                     <div class="controls">
-                                        <s:password id="currentpassword" name="changePasswordForm.currentpassword" cssClass="input-medium" placeholder="min 6 characters"/>
+                                        <s:password id="currentpassword" name="changePasswordForm.currentpassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
                                         <p class="help-block alert-error"><c:out value="${requestScope.errorCurrentPassword}"/></p>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                                     <label class="control-label" for="password">New password :</label>
 
                                     <div class="controls">
-                                        <s:password id="password" name="changePasswordForm.password" cssClass="input-medium" placeholder="min 6 characters"/>
+                                        <s:password id="password" name="changePasswordForm.password" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
                                         <p class="help-block alert-error"><c:out value="${requestScope.errorPassword}"/></p>
                                     </div>
                                 </div>
@@ -86,8 +86,8 @@
                                     <label class="control-label" for="confirmpassword">Confirm Password :</label>
 
                                     <div class="controls">
-                                        <s:password id="confirmpassword" name="changePasswordForm.confirmpassword" cssClass="input-medium" placeholder="min 6 characters"/>
-                                        <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmPassword}"/></p>
+                                        <s:password id="confirmpassword" name="changePasswordForm.confirmpassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmationPassword}"/></p>
                                     </div>
                                 </div>
 

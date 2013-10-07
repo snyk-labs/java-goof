@@ -51,7 +51,8 @@ public class AccountAction extends BaseAction {
 
     private String updateProfileSuccessMessage, updatePasswordSuccessMessage;
 
-    private String error, errorFirstName, errorLastName, errorEmail, errorPassword, errorConfirmationPassword, errorConfirmPasswordMatching;
+    private String error, errorFirstName, errorLastName, errorEmail, errorPassword,
+            errorCurrentPassword, errorConfirmationPassword, errorConfirmPasswordMatching;
 
     public String account() {
         user = getSessionUser();
@@ -154,16 +155,38 @@ public class AccountAction extends BaseAction {
     }
 
     public String doChangePassword() {
-        //Todo validate password change form
+
+        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations = validator.validateProperty(changePasswordForm, "currentpassword");
+        if (constraintViolations.size() > 0) {
+            errorCurrentPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("account.password.error.global");
+        }
+        constraintViolations = validator.validateProperty(changePasswordForm, "password");
+        if (constraintViolations.size() > 0) {
+            errorPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("account.password.error.global");
+        }
+
+        constraintViolations = validator.validateProperty(changePasswordForm, "confirmpassword");
+        if (constraintViolations.size() > 0) {
+            errorConfirmationPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("account.password.error.global");
+        }
+
+        if (error != null) {
+            return ActionSupport.INPUT;//if invalid input, do not continue to business constraints validation
+        }
 
         User user = getSessionUser();
         if (!changePasswordForm.getCurrentpassword().equals(user.getPassword())) {
-            //Todo set errors
+            errorCurrentPassword = getText("account.password.error");
+            error = getText("account.password.error.global");
             return Action.INPUT;
         }
 
         if (!changePasswordForm.getPassword().equals(changePasswordForm.getConfirmpassword())) {
-            //Todo set errors
+            errorConfirmationPassword = getText("account.password.confirmation.error");
+            error = getText("account.password.error.global");
             return Action.INPUT;
         }
 
@@ -228,6 +251,10 @@ public class AccountAction extends BaseAction {
 
     public String getUpdatePasswordSuccessMessage() {
         return updatePasswordSuccessMessage;
+    }
+
+    public String getErrorCurrentPassword() {
+        return errorCurrentPassword;
     }
 
     /*
