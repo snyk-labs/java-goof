@@ -241,6 +241,9 @@ Ideally, Todolist MVC URLs and actions should be designed as follows :
 URLs under `/user/*` and `/todos/*` must be accessible to only logged users. 
 This requirement should be implemented using a servlet filter or equivalent (Struts interceptor, Spring MVC interceptor, etc)
 
+Form validation should be done using Bean Validation API (JSR303). Form backing beans are already defined with validation constraints in the `todolist-web-common` module.
+All you have to do is to integrate the validation logic with the framework in use.
+
 Note that security is not addressed since not all frameworks provide security support.
 
 Finally, view technology may vary for each framework. Here, JSP views are (re)used for most of current implementations.
