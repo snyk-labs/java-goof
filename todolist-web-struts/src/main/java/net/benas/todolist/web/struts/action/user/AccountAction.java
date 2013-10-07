@@ -25,11 +25,16 @@
 package net.benas.todolist.web.struts.action.user;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
 import net.benas.todolist.core.domain.User;
 import net.benas.todolist.web.common.form.ChangePasswordForm;
 import net.benas.todolist.web.common.form.RegistrationForm;
 import net.benas.todolist.web.common.util.TodolistUtils;
 import net.benas.todolist.web.struts.action.BaseAction;
+
+import javax.validation.ConstraintViolation;
+import java.text.MessageFormat;
+import java.util.Set;
 
 /**
  * Action class for Account CRUD operations.
@@ -46,6 +51,8 @@ public class AccountAction extends BaseAction {
 
     private String updateProfileSuccessMessage, updatePasswordSuccessMessage;
 
+    private String error, errorFirstName, errorLastName, errorEmail, errorPassword, errorConfirmationPassword, errorConfirmPasswordMatching;
+
     public String account() {
         user = getSessionUser();
         return Action.SUCCESS;
@@ -56,7 +63,57 @@ public class AccountAction extends BaseAction {
     }
 
     public String doRegister() {
-        // Todo registration form validation
+
+        /*
+         * Validate registration form using Bean Validation API
+         */
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "firstname");
+        if (constraintViolations.size() > 0) {
+            errorFirstName = constraintViolations.iterator().next().getMessage();
+            error =  getText("register.error.global");
+        }
+
+        constraintViolations = validator.validateProperty(registrationForm, "lastname");
+        if (constraintViolations.size() > 0) {
+            errorLastName = constraintViolations.iterator().next().getMessage();
+            error = getText("register.error.global");
+        }
+
+        constraintViolations = validator.validateProperty(registrationForm, "email");
+        if (constraintViolations.size() > 0) {
+            errorEmail = constraintViolations.iterator().next().getMessage();
+            error = getText("register.error.global");
+        }
+
+        constraintViolations = validator.validateProperty(registrationForm, "password");
+        if (constraintViolations.size() > 0) {
+            errorPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("register.error.global");
+        }
+
+        constraintViolations = validator.validateProperty(registrationForm, "confirmationPassword");
+        if (constraintViolations.size() > 0) {
+            errorConfirmationPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("register.error.global");
+        }
+
+        if (!registrationForm.getConfirmationPassword().equals(registrationForm.getPassword())) {
+            errorConfirmPasswordMatching = getText("register.error.password.confirmation.error");
+            error = getText("register.error.global");
+        }
+
+        if (error != null) {
+            return ActionSupport.INPUT;//if invalid input, do not continue to business constraints validation
+        }
+
+        if (userService.getUserByEmail(registrationForm.getEmail()) != null ) {
+            error = MessageFormat.format(getText("register.error.global.account"), registrationForm.getEmail());
+            return ActionSupport.INPUT;
+        }
+
+        /*
+         * Validation ok, register the user
+         */
         User user = new User(registrationForm.getFirstname(), registrationForm.getLastname(), registrationForm.getEmail(), registrationForm.getPassword());
         user = userService.create(user);
         session.put(TodolistUtils.SESSION_USER, user);
@@ -131,6 +188,34 @@ public class AccountAction extends BaseAction {
 
     public User getUser() {
         return user;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public String getErrorFirstName() {
+        return errorFirstName;
+    }
+
+    public String getErrorLastName() {
+        return errorLastName;
+    }
+
+    public String getErrorEmail() {
+        return errorEmail;
+    }
+
+    public String getErrorPassword() {
+        return errorPassword;
+    }
+
+    public String getErrorConfirmationPassword() {
+        return errorConfirmationPassword;
+    }
+
+    public String getErrorConfirmPasswordMatching() {
+        return errorConfirmPasswordMatching;
     }
 
     public String getUpdateProfileSuccessMessage() {

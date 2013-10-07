@@ -26,6 +26,7 @@ package net.benas.todolist.web.struts.action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import net.benas.todolist.core.domain.User;
@@ -33,6 +34,9 @@ import net.benas.todolist.core.service.api.TodoService;
 import net.benas.todolist.core.service.api.UserService;
 import net.benas.todolist.web.common.util.TodolistUtils;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Map;
 
 /**
@@ -40,7 +44,7 @@ import java.util.Map;
  *
  * @author benas (md.benhassine@gmail.com)
  */
-public class BaseAction extends ActionSupport {
+public class BaseAction extends ActionSupport implements Preparable {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -49,6 +53,15 @@ public class BaseAction extends ActionSupport {
     protected UserService userService;
 
     protected Map<String, Object> session = ActionContext.getContext().getSession();
+
+    protected Validator validator;
+
+    @Override
+    public void prepare() throws Exception {
+        //initialize JSR 303 validator
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
 
     protected User getSessionUser() {
         return (User) session.get(TodolistUtils.SESSION_USER);

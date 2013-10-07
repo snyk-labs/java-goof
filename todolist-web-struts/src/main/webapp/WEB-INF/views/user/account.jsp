@@ -44,7 +44,6 @@
 
                                     <div class="controls">
                                         <s:textfield name="user.email" id="email" cssClass="input-medium" required="required"/>
-                                        <p class="help-block alert-error"></p>
                                     </div>
                                 </div>
 
@@ -70,7 +69,7 @@
 
                                     <div class="controls">
                                         <s:password id="currentpassword" name="changePasswordForm.currentpassword" cssClass="input-medium" placeholder="min 6 characters"/>
-                                        <p class="help-inline error"></p>
+                                        <p class="help-block alert-error"><c:out value="${requestScope.errorCurrentPassword}"/></p>
                                     </div>
                                 </div>
 
@@ -79,7 +78,7 @@
 
                                     <div class="controls">
                                         <s:password id="password" name="changePasswordForm.password" cssClass="input-medium" placeholder="min 6 characters"/>
-                                        <p class="help-block"></p>
+                                        <p class="help-block alert-error"><c:out value="${requestScope.errorPassword}"/></p>
                                     </div>
                                 </div>
 
@@ -88,7 +87,7 @@
 
                                     <div class="controls">
                                         <s:password id="confirmpassword" name="changePasswordForm.confirmpassword" cssClass="input-medium" placeholder="min 6 characters"/>
-                                        <p class="help-block"></p>
+                                        <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmPassword}"/></p>
                                     </div>
                                 </div>
 

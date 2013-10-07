@@ -55,6 +55,7 @@
                         <div class="controls">
                             <s:password id="confirmationPassword" name="registrationForm.confirmationPassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmationPassword}"/></p>
+                            <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmPasswordMatching}"/></p>
                         </div>
                     </div>
 
