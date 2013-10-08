@@ -21,40 +21,40 @@
                     <div class="control-group">
                         <label class="control-label" for="firstname">First Name :</label>
                         <div class="controls">
-                            <sf:input path="firstname" id="firstname" type="text" class="input-medium"/>
-                            <p class="help-block"><sf:errors path="firstname" cssClass="error"/></p>
+                            <sf:input path="firstname" id="firstname" type="text" class="input-medium" required="required"/>
+                            <p class="help-block alert-error"><sf:errors path="firstname" cssClass="error"/></p>
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label class="control-label" for="lastname">Last Name :</label>
                         <div class="controls">
-                            <sf:input path="lastname" id="lastname" type="text" class="input-medium"/>
-                            <p class="help-block"><sf:errors path="lastname" cssClass="error"/></p>
+                            <sf:input path="lastname" id="lastname" type="text" class="input-medium" required="required"/>
+                            <p class="help-block alert-error"><sf:errors path="lastname" cssClass="error"/></p>
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label class="control-label" for="email">Email :</label>
                         <div class="controls">
-                            <sf:input path="email" id="email" type="text" class="input-medium" placeholder="your@email.com"/>
-                            <p class="help-block"><sf:errors path="email" cssClass="error"/></p>
+                            <sf:input path="email" id="email" type="text" class="input-medium" placeholder="your@email.com" required="required"/>
+                            <p class="help-block alert-error"><sf:errors path="email" cssClass="error"/></p>
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label class="control-label" for="password">Password :</label>
                         <div class="controls">
-                            <sf:input type="password" path="password" id="password" class="input-medium" placeholder="min 6 characters"/>
-                            <p class="help-block"><sf:errors path="password" cssClass="error"/></p>
+                            <sf:input type="password" path="password" id="password" class="input-medium" placeholder="min 6 characters" required="required"/>
+                            <p class="help-block alert-error"><sf:errors path="password" cssClass="error"/></p>
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label class="control-label" for="confirmationPassword">Confirm Password :</label>
                         <div class="controls">
-                            <sf:input type="password" path="confirmationPassword" id="confirmationPassword" class="input-medium" placeholder="min 6 characters"/>
-                            <p class="help-block"><sf:errors path="confirmationPassword" cssClass="error"/></p>
+                            <sf:input type="password" path="confirmationPassword" id="confirmationPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
+                            <p class="help-block alert-error"><sf:errors path="confirmationPassword" cssClass="error"/></p>
                         </div>
                     </div>
 
