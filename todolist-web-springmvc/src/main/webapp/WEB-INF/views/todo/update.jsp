@@ -74,7 +74,7 @@
 
                     <script>
                         $('#dueDate').datepicker({
-                            format : 'yyyy-mm-dd'
+                            format : 'dd/mm/yyyy'
                         });
                     </script>
 
