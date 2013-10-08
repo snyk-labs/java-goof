@@ -124,6 +124,9 @@ public class UserController {
         // user login ensured by login filter/interceptor
         List<Todo> todoList = todoService.getTodoListByUser(sessionData.getUser().getId());
         modelAndView.addObject("todoList", todoList);
+        modelAndView.addObject("todoCount", todoService.getTodoListByStatus(sessionData.getUser().getId(), Status.TODO).size());
+        modelAndView.addObject("doneCount", todoService.getTodoListByStatus(sessionData.getUser().getId(), Status.DONE).size());
+        modelAndView.addObject("totalCount", (todoService.getTodoListByUser(sessionData.getUser().getId()).size()));
         modelAndView.addObject("homeTabStyle", "active");
         modelAndView.setViewName("user/home");
         return modelAndView;
@@ -138,12 +141,10 @@ public class UserController {
 
     @RequestMapping("/user/account")
     public ModelAndView redirectToAccountPage() {
-        ModelAndView modelAndView = new ModelAndView("user/account/details");
+        ModelAndView modelAndView = new ModelAndView("user/account");
         final User user = sessionData.getUser();
         modelAndView.addObject("user", user);
-        modelAndView.addObject("todoCount", todoService.getTodoListByStatus(user.getId(), Status.TODO).size());
-        modelAndView.addObject("doneCount", todoService.getTodoListByStatus(user.getId(), Status.DONE).size());
-        modelAndView.addObject("totalCount", (todoService.getTodoListByUser(user.getId()).size()));
+        modelAndView.addObject("changePasswordForm", new ChangePasswordForm());
         return modelAndView;
     }
 
@@ -152,11 +153,6 @@ public class UserController {
     * Delete Account
     **********************
     */
-
-    @RequestMapping("/user/account/delete")
-    public String redirectToDeleteAccountPage() {
-        return "user/account/delete";
-    }
 
     @RequestMapping(value = "/user/account/delete.do", method = RequestMethod.POST)
     public String deleteAccount(HttpSession session) {
@@ -171,29 +167,29 @@ public class UserController {
     * Change password
     **********************
     */
-    @RequestMapping("/user/account/password")
-    public String redirectToChangePasswordPage(Model model) {
-        model.addAttribute("changePasswordForm", new ChangePasswordForm());
-        return "user/account/password";
-    }
 
     @RequestMapping(value = "/user/account/password.do", method = RequestMethod.POST)
     public String changePassword(@Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult, Model model) {
-        final User user = sessionData.getUser();
+        User user = sessionData.getUser();
         if (bindingResult.hasErrors()) {
-            return null;
+            model.addAttribute("user", user);
+            return "user/account";
         }
         if (!changePasswordForm.getPassword().equals(changePasswordForm.getConfirmpassword())) {
             model.addAttribute("error", messageProvider.getMessage("account.password.confirmation.error", null, sessionData.getLocale()));
-            return null;
+            model.addAttribute("user", user);
+            return "user/account";
         }
         if (!user.getPassword().equals(changePasswordForm.getCurrentpassword())) {
             model.addAttribute("error", messageProvider.getMessage("account.password.error", null, sessionData.getLocale()));
-            return null;
+            model.addAttribute("user", user);
+            return "user/account";
         } else { // validation ok
             user.setPassword(changePasswordForm.getPassword());
             userService.update(user);
-            return "redirect:/user/account";
+            model.addAttribute("updatePasswordSuccessMessage", messageProvider.getMessage("account.password.update.success", null, sessionData.getLocale()));
+            model.addAttribute("user", user);
+            return "user/account";
         }
     }
 
@@ -202,12 +198,6 @@ public class UserController {
     * Update personal information
     *****************************
     */
-    @RequestMapping("/user/account/update")
-    public String redirectToUpdatePersonalInformationPage(Model model) {
-        final User user = sessionData.getUser();
-        model.addAttribute("user", user);
-        return "user/account/update";
-    }
 
     @RequestMapping(value = "/user/account/update.do", method = RequestMethod.POST)
     public String updatePersonalInformation(@RequestParam String firstname, @RequestParam String lastname, @RequestParam String email, Model model) {
@@ -215,15 +205,16 @@ public class UserController {
 
         if (userService.getUserByEmail(email) != null && !email.equals(user.getEmail())) {
             model.addAttribute("error", messageProvider.getMessage("account.email.alreadyUsed", new Object[]{email}, sessionData.getLocale()));
-            model.addAttribute("user", user);
-            return null;
         } else { // validation ok
             user.setFirstname(firstname);
             user.setLastname(lastname);
             user.setEmail(email);
             userService.update(user);
-            return "redirect:/user/account";
+            model.addAttribute("updateProfileSuccessMessage", messageProvider.getMessage("account.profile.update.success", null, sessionData.getLocale()));
+            model.addAttribute("changePasswordForm", new ChangePasswordForm()); //needed since the update password form is on the same page
         }
+        model.addAttribute("user", user);
+        return "user/account";
     }
 
 }
