@@ -31,11 +31,11 @@
                         <td colspan="2"><strong>Frameworks</strong></td>
                     </tr>
                     <tr>
-                        <td><a href="http://www.springsource.org/about">Struts 2</a></td>
+                        <td><a href="http://struts.apache.org/">Struts 2</a></td>
                         <td>2.3.15.1</td>
                     </tr>
                     <tr>
-                        <td><a href="http://www.springsource.org/about">Spring</a></td>
+                        <td><a href="http://spring.io/">Spring</a></td>
                         <td>3.2.4</td>
                     </tr>
                     <tr>

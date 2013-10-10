@@ -35,7 +35,7 @@
                         <td>3.0 / 2.2</td>
                     </tr>
                     <tr>
-                        <td><a href="http://www.springsource.org/about">Spring</a></td>
+                        <td><a href="http://spring.io/">Spring</a></td>
                         <td>3.2.4</td>
                     </tr>
                     <tr>
