@@ -31,7 +31,7 @@
                         <td colspan="2"><strong>Frameworks</strong></td>
                     </tr>
                     <tr>
-                        <td><a href="http://www.springsource.org/about">Servlet / JSP</a></td>
+                        <td><a href="http://www.oracle.com/technetwork/java/index-jsp-135475.html">Servlet / JSP</a></td>
                         <td>3.0 / 2.2</td>
                     </tr>
                     <tr>
