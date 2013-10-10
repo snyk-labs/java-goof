@@ -16,7 +16,7 @@
                             <i class="icon-user"></i> Hi ${loggedUser.firstname} ! <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><t:pageLink t:page="user/account/Details">My account</t:pageLink></li>
+                            <li><t:pageLink t:page="user/Account">My account</t:pageLink></li>
                             <li class="divider"></li>
                             <li><t:actionlink t:id="logoutLink">Sign out</t:actionlink></li>
                         </ul>
