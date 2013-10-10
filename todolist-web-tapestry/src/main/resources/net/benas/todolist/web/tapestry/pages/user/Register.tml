@@ -8,13 +8,18 @@
 
         <form t:type="form" class="well form-horizontal" method="post" t:id="registerForm">
 
+            <t:if test="registerForm.hasErrors">
+                <div class="alert alert-error">
+                    <t:errors t:banner="message:register.error.global" t:class="error"/>
+                </div>
+            </t:if>
+
             <fieldset>
 
                 <div class="control-group">
                     <label class="control-label" t:type="label" t:for="firstname">First Name :</label>
                     <div class="controls">
                         <input t:id="firstname" t:type="textField" class="input-medium" required="required" autofocus="autofocus"/>
-                        <!--<p class="help-block"><sf:errors path="firstname" cssClass="error"/></p>-->
                     </div>
                 </div>
 
@@ -22,7 +27,6 @@
                     <label class="control-label" t:type="label" t:for="lastname">Last Name :</label>
                     <div class="controls">
                         <input t:id="lastname" t:type="textField" required="required" class="input-medium"/>
-                        <!--<p class="help-block"><sf:errors path="lastname" cssClass="error"/></p>-->
                     </div>
                 </div>
 
@@ -30,7 +34,6 @@
                     <label class="control-label" t:type="label" t:for="email">Email :</label>
                     <div class="controls">
                         <input t:id="email" t:type="textField" class="input-medium" required="required" t:validate="email" placeholder="your@email.com" />
-                        <!--<p class="help-block"><sf:errors path="email" cssClass="error"/></p>-->
                     </div>
                 </div>
 
@@ -38,7 +41,6 @@
                     <label class="control-label" t:type="label" t:for="password">Password :</label>
                     <div class="controls">
                         <input t:type="passwordField" t:id="password" class="input-medium" required="required" t:validate="minlength=6" placeholder="min 6 characters"/>
-                        <!--<p class="help-block"><sf:errors path="password" cssClass="error"/></p>-->
                     </div>
                 </div>
 
@@ -46,7 +48,6 @@
                     <label class="control-label" t:type="label" t:for="confirmationPassword">Confirm Password :</label>
                     <div class="controls">
                         <input t:type="passwordField" t:id="confirmationPassword" class="input-medium" required="required" t:validate="minlength=6" placeholder="min 6 characters"/>
-                        <!--<p class="help-block"><sf:errors path="confirmationPassword" cssClass="error"/></p>-->
                     </div>
                 </div>
 

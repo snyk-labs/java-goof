@@ -78,9 +78,9 @@ public class Register {
 	public void validateForm() {
         User user = userService.getUserByEmail(email);
         if (user != null)
-            registerForm.recordError(messages.format("register.email.error", email));
+            registerForm.recordError(messages.format("register.error.global.account", email));
         if (!password.equals(confirmationPassword)) {
-            registerForm.recordError(messages.get("register.password.error"));
+            registerForm.recordError(messages.get("register.error.password.confirmation.error"));
         }
     }
 	
