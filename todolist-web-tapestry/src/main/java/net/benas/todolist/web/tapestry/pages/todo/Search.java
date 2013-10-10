@@ -38,6 +38,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author benas (md.benhassine@gmail.com)
@@ -99,5 +101,32 @@ public class Search {
 
     public void setQuery(String query) {
         this.query = query;
+    }
+
+    public String getCurrentHighlightedTitle() {
+        return doHighlight(currentTodo.getTitle(), query);
+    }
+
+    /**
+     * Apply a search/replace of the pattern in the input text.
+     * @param input text to which apply the style for each pattern matched
+     * @param pattern the pattern to highlight
+     * @return the transformed text
+     */
+    private String doHighlight(final String input, final String pattern) {
+
+        String cssClass = "label label-warning";
+        String startSpanTag = "<span class=\"" + cssClass + "\">";
+        String endSpanTag = "</span>";
+
+        StringBuilder stringBuilder = new StringBuilder(startSpanTag);
+        stringBuilder.append(pattern);
+        stringBuilder.append(endSpanTag);
+
+        Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = p.matcher(input);
+
+        return matcher.replaceAll(stringBuilder.toString());
+
     }
 }

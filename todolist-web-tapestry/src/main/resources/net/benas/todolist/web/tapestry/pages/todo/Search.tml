@@ -24,10 +24,10 @@
                 </thead>
 
                 <tbody>
+                <!-- can use grid component to get sort and pagination for free :-) -->
                 <tr t:type="loop" t:source="todoList" t:value="currentTodo">
                     <td>${currentTodo.id}</td>
-                    <!--<td><tl:highlight pattern="${param.title}" cssClass="label label-warning">${currentTodo.title}</tl:highlight></td>-->
-                    <td>${currentTodo.title}</td>
+                    <td><t:outputraw value="${currentHighlightedTitle}" /></td>
                     <td>${currentDueDate}</td>
                     <td><i class="icon-circle-arrow-${currentPriorityIcon}"></i> ${currentTodo.priority}</td>
                     <td><span class="label ${currentStatusLabel}"> ${currentTodo.status}</span></td>
@@ -43,8 +43,7 @@
                                 <p>Are you sure to delete todo ${currentTodo.id} '${currentTodo.title}' ?</p>
                             </div>
                             <div class="modal-footer">
-                                <!--TODO if style pb, wrap with form tag-->
-                                <a href="#" class="btn" data-dismiss="modal">Cancel</a> <t:actionlink t:id="deleteTodoLink" t:context="currentTodo.id"> <button type="submit" class="btn btn-primary">Confirm</button> </t:actionlink>
+                                <a href="#" class="btn" data-dismiss="modal">Cancel</a> &nbsp; <t:actionlink t:id="deleteTodoLink" t:context="currentTodo.id"> <button type="submit" class="btn btn-primary">Confirm</button> </t:actionlink>
                             </div>
                         </div>
                     </td>
