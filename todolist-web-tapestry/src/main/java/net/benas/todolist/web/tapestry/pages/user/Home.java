@@ -56,9 +56,22 @@ public class Home {
     @Property
     private Todo currentTodo;
 
+    @Property
+    private int doneCount;
+
+    @Property
+    private int todoCount;
+
+    @Property
+    private int totalCount;
+
     @OnEvent(value = EventConstants.ACTIVATE)
     public void init() {
-        todoList = todoService.getTodoListByUser(loggedUser.getId());
+        Long loggedUserId = loggedUser.getId();
+        todoList = todoService.getTodoListByUser(loggedUserId);
+        totalCount = todoList.size();
+        doneCount = todoService.getTodoListByStatus(loggedUserId, Status.DONE).size();
+        todoCount = todoService.getTodoListByStatus(loggedUserId, Status.TODO).size();
     }
 
     @OnEvent(value=EventConstants.ACTION, component="deleteTodoLink")

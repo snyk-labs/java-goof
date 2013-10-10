@@ -51,6 +51,13 @@
                 </tr>
 
                 </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2"><div align="center">Total = <span class="badge badge-inverse">${totalCount}</span></div></td>
+                        <td colspan="2"><div align="center">Todo = <span class="badge">${todoCount}</span></div></td>
+                        <td colspan="2"><div align="center">Done = <span class="badge badge-success">${doneCount}</span></div></td>
+                    </tr>
+                    </tfoot>
             </table>
 
             <t:unless test="todoList">
