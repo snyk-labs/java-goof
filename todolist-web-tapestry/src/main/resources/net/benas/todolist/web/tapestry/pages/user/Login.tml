@@ -20,7 +20,7 @@
                     <div class="controls">
                         <input t:type="textField" t:id="email" class="input-medium" required="required" t:validate="email" placeholder="your@email.com" autofocus="autofocus"/>
                         <t:if test="loginForm.hasErrors">
-                            <p class="help-block"><t:error class="error" for="email"/></p>
+                            <p class="help-block alert-error"><t:error class="error" for="email"/></p>
                         </t:if>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                     <div class="controls">
                         <input t:type="passwordField" t:id="password" class="input-medium" required="required" t:validate="minlength=6" placeholder="min 6 characters"/>
                         <t:if test="loginForm.hasErrors">
-                            <p class="help-block"><t:error class="error" for="password"/></p>
+                            <p class="help-block alert-error"><t:error class="error" for="password"/></p>
                         </t:if>
                     </div>
                 </div>
