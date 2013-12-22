@@ -37,7 +37,7 @@
     
     <mvc:resources mapping="/static/**" location="/static/"/>
 	
-    <context:component-scan base-package="net.benas.todolist.web.springmvc"/>
+    <context:component-scan base-package="net.benas.todolist.web"/>
 
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -48,7 +48,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/user/**"/>
-            <bean class="net.benas.todolist.web.springmvc.interceptors.SessionHandlerInterceptor" />
+            <bean class="io.github.benas.todolist.web.interceptors.SessionHandlerInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 
@@ -56,7 +56,7 @@
     <!--         web beans         -->
     <!-- ========================= -->
 
-    <bean id="sessionData" class="net.benas.todolist.web.springmvc.util.SessionData" scope="session">
+    <bean id="sessionData" class="io.github.benas.todolist.web.util.SessionData" scope="session">
         <aop:scoped-proxy/>
     </bean>
 

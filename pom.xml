@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>net.benas</groupId>
+  <groupId>io.github.benas</groupId>
   <artifactId>todolist-mvc</artifactId>
   <version>1.0-SNAPSHOT</version>
     <modules>
@@ -19,7 +19,8 @@
     </modules>
     <packaging>pom</packaging>
 
-  <name>Todolist MVC is a simple yet complete web application used to compare several Java Web Frameworks</name>
+  <name>Todolist MVC parent module</name>
+  <description>Todolist MVC is a simple yet complete web application used to compare several Java Web Frameworks</description>
   <url>https://github.com/benas/todolist-mvc</url>
 
     <developers>
@@ -28,6 +29,13 @@
             <email>md.benhassine@gmail.com</email>
         </developer>
     </developers>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

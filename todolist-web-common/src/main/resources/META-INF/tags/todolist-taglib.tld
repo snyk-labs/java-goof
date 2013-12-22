@@ -36,7 +36,7 @@
     <tag>
         <description>Tag that highlights patterns in its body content with a given css style</description>
         <name>highlight</name>
-        <tag-class>net.benas.todolist.web.common.tags.HighlightTag</tag-class>
+        <tag-class>io.github.benas.todolist.web.common.tags.HighlightTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>pattern</name>
@@ -56,7 +56,7 @@
     <tag>
         <description>Tag to transcode todo priority to icon value</description>
         <name>priorityIcon</name>
-        <tag-class>net.benas.todolist.web.common.tags.PriorityIconTag</tag-class>
+        <tag-class>io.github.benas.todolist.web.common.tags.PriorityIconTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>priority</name>
@@ -68,7 +68,7 @@
     <tag>
         <description>Tag to transcode todo status to label value</description>
         <name>statusLabel</name>
-        <tag-class>net.benas.todolist.web.common.tags.StatusLabelTag</tag-class>
+        <tag-class>io.github.benas.todolist.web.common.tags.StatusLabelTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>status</name>

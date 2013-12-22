@@ -34,11 +34,11 @@
     <!--   Business configuration   -->
     <!-- ========================== -->
 
-    <bean id="userRepository" class="net.benas.todolist.core.repository.impl.UserRepositoryImpl"/>
-    <bean id="todoRepository" class="net.benas.todolist.core.repository.impl.TodoRepositoryImpl"/>
+    <bean id="userRepository" class="io.github.todolist.core.repository.impl.UserRepositoryImpl"/>
+    <bean id="todoRepository" class="io.github.todolist.core.repository.impl.TodoRepositoryImpl"/>
 
-    <bean id="userService" class="net.benas.todolist.core.service.impl.UserServiceImpl"/>
-    <bean id="todoService" class="net.benas.todolist.core.service.impl.TodoServiceImpl"/>
-    <bean id="exportService" class="net.benas.todolist.core.service.impl.ExportServiceImpl"/>
+    <bean id="userService" class="io.github.todolist.core.service.impl.UserServiceImpl"/>
+    <bean id="todoService" class="io.github.todolist.core.service.impl.TodoServiceImpl"/>
+    <bean id="exportService" class="io.github.todolist.core.service.impl.ExportServiceImpl"/>
 
 </beans>
