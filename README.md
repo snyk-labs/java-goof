@@ -267,5 +267,5 @@ Todolist MVC is released under the [MIT License][].
 
 [TodoMVC]: http://todomvc.com/
 [TechEmpower's Framework Benchmarks]: https://github.com/TechEmpower/FrameworkBenchmarks
-[Twitter Bootstrap]: http://twitter.github.io/bootstrap/
+[Twitter Bootstrap]: http://getbootstrap.com/
 [MIT License]: http://opensource.org/licenses/mit-license.php/
