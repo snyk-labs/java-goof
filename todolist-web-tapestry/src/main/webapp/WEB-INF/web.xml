@@ -9,7 +9,7 @@
     <!--tapestry-->
     <context-param>
         <param-name>tapestry.app-package</param-name>
-        <param-value>net.benas.todolist.web.tapestry</param-value>
+        <param-value>io.github.benas.todolist.web</param-value>
     </context-param>
 
     <!-- Spring -->
