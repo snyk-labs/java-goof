@@ -164,6 +164,8 @@
 
     <package name="public" namespace="/" extends="struts-default">
 
+        <default-action-ref name="index" />
+        
         <action name="index" class="io.github.benas.todolist.web.action.IndexAction">
             <result>/WEB-INF/views/index.jsp</result>
         </action>
