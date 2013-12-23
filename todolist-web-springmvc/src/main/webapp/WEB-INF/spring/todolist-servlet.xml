@@ -37,7 +37,7 @@
     
     <mvc:resources mapping="/static/**" location="/static/"/>
 	
-    <context:component-scan base-package="net.benas.todolist.web"/>
+    <context:component-scan base-package="io.github.benas.todolist.web"/>
 
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
