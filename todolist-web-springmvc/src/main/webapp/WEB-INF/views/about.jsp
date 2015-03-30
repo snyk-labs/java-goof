@@ -25,7 +25,7 @@
                     </tr>
                     <tr>
                         <td>Developed by</td>
-                        <td><a href="mailto:md.benhassine@gmail.com">Benas</a></td>
+                        <td><a href="mailto:mahmoud@benhassine.fr">Benas</a></td>
                     </tr>
                     <tr>
                         <td colspan="2"><strong>Frameworks</strong></td>

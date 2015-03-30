@@ -8,7 +8,8 @@ import java.util.List;
 
 /**
  * Interface for todo repository.
- * @author benas (md.benhassine@gmail.com)
+ *
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public interface TodoRepository {
 

@@ -4,7 +4,8 @@ import io.github.todolist.core.domain.User;
 
 /**
  * Interface for user repository.
- * @author benas (md.benhassine@gmail.com)
+ *
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public interface UserRepository {
 

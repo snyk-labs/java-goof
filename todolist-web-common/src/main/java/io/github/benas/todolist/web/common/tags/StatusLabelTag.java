@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -30,8 +30,9 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 /**
- * Utility tag to transcode todo status to label value.<br/>
- * @author benas (md.benhassine@gmail.com)
+ * Utility tag to transcode todo status to label value.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
 public class StatusLabelTag extends SimpleTagSupport {

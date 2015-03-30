@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *   Copyright (c) 2013, benas (md.benhassine@gmail.com) (md.benhassine@gmail.com)
+ *   Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr) (mahmoud@benhassine.fr)
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
 @WebServlet(name = "DeleteAccountServlet", urlPatterns = "/user/account/delete.do")

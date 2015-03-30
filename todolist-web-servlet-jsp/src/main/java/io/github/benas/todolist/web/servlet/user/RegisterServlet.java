@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *   Copyright (c) 2013, benas (md.benhassine@gmail.com) (md.benhassine@gmail.com)
+ *   Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr) (mahmoud@benhassine.fr)
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,9 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
- * @author benas (md.benhassine@gmail.com)
+ * Servlet that controls the registration process.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
 @WebServlet(name = "RegisterServlet",urlPatterns = {"/register","/register.do"})

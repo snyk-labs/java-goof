@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link TodoRepository]
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @Repository
 public class TodoRepositoryImpl implements TodoRepository {

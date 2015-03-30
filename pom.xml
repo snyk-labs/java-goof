@@ -1,10 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.github.benas</groupId>
-  <artifactId>todolist-mvc</artifactId>
-  <version>1.0-SNAPSHOT</version>
+    <groupId>io.github.benas</groupId>
+    <artifactId>todolist-mvc</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>Todolist MVC parent module</name>
+    <description>Todolist MVC is a simple yet complete web application used to compare several Java Web Frameworks</description>
+    <url>https://github.com/benas/todolist-mvc</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
         <module>todolist-core</module>
         <module>todolist-web-common</module>
@@ -19,14 +27,11 @@
     </modules>
     <packaging>pom</packaging>
 
-  <name>Todolist MVC parent module</name>
-  <description>Todolist MVC is a simple yet complete web application used to compare several Java Web Frameworks</description>
-  <url>https://github.com/benas/todolist-mvc</url>
-
     <developers>
         <developer>
             <id>benas</id>
-            <email>md.benhassine@gmail.com</email>
+            <name>Mahmoud Ben Hassine</name>
+            <email>mahmoud@benhassine.fr</email>
         </developer>
     </developers>
 
@@ -36,9 +41,5 @@
             <url>http://opensource.org/licenses/mit-license.php</url>
         </license>
     </licenses>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
 </project>

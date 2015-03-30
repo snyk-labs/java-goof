@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *   Copyright (c) 2013, benas (md.benhassine@gmail.com) (md.benhassine@gmail.com)
+ *   Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr) (mahmoud@benhassine.fr)
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -47,11 +47,12 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
- * Servlet that process user login.<br/>
- * Get request to /login redirects to login page.
- * Post request to /login.do processes user login.
+ * Servlet that controls the login process.
  *
- * @author benas (md.benhassine@gmail.com)
+ * Get requests to "/login" redirects to login page.
+ * Post requests to "/login.do" processes user login.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login", "/login.do"})

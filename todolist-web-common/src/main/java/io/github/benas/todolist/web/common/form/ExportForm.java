@@ -7,7 +7,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Export todo list form backing bean.
- * @author benas (md.benhassine@gmail.com)
+ *
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class ExportForm {
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link UserRepository}
- * @author benas (md.benhassine@gmail.com)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @Repository
 public class UserRepositoryImpl implements UserRepository {

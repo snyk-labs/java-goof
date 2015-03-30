@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2013, benas (md.benhassine@gmail.com)
+ *  Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -33,8 +33,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Utility tag to highlight text patterns with css style.<br/>
- * @author benas (md.benhassine@gmail.com)
+ * Utility tag to highlight text patterns with css style.
+ *
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
 public class HighlightTag extends SimpleTagSupport {
