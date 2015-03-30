@@ -20,10 +20,6 @@
         <module>todolist-web-tapestry</module>
         <module>todolist-web-struts</module>
         <module>todolist-web-servlet-jsp</module>
-        <module>todolist-web-grails</module>
-        <module>todolist-web-play</module>
-        <module>todolist-web-jsf</module>
-        <module>todolist-web-wicket</module>
     </modules>
     <packaging>pom</packaging>
 
