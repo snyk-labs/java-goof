@@ -84,9 +84,9 @@ public class ChangePasswordServlet extends HttpServlet {
         /** Validate user input   */
         /**************************/
         ChangePasswordForm changePasswordForm = new ChangePasswordForm();
-        changePasswordForm.setCurrentpassword(currentPassword);
+        changePasswordForm.setCurrentPassword(currentPassword);
         changePasswordForm.setPassword(newPassword);
-        changePasswordForm.setConfirmpassword(confirmPassword);
+        changePasswordForm.setConfirmPassword(confirmPassword);
 
         String nextPage = "/WEB-INF/views/user/account.jsp";
 

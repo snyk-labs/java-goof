@@ -176,12 +176,12 @@ public class UserController {
             model.addAttribute("user", user);
             return "user/account";
         }
-        if (!changePasswordForm.getPassword().equals(changePasswordForm.getConfirmpassword())) {
+        if (!changePasswordForm.getPassword().equals(changePasswordForm.getConfirmPassword())) {
             model.addAttribute("error", messageProvider.getMessage("account.password.confirmation.error", null, sessionData.getLocale()));
             model.addAttribute("user", user);
             return "user/account";
         }
-        if (!user.getPassword().equals(changePasswordForm.getCurrentpassword())) {
+        if (!user.getPassword().equals(changePasswordForm.getCurrentPassword())) {
             model.addAttribute("error", messageProvider.getMessage("account.password.error", null, sessionData.getLocale()));
             model.addAttribute("user", user);
             return "user/account";

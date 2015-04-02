@@ -178,13 +178,13 @@ public class AccountAction extends BaseAction {
         }
 
         User user = getSessionUser();
-        if (!changePasswordForm.getCurrentpassword().equals(user.getPassword())) {
+        if (!changePasswordForm.getCurrentPassword().equals(user.getPassword())) {
             errorCurrentPassword = getText("account.password.error");
             error = getText("account.password.error.global");
             return Action.INPUT;
         }
 
-        if (!changePasswordForm.getPassword().equals(changePasswordForm.getConfirmpassword())) {
+        if (!changePasswordForm.getPassword().equals(changePasswordForm.getConfirmPassword())) {
             errorConfirmationPassword = getText("account.password.confirmation.error");
             error = getText("account.password.error.global");
             return Action.INPUT;

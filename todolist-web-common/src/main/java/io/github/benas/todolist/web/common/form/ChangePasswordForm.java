@@ -35,24 +35,24 @@ import javax.validation.constraints.Size;
  */
 public class ChangePasswordForm {
 
-    @NotEmpty(message = "{update.currentpassword.required}")
-    @Size(min = 6, message = "{update.currentpassword.size}")
-    private String currentpassword;
+    @NotEmpty(message = "{update.currentPassword.required}")
+    @Size(min = 6, message = "{update.currentPassword.size}")
+    private String currentPassword;
 
     @NotEmpty(message = "{update.password.required}")
     @Size(min = 6, message = "{update.password.size}")
     private String password;
 
-    @NotEmpty(message = "{update.confirmpassword.required}")
-    @Size(min = 6, message = "{update.confirmpassword.size}")
-    private String confirmpassword;
+    @NotEmpty(message = "{update.confirmPassword.required}")
+    @Size(min = 6, message = "{update.confirmPassword.size}")
+    private String confirmPassword;
 
-    public String getCurrentpassword() {
-        return currentpassword;
+    public String getCurrentPassword() {
+        return currentPassword;
     }
 
-    public void setCurrentpassword(String currentpassword) {
-        this.currentpassword = currentpassword;
+    public void setCurrentPassword(String currentpassword) {
+        this.currentPassword = currentpassword;
     }
 
     public String getPassword() {
@@ -63,11 +63,11 @@ public class ChangePasswordForm {
         this.password = password;
     }
 
-    public String getConfirmpassword() {
-        return confirmpassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setConfirmpassword(String confirmpassword) {
-        this.confirmpassword = confirmpassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
