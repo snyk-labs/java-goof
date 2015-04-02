@@ -36,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Implementation of {@link TodoService}
+ * Implementation of the {@link TodoService}.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
@@ -85,8 +85,8 @@ public class TodoServiceImpl implements TodoService {
     /**
      * {@inheritDoc}
      */
-    public List<Todo> searchTodoListByTitleByUserId(final String title, final long userId) {
-        return todoRepository.searchTodoListByTitleByUserId(title, userId);
+    public List<Todo> searchTodoListByTitle(final long userId, final String title) {
+        return todoRepository.getTodoListByUserAndTitle(userId, title);
     }
 
     /**

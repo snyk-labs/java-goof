@@ -31,58 +31,58 @@ import io.github.todolist.core.domain.Todo;
 import java.util.List;
 
 /**
- * Business interface for todo manager.
+ * Business interface for todo service.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public interface TodoService {
 
     /**
-     * Get todo by identifier.
-     * @param id the todo identifier
-     * @return the todo with identifier id
+     * Get todo by id.
+     * @param id the todo's id
+     * @return the todo having the given id or null if no todo found with the given id
      */
     Todo getTodoById(final long id);
 
     /**
      * Get todo list for the given user.
-     * @param userId the user identifier
+     * @param userId the user's id
      * @return the todo list for the given user
      */
     List<Todo> getTodoListByUser(final long userId);
 
     /**
      * Get todo list by status for the given user.
-     * @param userId the user identifier
-     * @param status the todo {@link Status}
+     * @param userId the user's id
+     * @param status the todo's {@link Status}
      * @return the todo list for the given user
      */
     List<Todo> getTodoListByStatus(final long userId, final Status status);
 
     /**
      * Get todo list by priority for the given user.
-     * @param userId the user identifier
-     * @param priority the todo {@link Priority}
+     * @param userId the user's id
+     * @param priority the todo's {@link Priority}
      * @return the todo list for the given user
      */
     List<Todo> getTodoListByPriority(final long userId, final Priority priority);
 
     /**
      * Get todo list by status and priority for the given user.
-     * @param userId the user identifier
-     * @param status the todo {@link Status}
-     * @param priority the todo {@link Priority}
+     * @param userId the user's id
+     * @param status the todo's {@link Status}
+     * @param priority the todo's {@link Priority}
      * @return the todo list for the given user
      */
     List<Todo> getTodoListByStatusAndPriority(final long userId, final Status status, final Priority priority);
 
     /**
      * Search todo list by title for the given user.
-     * @param title the todo title
-     * @param userId the user identifier
+     * @param title the todo's title
+     * @param userId the user's id
      * @return the todo list containing the 'title' parameter in their title for the given user
      */
-    List<Todo> searchTodoListByTitleByUserId(final String title, final long userId);
+    List<Todo> searchTodoListByTitle(final long userId, final String title);
 
     /**
      * Update a todo.

@@ -14,18 +14,26 @@ import java.util.List;
 public interface TodoRepository {
 
     /**
-     * Get todo by identifier.
-     * @param id the todo identifier
-     * @return the todo with identifier id
+     * Get todo by id.
+     * @param id the todo's id
+     * @return the todo having the given id or null if no todo found with the given id
      */
     Todo getTodoById(final long id);
 
     /**
      * Get todo list for the given user.
-     * @param userId the user identifier
+     * @param userId the user's id
      * @return the todo list for the given user
      */
     List<Todo> getTodoListByUser(final long userId);
+
+    /**
+     * Get todo list by title for the given user.
+     * @param title the todo title
+     * @param userId the user identifier
+     * @return the todo list containing the 'title' parameter in their title for the given user
+     */
+    List<Todo> getTodoListByUserAndTitle(final long userId, final String title);
 
     /**
      * Get todo list by status for the given user.
@@ -53,12 +61,11 @@ public interface TodoRepository {
     List<Todo> getTodoListByUserAndStatusAndPriority(final long userId, final Status status, final Priority priority);
 
     /**
-     * Search todo list by title for the given user.
-     * @param title the todo title
-     * @param userId the user identifier
-     * @return the todo list containing the 'title' parameter in their title for the given user
+     * Create a new todo.
+     * @param todo the todo to create
+     * @return the created todo
      */
-    List<Todo> searchTodoListByTitleByUserId(final String title, final long userId);
+    Todo create(final Todo todo);
 
     /**
      * Update a todo.
@@ -66,13 +73,6 @@ public interface TodoRepository {
      * @return the updated todo
      */
     Todo update(Todo todo);
-
-    /**
-     * Create a new todo.
-     * @param todo the todo to create
-     * @return the created todo
-     */
-    Todo create(final Todo todo);
 
     /**
      * Remove a todo.

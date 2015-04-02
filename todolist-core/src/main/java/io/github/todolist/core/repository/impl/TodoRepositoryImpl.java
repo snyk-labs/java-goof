@@ -12,7 +12,8 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Implementation of {@link TodoRepository]
+ * Implementation of {@link TodoRepository} using JPA.
+ *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @Repository
@@ -71,8 +72,8 @@ public class TodoRepositoryImpl implements TodoRepository {
     /**
      * {@inheritDoc}
      */
-    public List<Todo> searchTodoListByTitleByUserId(final String title, final long userId) {
-        TypedQuery<Todo> query = em.createNamedQuery("searchTodoListByTitleByUserId", Todo.class);
+    public List<Todo> getTodoListByUserAndTitle(final long userId, final String title) {
+        TypedQuery<Todo> query = em.createNamedQuery("findTodosByTitle", Todo.class);
         query.setParameter(1, userId);
         query.setParameter(2, title.toUpperCase());
         return query.getResultList();

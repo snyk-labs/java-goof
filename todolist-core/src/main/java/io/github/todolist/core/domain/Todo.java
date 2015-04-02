@@ -39,8 +39,8 @@ import java.util.Date;
         @NamedQuery(name = "findTodosByUser", query = "SELECT t FROM Todo t where t.userId = ?1 order by t.dueDate"),
         @NamedQuery(name = "findTodosByStatus", query = "SELECT t FROM Todo t where t.userId = ?1 and t.status = ?2 order by t.dueDate"),
         @NamedQuery(name = "findTodosByPriority", query = "SELECT t FROM Todo t where t.userId = ?1 and t.priority = ?2 order by t.dueDate"),
-        @NamedQuery(name = "findTodosByStatusAndPriority", query = "SELECT t FROM Todo t where t.userId = ?1 and t.status = ?2 and t.priority = ?3 order by t.dueDate"),
-        @NamedQuery(name = "searchTodoListByTitleByUserId", query = "SELECT t FROM Todo t where t.userId = ?1 and upper(t.title) like ?2 order by t.dueDate")
+        @NamedQuery(name = "findTodosByTitle", query = "SELECT t FROM Todo t where t.userId = ?1 and upper(t.title) like ?2 order by t.dueDate"),
+        @NamedQuery(name = "findTodosByStatusAndPriority", query = "SELECT t FROM Todo t where t.userId = ?1 and t.status = ?2 and t.priority = ?3 order by t.dueDate")
 })
 public class Todo implements Serializable {
 
@@ -53,6 +53,7 @@ public class Todo implements Serializable {
     @Column(length = 512)
     private String title;
 
+    //TODO change to boolean done (KISS!)
     @Enumerated(value = EnumType.ORDINAL)
     private Status status;
 
@@ -79,6 +80,7 @@ public class Todo implements Serializable {
         return id;
     }
 
+    //TODO no setter for id should be provided (so should be removed), used only by struts for request param binding
     public void setId(long id) {
         this.id = id;
     }
