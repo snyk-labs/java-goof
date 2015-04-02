@@ -17,16 +17,16 @@
             <fieldset>
 
                 <div class="control-group">
-                    <label class="control-label" t:type="label" t:for="firstname">First Name :</label>
+                    <label class="control-label" t:type="label" t:for="firstName">First Name :</label>
                     <div class="controls">
-                        <input t:id="firstname" t:type="textField" class="input-medium" required="required" autofocus="autofocus"/>
+                        <input t:id="firstName" t:type="textField" class="input-medium" required="required" autofocus="autofocus"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" t:type="label" t:for="lastname">Last Name :</label>
+                    <label class="control-label" t:type="label" t:for="lastName">Last Name :</label>
                     <div class="controls">
-                        <input t:id="lastname" t:type="textField" required="required" class="input-medium"/>
+                        <input t:id="lastName" t:type="textField" required="required" class="input-medium"/>
                     </div>
                 </div>
 

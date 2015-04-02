@@ -96,8 +96,8 @@ public class Account {
 
     @OnEvent(value = EventConstants.ACTIVATE)
     public void init() {
-        firstName = loggedUser.getFirstname();
-        lastName = loggedUser.getLastname();
+        firstName = loggedUser.getFirstName();
+        lastName = loggedUser.getLastName();
         email = loggedUser.getEmail();
     }
 
@@ -110,8 +110,8 @@ public class Account {
 
     @OnEvent(value = EventConstants.SUCCESS, component = "updateAccountForm")
     public Object updateAccount() {
-        loggedUser.setFirstname(firstName);
-        loggedUser.setLastname(lastName);
+        loggedUser.setFirstName(firstName);
+        loggedUser.setLastName(lastName);
         loggedUser.setEmail(email);
         userService.update(loggedUser);
         updateProfileSuccessMessage = messages.get("account.profile.update.success");

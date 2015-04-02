@@ -100,8 +100,8 @@ public class UserController {
         }
 
         User user = new User();
-        user.setFirstname(registrationForm.getFirstname());
-        user.setLastname(registrationForm.getLastname());
+        user.setFirstName(registrationForm.getFirstname());
+        user.setLastName(registrationForm.getLastname());
         user.setEmail(registrationForm.getEmail());
         user.setPassword(registrationForm.getPassword());
 
@@ -207,8 +207,8 @@ public class UserController {
         if (userService.getUserByEmail(email) != null && !email.equals(user.getEmail())) {
             model.addAttribute("error", messageProvider.getMessage("account.email.alreadyUsed", new Object[]{email}, sessionData.getLocale()));
         } else { // validation ok
-            user.setFirstname(firstname);
-            user.setLastname(lastname);
+            user.setFirstName(firstname);
+            user.setLastName(lastname);
             user.setEmail(email);
             userService.update(user);
             model.addAttribute("updateProfileSuccessMessage", messageProvider.getMessage("account.profile.update.success", null, sessionData.getLocale()));

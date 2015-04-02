@@ -74,8 +74,8 @@ public class UpdateAccountServlet extends HttpServlet {
             request.setAttribute("user", user);
             request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
         } else { // validation ok
-            user.setFirstname(firstname);
-            user.setLastname(lastname);
+            user.setFirstName(firstname);
+            user.setLastName(lastname);
             user.setEmail(email);
             userService.update(user);
             request.setAttribute("updateProfileSuccessMessage", resourceBundle.getString("account.profile.update.success"));

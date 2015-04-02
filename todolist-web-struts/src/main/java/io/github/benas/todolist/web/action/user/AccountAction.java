@@ -127,8 +127,8 @@ public class AccountAction extends BaseAction {
             error = MessageFormat.format(getText("account.email.alreadyUsed"), this.user.getEmail());
             return Action.INPUT;
         } else { // validation ok
-            user.setFirstname(this.user.getFirstname());
-            user.setLastname(this.user.getLastname());
+            user.setFirstName(this.user.getFirstName());
+            user.setLastName(this.user.getLastName());
             user.setEmail(this.user.getEmail());
             userService.update(user);
             session.put(TodolistUtils.SESSION_USER, user);

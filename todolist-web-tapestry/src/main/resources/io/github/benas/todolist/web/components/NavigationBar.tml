@@ -13,7 +13,7 @@
                     </ul>
                     <div class="btn-group pull-right">
                         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="icon-user"></i> Hi ${loggedUser.firstname} ! <span class="caret"></span>
+                            <i class="icon-user"></i> Hi ${loggedUser.firstName} ! <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><t:pageLink t:page="user/Account">My account</t:pageLink></li>
