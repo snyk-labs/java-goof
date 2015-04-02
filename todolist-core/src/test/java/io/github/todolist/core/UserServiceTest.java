@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-dd license
+
 package io.github.todolist.core;
 
 import io.github.todolist.core.service.api.UserService;
