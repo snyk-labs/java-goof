@@ -10,7 +10,8 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Implementation of {@link UserRepository}
+ * Implementation of {@link UserRepository} using JPA.
+ *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 @Repository
@@ -39,7 +40,13 @@ public class UserRepositoryImpl implements UserRepository {
      */
     public void remove(final User user) {
         em.createNativeQuery("DELETE FROM todo t WHERE t.userId = " + user.getId()).executeUpdate();
-        User u = em.find(User.class, user.getId()); //Entity must be attached to the PC before being removed, or else => java.lang.IllegalArgumentException. Entity must be managed to call remove (em.merge(odo) does not fix the pb).
+        User u = em.find(User.class, user.getId());
+        /*
+         * FIXME : should be em.remove(user) + remove all his todos
+         *
+         * Entity must be attached to the PC before being removed, or else => java.lang.IllegalArgumentException.
+         * Entity must be managed to call remove(em.merge(user)) does not fix the pb).
+         */
         em.remove(u);
     }
 

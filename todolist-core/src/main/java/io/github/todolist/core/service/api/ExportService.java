@@ -37,7 +37,7 @@ import java.util.List;
 public interface ExportService {
 
     /**
-     * Export todo list to the given format.
+     * Export todo list in the given format.
      * @param todoList the todo list to export
      * @param exportFormat the {@link ExportFormat}
      * @return byte array of the exported todo list in the given format

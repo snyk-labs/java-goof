@@ -25,7 +25,7 @@
 package io.github.todolist.core.util;
 
 /**
- * Enumeration for export format.
+ * Enumeration for todo list export format.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */

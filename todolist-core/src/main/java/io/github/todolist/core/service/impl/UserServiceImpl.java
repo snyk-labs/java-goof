@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implementation of {@link UserService}
+ * Implementation of the {@link UserService}.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
