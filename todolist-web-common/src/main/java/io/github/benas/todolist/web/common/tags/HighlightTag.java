@@ -82,10 +82,11 @@ public class HighlightTag extends SimpleTagSupport {
 
         Pattern pattern;
 
-        if (caseSensitive)
+        if (caseSensitive) {
             pattern = Pattern.compile(this.pattern);
-        else
+        } else {
             pattern = Pattern.compile(this.pattern, Pattern.CASE_INSENSITIVE);
+        }
         Matcher matcher = pattern.matcher(input);
 
         return matcher.replaceAll(stringBuilder.toString());
