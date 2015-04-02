@@ -36,6 +36,8 @@ import io.github.todolist.core.util.ExportFormat;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Implementation of {@link ExportService}.
@@ -43,6 +45,8 @@ import java.util.List;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class ExportServiceImpl implements ExportService {
+
+    private static final Logger LOGGER = Logger.getLogger(ExportServiceImpl.class.getName());
 
     private XStream xStream;
 
@@ -59,30 +63,50 @@ public class ExportServiceImpl implements ExportService {
      */
     public byte[] exportTodoList(final List<Todo> todoList, final ExportFormat exportFormat) {
 
+        byte[] result = new byte[]{};
+
         if (exportFormat.equals(ExportFormat.XML)) {
-            return xStream.toXML(todoList).getBytes();
+            result = getTodolistAsXml(todoList);
         }
 
         if (exportFormat.equals(ExportFormat.PDF)) {
-            Document document = new Document();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            try {
-                PdfWriter.getInstance(document, baos);
-                document.open();
-                for (Todo todo :todoList) {
-                    document.add(new Paragraph(todo.toString()));
-                }
-            } catch (DocumentException de) {
-                return null;
-            }
-            document.close();
-            return baos.toByteArray();
+            result = getTodolistAsPdf(todoList);
+
         }
 
         if (exportFormat.equals(ExportFormat.JSON)) {
-            return gson.toJson(todoList).getBytes();
+            result = getTodolistAsJson(todoList);
         }
 
-        return new byte[]{};
+        return result;
     }
+
+    private byte[] getTodolistAsPdf(List<Todo> todoList) {
+        byte[] result = new byte[]{};
+        Document document = new Document();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            PdfWriter.getInstance(document, baos);
+            document.open();
+            for (Todo todo :todoList) {
+                document.add(new Paragraph(todo.toString()));
+            }
+            result = baos.toByteArray();
+        } catch (DocumentException de) {
+            LOGGER.log(Level.WARNING, "Unable to export todo list in pdf format", de);
+        } finally {
+            document.close();
+        }
+
+        return result;
+    }
+
+    private byte[] getTodolistAsXml(List<Todo> todoList) {
+        return xStream.toXML(todoList).getBytes();
+    }
+
+    private byte[] getTodolistAsJson(List<Todo> todoList) {
+        return gson.toJson(todoList).getBytes();
+    }
+
 }
