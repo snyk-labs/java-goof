@@ -114,7 +114,7 @@ public class TodoController {
 
     @RequestMapping(value = "/user/todos/search", method = RequestMethod.GET)
     public String searchTodoList(@RequestParam String title, Model model) {
-        List<Todo> todoList = todoService.searchTodoListByTitleByUserId("%" + title + "%", sessionData.getUser().getId());
+        List<Todo> todoList = todoService.searchTodoListByTitle(sessionData.getUser().getId(), "%" + title + "%");
         model.addAttribute("todoList", todoList);
         model.addAttribute("title", title);
         return "todo/search";

@@ -42,7 +42,7 @@ public class SearchTodoAction extends BaseAction {
     List<Todo> todoList;
 
     public String execute() {
-        todoList = todoService.searchTodoListByTitleByUserId("%" + title + "%", getSessionUser().getId());
+        todoList = todoService.searchTodoListByTitle(getSessionUser().getId(), "%" + title + "%");
         return Action.SUCCESS;
     }
 

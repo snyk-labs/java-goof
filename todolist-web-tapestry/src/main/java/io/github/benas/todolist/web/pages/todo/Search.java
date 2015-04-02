@@ -64,7 +64,7 @@ public class Search {
 
     @OnEvent(value = EventConstants.ACTIVATE)
     public void init() {
-        todoList = todoService.searchTodoListByTitleByUserId("%" + query + "%", loggedUser.getId());
+        todoList = todoService.searchTodoListByTitle(loggedUser.getId(), "%" + query + "%");
     }
 
     @OnEvent(value = EventConstants.ACTION, component = "deleteTodoLink")
