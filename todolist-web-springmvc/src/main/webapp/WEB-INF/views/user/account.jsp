@@ -24,18 +24,18 @@
                                 <legend>Update my profile <p class="alert-success">${updateProfileSuccessMessage}</p></legend>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="firstname">First Name :</label>
+                                    <label class="control-label" for="firstName">First Name :</label>
 
                                     <div class="controls">
-                                        <input name="firstname" id="firstname" value="${user.firstname}" type="text" class="input-medium" required="required"/>
+                                        <input name="firstName" id="firstName" value="${user.firstName}" type="text" class="input-medium" required="required"/>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="lastname">Last Name :</label>
+                                    <label class="control-label" for="lastName">Last Name :</label>
 
                                     <div class="controls">
-                                        <input name="lastname" id="lastname" value="${user.lastname}" type="text" class="input-medium" required="required"/>
+                                        <input name="lastName" id="lastName" value="${user.lastName}" type="text" class="input-medium" required="required"/>
                                     </div>
                                 </div>
 
@@ -68,8 +68,8 @@
                                     <label class="control-label" for="currentPassword">Current password :</label>
 
                                     <div class="controls">
-                                        <sf:input type="password" id="currentPassword" path="currentpassword" class="input-medium" placeholder="min 6 characters" required="required"/>
-                                        <p class="help-block alert-error"><sf:errors path="currentpassword" cssClass="error"/></p>
+                                        <sf:input type="password" id="currentPassword" path="currentPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <p class="help-block alert-error"><sf:errors path="currentPassword" cssClass="error"/></p>
                                     </div>
                                 </div>
 
@@ -86,8 +86,8 @@
                                     <label class="control-label" for="confirmPassword">Confirm Password :</label>
 
                                     <div class="controls">
-                                        <sf:input type="password" id="confirmPassword" path="confirmpassword" class="input-medium" placeholder="min 6 characters" required="required"/>
-                                        <p class="help-block alert-error"><sf:errors path="confirmpassword" cssClass="error"/></p>
+                                        <sf:input type="password" id="confirmPassword" path="confirmPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <p class="help-block alert-error"><sf:errors path="confirmPassword" cssClass="error"/></p>
                                     </div>
                                 </div>
 
