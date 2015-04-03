@@ -48,7 +48,7 @@ import java.util.ResourceBundle;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
-@WebServlet(name = "UpdateTodoServlet",urlPatterns = {"/todos/update", "/todos/update.do"}) // url should be restful /todos/{todoId}/update
+@WebServlet(name = "UpdateTodoServlet",urlPatterns = {"/todos/update", "/todos/update.do"})
 public class UpdateTodoServlet extends HttpServlet {
 
     private TodoService todoService;

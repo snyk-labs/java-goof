@@ -45,7 +45,7 @@ import java.util.ResourceBundle;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
-@WebServlet(name = "DeleteTodoServlet",urlPatterns = "/todos/delete.do") // URL should be restful /todos/{todoId}/delete
+@WebServlet(name = "DeleteTodoServlet",urlPatterns = "/todos/delete.do")
 public class DeleteTodoServlet extends HttpServlet {
 
     private TodoService todoService;
@@ -68,13 +68,16 @@ public class DeleteTodoServlet extends HttpServlet {
                 todoService.remove(todo);
                 request.getRequestDispatcher("/todos").forward(request, response);
             }  else {
-                request.setAttribute("error", MessageFormat.format(resourceBundle.getString("no.such.todo"), todoId));
-                request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
+                redirectToErrorPage(request, response, String.valueOf(todoId));
             }
         } catch (NumberFormatException e) {
-            request.setAttribute("error", MessageFormat.format(resourceBundle.getString("no.such.todo"), request.getParameter("todoId")));
-            request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
+            redirectToErrorPage(request, response, request.getParameter("todoId"));
         }
-
     }
+
+    private void redirectToErrorPage(HttpServletRequest request, HttpServletResponse response, String todoId) throws ServletException, IOException {
+        request.setAttribute("error", MessageFormat.format(resourceBundle.getString("no.such.todo"), todoId));
+        request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
+    }
+
 }

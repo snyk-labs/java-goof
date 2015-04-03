@@ -84,18 +84,13 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        /**************************/
-        /** Get request parameters*/
-        /**************************/
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        /**************************/
-        /** Validate user input   */
-        /**************************/
+
         RegistrationForm registrationForm = new RegistrationForm();
         registrationForm.setFirstname(firstName);
         registrationForm.setLastname(lastName);
@@ -105,49 +100,26 @@ public class RegisterServlet extends HttpServlet {
 
         String nextPage = "/WEB-INF/views/user/register.jsp";
 
-        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "firstname");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorFirstName", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error",resourceBundle.getString("register.error.global"));
-        }
+        checkFirstName(request, registrationForm);
 
-        constraintViolations = validator.validateProperty(registrationForm, "lastname");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorLastName", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error",resourceBundle.getString("register.error.global"));
-        }
+        checkLastName(request, registrationForm);
 
-        constraintViolations = validator.validateProperty(registrationForm, "email");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorEmail", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error",resourceBundle.getString("register.error.global"));
-        }
+        checkEmail(request, registrationForm);
 
-        constraintViolations = validator.validateProperty(registrationForm, "password");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error",resourceBundle.getString("register.error.global"));
-        }
+        checkPassword(request, registrationForm);
 
-        constraintViolations = validator.validateProperty(registrationForm, "confirmationPassword");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorConfirmPassword", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error",resourceBundle.getString("register.error.global"));
-        }
+        checkConfirmationPassword(request, registrationForm);
 
-        if (!confirmPassword.equals(password)) {
-            request.setAttribute("errorConfirmPasswordMatching", resourceBundle.getString("register.error.password.confirmation.error"));
-            request.setAttribute("error",resourceBundle.getString("register.error.global"));
-        }
+        checkPasswordsMatch(request, password, confirmPassword);
 
-        if (request.getAttribute("error") != null) {
+        if (isInvalid(request)) {
             request.getRequestDispatcher(nextPage).forward(request, response);
-            return;//if invalid input, do not continue to business constraints validation
+            return;
         }
 
         if (userService.getUserByEmail(email) != null ) {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("register.error.global.account"), email));
-            request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
+            request.getRequestDispatcher(nextPage).forward(request, response);
             return;
         }
 
@@ -157,6 +129,66 @@ public class RegisterServlet extends HttpServlet {
         session.setAttribute(TodolistUtils.SESSION_USER, user);
         request.getRequestDispatcher("/todos").forward(request, response);
 
+    }
+
+    private boolean isInvalid(HttpServletRequest request) {
+        return request.getAttribute("error") != null;
+    }
+
+    private void checkPasswordsMatch(HttpServletRequest request, String password, String confirmPassword) {
+        if (!confirmPassword.equals(password)) {
+            request.setAttribute("errorConfirmPasswordMatching", resourceBundle.getString("register.error.password.confirmation.error"));
+            addGlobalRegistrationErrorAttribute(request);
+        }
+    }
+
+    private void checkConfirmationPassword(HttpServletRequest request, RegistrationForm registrationForm) {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
+        constraintViolations = validator.validateProperty(registrationForm, "confirmationPassword");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorConfirmPassword", constraintViolations.iterator().next().getMessage());
+            addGlobalRegistrationErrorAttribute(request);
+        }
+    }
+
+    private void checkPassword(HttpServletRequest request, RegistrationForm registrationForm) {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
+        constraintViolations = validator.validateProperty(registrationForm, "password");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
+            addGlobalRegistrationErrorAttribute(request);
+        }
+    }
+
+    private void checkEmail(HttpServletRequest request, RegistrationForm registrationForm) {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
+        constraintViolations = validator.validateProperty(registrationForm, "email");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorEmail", constraintViolations.iterator().next().getMessage());
+            addGlobalRegistrationErrorAttribute(request);
+        }
+    }
+
+    private void checkLastName(HttpServletRequest request, RegistrationForm registrationForm) {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
+        constraintViolations = validator.validateProperty(registrationForm, "lastName");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorLastName", constraintViolations.iterator().next().getMessage());
+            addGlobalRegistrationErrorAttribute(request);
+        }
+    }
+
+    private void checkFirstName(HttpServletRequest request, RegistrationForm registrationForm) {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
+        constraintViolations = validator.validateProperty(registrationForm, "firstName");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorFirstName", constraintViolations.iterator().next().getMessage());
+            addGlobalRegistrationErrorAttribute(request);
+        }
+    }
+
+    private void addGlobalRegistrationErrorAttribute(HttpServletRequest request) {
+        request.setAttribute("error",resourceBundle.getString("register.error.global"));
     }
 
 }

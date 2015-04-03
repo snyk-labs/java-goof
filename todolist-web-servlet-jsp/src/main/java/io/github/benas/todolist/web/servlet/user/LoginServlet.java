@@ -85,52 +85,57 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        /**************************/
-        /** Get request parameters*/
-        /**************************/
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        /**************************/
-        /** Validate user input   */
-        /**************************/
         LoginForm loginForm = new LoginForm();
         loginForm.setEmail(email);
         loginForm.setPassword(password);
 
         String nextPage = "/WEB-INF/views/user/login.jsp";
 
-        Set<ConstraintViolation<LoginForm>> constraintViolations = validator.validateProperty(loginForm, "email");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorEmail", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error",resourceBundle.getString("login.error.global"));
-        }
+        checkEmail(request, loginForm);
 
-        constraintViolations = validator.validateProperty(loginForm, "password");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error",resourceBundle.getString("login.error.global"));
-        }
+        checkPassword(request, loginForm);
 
-        if (request.getAttribute("error") != null) {
+        if (isInvalid(request)) {
             request.getRequestDispatcher(nextPage).forward(request, response);
-            return;//if invalid input, do not continue to business constraints validation
+            return;
         }
 
         if (!userService.login(email, password)) {
             request.setAttribute("error", resourceBundle.getString("login.error.global.invalid"));
-        }
-
-        /**************************/
-        /** Redirect to home page */
-        /**************************/
-        else {
+        } else {
             HttpSession session = request.getSession(true);//create session
             User user = userService.getUserByEmail(email);
             session.setAttribute(TodolistUtils.SESSION_USER, user);
             nextPage = "/todos";
         }
         request.getRequestDispatcher(nextPage).forward(request, response);
+    }
+
+    private void checkPassword(HttpServletRequest request, LoginForm loginForm) {
+        Set<ConstraintViolation<LoginForm>> constraintViolations = validator.validateProperty(loginForm, "password");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
+            addGlobalLoginErrorAttribute(request);
+        }
+    }
+
+    private void checkEmail(HttpServletRequest request, LoginForm loginForm) {
+        Set<ConstraintViolation<LoginForm>> constraintViolations = validator.validateProperty(loginForm, "email");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorEmail", constraintViolations.iterator().next().getMessage());
+            addGlobalLoginErrorAttribute(request);
+        }
+    }
+
+    private void addGlobalLoginErrorAttribute(HttpServletRequest request) {
+        request.setAttribute("error",resourceBundle.getString("login.error.global"));
+    }
+
+    private boolean isInvalid(HttpServletRequest request) {
+        return request.getAttribute("error") != null;
     }
 
 }

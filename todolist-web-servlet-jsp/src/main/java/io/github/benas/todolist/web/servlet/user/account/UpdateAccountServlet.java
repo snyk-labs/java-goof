@@ -62,8 +62,8 @@ public class UpdateAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
 
         HttpSession session = request.getSession();
@@ -73,14 +73,15 @@ public class UpdateAccountServlet extends HttpServlet {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("account.email.alreadyUsed"), email));
             request.setAttribute("user", user);
             request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
-        } else { // validation ok
-            user.setFirstName(firstname);
-            user.setLastName(lastname);
-            user.setEmail(email);
-            userService.update(user);
-            request.setAttribute("updateProfileSuccessMessage", resourceBundle.getString("account.profile.update.success"));
-            request.getRequestDispatcher("/user/account").forward(request, response);
+            return;
         }
+
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        userService.update(user);
+        request.setAttribute("updateProfileSuccessMessage", resourceBundle.getString("account.profile.update.success"));
+        request.getRequestDispatcher("/user/account").forward(request, response);
 
     }
 

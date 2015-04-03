@@ -66,16 +66,28 @@ public class HomeServlet extends HttpServlet {
         User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
         List<Todo> todoList = todoService.getTodoListByUser(user.getId());
 
-        //todolist is request scoped to avoid storing and synchronizing it in session for each CRUD operation
-        //but one may say it will be loaded on each request ! it is right => may add a cache ;-)
+        //todo list is request scoped to avoid storing and synchronizing it in session for each CRUD operation
         request.setAttribute("todoList", todoList);
+        request.setAttribute("homeTabStyle", "active");
 
-        request.setAttribute("homeTabStyle","active");
-        request.setAttribute("totalCount", todoService.getTodoListByUser(user.getId()).size());
-        request.setAttribute("doneCount", todoService.getTodoListByStatus(user.getId(), Status.DONE).size());
-        request.setAttribute("todoCount", todoService.getTodoListByStatus(user.getId(), Status.TODO).size());
+        int totalCount = todoList.size();
+        int doneCount = getDoneTodoCount(todoList);
+        int todoCount = totalCount - doneCount;
+        request.setAttribute("totalCount", totalCount);
+        request.setAttribute("doneCount", doneCount);
+        request.setAttribute("todoCount", todoCount);
 
         request.getRequestDispatcher("/WEB-INF/views/user/home.jsp").forward(request, response);
+    }
+
+    private int getDoneTodoCount(List<Todo> todoList) {
+        int count = 0;
+        for (Todo todo : todoList) {
+            if (todo.getStatus().equals(Status.DONE)) {
+                count ++;
+            }
+        }
+        return count;
     }
 
     @Override

@@ -73,16 +73,10 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        /**************************/
-        /** Get request parameters*/
-        /**************************/
         String currentPassword = request.getParameter("currentPassword");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        /**************************/
-        /** Validate user input   */
-        /**************************/
         ChangePasswordForm changePasswordForm = new ChangePasswordForm();
         changePasswordForm.setCurrentPassword(currentPassword);
         changePasswordForm.setPassword(newPassword);
@@ -90,26 +84,15 @@ public class ChangePasswordServlet extends HttpServlet {
 
         String nextPage = "/WEB-INF/views/user/account.jsp";
 
-        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations = validator.validateProperty(changePasswordForm, "currentpassword");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorCurrentPassword", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
-        }
-        constraintViolations = validator.validateProperty(changePasswordForm, "password");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
-        }
+        checkCurrentPassword(request, changePasswordForm);
 
-        constraintViolations = validator.validateProperty(changePasswordForm, "confirmpassword");
-        if (constraintViolations.size() > 0) {
-            request.setAttribute("errorConfirmPassword", constraintViolations.iterator().next().getMessage());
-            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
-        }
+        checkNewPassword(request, changePasswordForm);
 
-        if (request.getAttribute("error") != null) {
+        checkConfirmPassword(request, changePasswordForm);
+
+        if (isInvalid(request)) {
             request.getRequestDispatcher(nextPage).forward(request, response);
-            return;//if invalid input, do not continue to business constraints validation
+            return;
         }
 
         HttpSession session = request.getSession();
@@ -117,15 +100,15 @@ public class ChangePasswordServlet extends HttpServlet {
 
         if (!confirmPassword.equals(newPassword)) {
             request.setAttribute("errorConfirmPassword", resourceBundle.getString("account.password.confirmation.error"));
-            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
-            request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
+            addGlobalChangePasswordErrorAttribute(request);
+            request.getRequestDispatcher(nextPage).forward(request, response);
             return;
         }
 
         if (!currentPassword.equals(user.getPassword())){
             request.setAttribute("errorCurrentPassword", resourceBundle.getString("account.password.error"));
-            request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
-            request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
+            addGlobalChangePasswordErrorAttribute(request);
+            request.getRequestDispatcher(nextPage).forward(request, response);
             return;
         }
 
@@ -135,6 +118,41 @@ public class ChangePasswordServlet extends HttpServlet {
         request.setAttribute("updatePasswordSuccessMessage", resourceBundle.getString("account.password.update.success"));
         request.getRequestDispatcher("/user/account").forward(request, response);
 
+    }
+
+    private void checkConfirmPassword(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
+        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations
+                = validator.validateProperty(changePasswordForm, "confirmPassword");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorConfirmPassword", constraintViolations.iterator().next().getMessage());
+            addGlobalChangePasswordErrorAttribute(request);
+        }
+    }
+
+    private void checkNewPassword(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
+        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations
+                = validator.validateProperty(changePasswordForm, "password");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
+            addGlobalChangePasswordErrorAttribute(request);
+        }
+    }
+
+    private void checkCurrentPassword(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
+        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations
+                = validator.validateProperty(changePasswordForm, "currentPassword");
+        if (!constraintViolations.isEmpty()) {
+            request.setAttribute("errorCurrentPassword", constraintViolations.iterator().next().getMessage());
+            addGlobalChangePasswordErrorAttribute(request);
+        }
+    }
+
+    private void addGlobalChangePasswordErrorAttribute(HttpServletRequest request) {
+        request.setAttribute("error", resourceBundle.getString("account.password.error.global"));
+    }
+
+    private boolean isInvalid(HttpServletRequest request) {
+        return request.getAttribute("error") != null;
     }
 
 }
