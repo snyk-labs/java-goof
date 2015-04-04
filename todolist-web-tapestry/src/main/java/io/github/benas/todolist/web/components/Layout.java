@@ -27,6 +27,6 @@ package io.github.benas.todolist.web.components;
 /**
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-public class Layout{
+public class Layout {
 
 }

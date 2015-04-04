@@ -36,8 +36,7 @@ import org.got5.tapestry5.jquery.JQuerySymbolConstants;
 /**
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-public class TodoListModule
-{
+public class TodoListModule {
     public static void contributeFactoryDefaults(MappedConfiguration<String, Object> configuration) {
         configuration.override(SymbolConstants.APPLICATION_VERSION, "1.0-SNAPSHOT");
     }
@@ -49,14 +48,12 @@ public class TodoListModule
         configuration.add(JQuerySymbolConstants.SUPPRESS_PROTOTYPE, "true");
     }
 
-    public static void contributeTypeCoercer(Configuration<CoercionTuple> configuration)
-    {
+    public static void contributeTypeCoercer(Configuration<CoercionTuple> configuration) {
         add(configuration, Status.class);
         add(configuration, Priority.class);
     }
 
-    private static <T extends Enum> void add(Configuration<CoercionTuple> configuration, Class<T> enumType)
-    {
+    private static <T extends Enum> void add(Configuration<CoercionTuple> configuration, Class<T> enumType) {
         configuration.add(CoercionTuple.create(String.class, enumType, StringToEnumCoercion.create(enumType)));
     }
 

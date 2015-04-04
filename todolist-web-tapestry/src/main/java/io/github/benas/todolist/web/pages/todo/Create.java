@@ -24,12 +24,12 @@
 
 package io.github.benas.todolist.web.pages.todo;
 
+import io.github.benas.todolist.web.pages.user.Home;
 import io.github.todolist.core.domain.Priority;
 import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
-import io.github.benas.todolist.web.pages.user.Home;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.OnEvent;
@@ -70,7 +70,7 @@ public class Create {
         dueDate = new Date();
     }
 
-    @OnEvent(value=EventConstants.SUCCESS,component="createTodoForm")
+    @OnEvent(value = EventConstants.SUCCESS, component = "createTodoForm")
     public Object createTodo() {
         Todo todo = new Todo(loggedUser.getId(), title, Status.TODO, priority, dueDate);
         todoService.create(todo);
