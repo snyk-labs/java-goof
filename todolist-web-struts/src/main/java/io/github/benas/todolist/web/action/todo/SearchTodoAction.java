@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Action class to search todo list by title.
  *
- * benas (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class SearchTodoAction extends BaseAction {
 
