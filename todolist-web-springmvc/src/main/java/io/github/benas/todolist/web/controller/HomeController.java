@@ -37,12 +37,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
     @RequestMapping(value = {"/index", "/" })
-    public String redirectToIndex() {
+    public String redirectToIndexPage() {
         return "index";
     }
 
     @RequestMapping("/about")
-    public ModelAndView redirectToAbout() {
+    public ModelAndView redirectToAboutPage() {
         ModelAndView modelAndView = new ModelAndView("about");
         modelAndView.addObject("aboutTabStyle", "active");
         return modelAndView;

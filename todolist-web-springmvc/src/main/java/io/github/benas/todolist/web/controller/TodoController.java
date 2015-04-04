@@ -62,7 +62,7 @@ import java.util.List;
 @Controller
 public class TodoController {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
     private SessionData sessionData;
@@ -86,11 +86,46 @@ public class TodoController {
         binder.registerCustomEditor(ExportFormat.class, new ExportFormatPropertyEditor());
     }
 
-    /*
-    **********************
+    /**********************
+    * Create a new Todo
+    **********************/
+
+    @RequestMapping("/user/todos/new")
+    public String redirectToCreateTodoPage(Model model) {
+        model.addAttribute("today", new SimpleDateFormat(TodolistUtils.DATE_FORMAT).format(new Date()));
+        model.addAttribute("todo", new Todo());
+        return "todo/create";
+    }
+
+    @RequestMapping(value = "/user/todos/new.do", method = RequestMethod.POST)
+    public String doCreateTodo(@ModelAttribute Todo todo) {
+        final User user = sessionData.getUser();
+        todo.setStatus(Status.TODO);
+        todo.setUserId(user.getId());
+        todoService.create(todo);
+        return "redirect:/user/todos";
+    }
+
+    /**********************
+    * Update a Todo
+    **********************/
+
+    @RequestMapping("/user/todos/{todoId}/update")
+    public String redirectToUpdateTodoPage(@PathVariable long todoId, Model model) {
+        Todo todo = todoService.getTodoById(todoId);
+        model.addAttribute(todo);
+        return "todo/update";
+    }
+
+    @RequestMapping(value = "/user/todos/update.do", method = RequestMethod.POST)
+    public String doUpdateTodo(@ModelAttribute Todo todo) {
+        todoService.update(todo);
+        return "redirect:/user/todos";
+    }
+
+    /**********************
     * Delete Todo
-    **********************
-    */
+    **********************/
 
     @RequestMapping(value = "/user/todos/{todoId}/delete", method = RequestMethod.POST)
     public ModelAndView deleteTodo(@PathVariable long todoId) {
@@ -106,11 +141,9 @@ public class TodoController {
         return modelAndView;
     }
 
-    /*
-    **********************
+    /**********************
     * Search Todo
-    **********************
-    */
+    **********************/
 
     @RequestMapping(value = "/user/todos/search", method = RequestMethod.GET)
     public String searchTodoList(@RequestParam String title, Model model) {
@@ -120,52 +153,10 @@ public class TodoController {
         return "todo/search";
     }
 
-    /*
-    **********************
-    * Create a new Todo
-    **********************
-    */
 
-    @RequestMapping("/user/todos/new")
-    public String redirectToCreateTodoPage(Model model) {
-        model.addAttribute("today", new SimpleDateFormat(TodolistUtils.DATE_FORMAT).format(new Date()));
-        model.addAttribute("todo", new Todo());
-        return "todo/create";
-    }
-
-    @RequestMapping(value = "/user/todos/new.do", method = RequestMethod.POST)
-    public String createNewTodo(@ModelAttribute Todo todo) {
-        final User user = sessionData.getUser();
-        todo.setStatus(Status.TODO);
-        todo.setUserId(user.getId());
-        todoService.create(todo);
-        return "redirect:/user/todos";
-    }
-
-    /*
-    **********************
-    * Update a Todo
-    **********************
-    */
-
-    @RequestMapping("/user/todos/{todoId}/update")
-    public String redirectToUpdateTodoPage(@PathVariable long todoId, Model model) {
-        Todo todo = todoService.getTodoById(todoId);
-        model.addAttribute(todo);
-        return "todo/update";
-    }
-
-    @RequestMapping(value = "/user/todos/update.do", method = RequestMethod.POST)
-    public String updateTodo(@ModelAttribute Todo todo) {
-        todoService.update(todo);
-        return "redirect:/user/todos";
-    }
-
-    /*
-    **********************
+    /**********************
     * Export Todo list
-    **********************
-    */
+    **********************/
 
     @RequestMapping("/user/todos/export")
     public String redirectToExportTodoListPage() {
@@ -173,29 +164,54 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/user/todos/export.do", method = RequestMethod.POST)
-    public void exportTodoList(@RequestParam String filename, @RequestParam Status statusFilter, @RequestParam Priority priorityFilter, @RequestParam ExportFormat format, HttpServletResponse response) {
+    public void exportTodoList(@RequestParam String filename, @RequestParam Status statusFilter,
+                               @RequestParam Priority priorityFilter, @RequestParam ExportFormat format, HttpServletResponse response) {
 
         List<Todo> todoList = todoService.getTodoListByStatusAndPriority(sessionData.getUser().getId(), statusFilter, priorityFilter);
 
         byte[] bytes = exportService.exportTodoList(todoList, format);
 
-        ServletOutputStream servletOutputStream;
+        renderExportedTodoList(filename, format, response, bytes);
+
+    }
+
+    private void renderExportedTodoList(String filename, ExportFormat format, HttpServletResponse response, byte[] bytes) {
+        ServletOutputStream servletOutputStream = null;
         try {
             servletOutputStream = response.getOutputStream();
             String contentType = "text";
             if (format.equals(ExportFormat.PDF)) {
                 contentType = "application";
             }
-            response.setContentType(contentType + "/" + format.toString().toLowerCase());
+            response.setContentType(getContentType(format, contentType));
             response.setContentLength(bytes.length);
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "." + format.toString().toLowerCase() + "\"");
+            response.setHeader("Content-Disposition", getContentDisposition(filename, format));
             servletOutputStream.write(bytes, 0, bytes.length);
-            servletOutputStream.flush();
-            servletOutputStream.close();
-        } catch (IOException e) {
-            logger.error("error while exporting todo list");
-            //TODO should show an error message to the user if exception
-        }
 
+        } catch (IOException e) {
+            LOGGER.error("error while exporting todo list");
+            //TODO show an error message to the user
+        } finally {
+            closeServletOutputStream(servletOutputStream);
+        }
+    }
+
+    private String getContentDisposition(String filename, ExportFormat format) {
+        return "attachment; filename=\"" + filename + "." + format.toString().toLowerCase() + "\"";
+    }
+
+    private String getContentType(ExportFormat format, String contentType) {
+        return contentType + "/" + format.toString().toLowerCase();
+    }
+
+    private void closeServletOutputStream(ServletOutputStream servletOutputStream) {
+        if (servletOutputStream != null) {
+            try {
+                servletOutputStream.flush();
+                servletOutputStream.close();
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to close servletOutputStream", e);
+            }
+        }
     }
 }

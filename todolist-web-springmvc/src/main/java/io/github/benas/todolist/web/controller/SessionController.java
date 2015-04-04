@@ -24,6 +24,7 @@
 
 package io.github.benas.todolist.web.controller;
 
+import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.UserService;
 import io.github.benas.todolist.web.common.form.LoginForm;
 import io.github.benas.todolist.web.util.SessionData;
@@ -56,14 +57,12 @@ public class SessionController {
     @Autowired
     private SessionData sessionData;
 
-    /*
-    **********************
+    /**********************
     * Login methods
-    **********************
-    */
+    **********************/
 
     @RequestMapping("/login")
-    public ModelAndView redirectToLogin() {
+    public ModelAndView redirectToLoginPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("loginTabStyle", "active");
         modelAndView.addObject("loginForm", new LoginForm());
@@ -75,29 +74,34 @@ public class SessionController {
     public ModelAndView doLogin(@Valid LoginForm loginForm, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
 
+        final String view = "user/login";
+
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("error", messageProvider.getMessage("login.error.global", null, sessionData.getLocale()));
-            modelAndView.setViewName("user/login");
+            modelAndView.setViewName(view);
             return modelAndView;
         }
 
-        if (!userService.login(loginForm.getEmail(), loginForm.getPassword())) {
+        if (invalidCredentials(loginForm)) {
             modelAndView.addObject("error", messageProvider.getMessage("login.error.global.invalid", null, sessionData.getLocale()));
-            modelAndView.setViewName("user/login");
+            modelAndView.setViewName(view);
             return modelAndView;
         }
 
-        sessionData.setUser(userService.getUserByEmail(loginForm.getEmail()));
+        User user = userService.getUserByEmail(loginForm.getEmail());
+        sessionData.setUser(user);
         sessionData.setLocale(Locale.ENGLISH);
         modelAndView.setViewName("redirect:/user/todos");
         return modelAndView;
     }
 
-    /*
-    **********************
-    * Logout methods
-    **********************
-    */
+    private boolean invalidCredentials(LoginForm loginForm) {
+        return !userService.login(loginForm.getEmail(), loginForm.getPassword());
+    }
+
+    /**********************
+    * Logout method
+    **********************/
 
     @RequestMapping("/user/logout")
     public String logout(HttpSession session) {

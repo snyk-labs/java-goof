@@ -67,13 +67,12 @@ public class UserController {
     @Autowired
     private SessionData sessionData;
 
-    /*
-    **********************
+    /**********************
     * Registration Process
-    **********************
-    */
+    **********************/
+
     @RequestMapping("/register")
-    public ModelAndView redirectToRegister() {
+    public ModelAndView redirectToRegistrationPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("registerTabStyle", "active");
         modelAndView.addObject("registrationForm", new RegistrationForm());
@@ -82,21 +81,23 @@ public class UserController {
     }
 
     @RequestMapping(value = "/register.do" , method = RequestMethod.POST)
-    public String register(@Valid RegistrationForm registrationForm, BindingResult bindingResult, Model model) {
+    public String doRegister(@Valid RegistrationForm registrationForm, BindingResult bindingResult, Model model) {
+
+        final String view = "user/register";
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", messageProvider.getMessage("register.error.global", null, sessionData.getLocale()));
-            return "user/register";
+            return view;
         }
 
-        if (!registrationForm.getPassword().equals(registrationForm.getConfirmationPassword())) {
+        if (newPasswordDoesNotMatchConfirmationPassword(registrationForm.getPassword(), registrationForm.getConfirmationPassword())) {
             model.addAttribute("error", messageProvider.getMessage("register.error.password.confirmation.error", null, sessionData.getLocale()));
-            return "user/register";
+            return view;
         }
 
-        if (userService.getUserByEmail(registrationForm.getEmail()) != null) {
+        if (emailIsAlreadyUsed(registrationForm.getEmail())) {
             model.addAttribute("error", messageProvider.getMessage("register.error.global.account", new Object[]{registrationForm.getEmail()}, sessionData.getLocale()));
-            return "user/register";
+            return view;
         }
 
         User user = new User();
@@ -112,33 +113,40 @@ public class UserController {
         return "redirect:/user/todos";
     }
 
-    /*
-    **********************
+    private boolean newPasswordDoesNotMatchConfirmationPassword(String newPassword, String confirmationPassword) {
+        return !newPassword.equals(confirmationPassword);
+    }
+
+    private boolean emailIsAlreadyUsed(String email) {
+        return userService.getUserByEmail(email) != null;
+    }
+
+    /**********************
     * Home page
-    **********************
-    */
+    **********************/
 
     @RequestMapping("/user/todos")
-    public ModelAndView loadTodo() {
+    public ModelAndView loadTodoList() {
 
         ModelAndView modelAndView = new ModelAndView();
-        // user login ensured by login filter/interceptor
+        // user login is ensured by the login filter/interceptor
         List<Todo> todoList = todoService.getTodoListByUser(sessionData.getUser().getId());
         modelAndView.addObject("todoList", todoList);
-        modelAndView.addObject("todoCount", todoService.getTodoListByStatus(sessionData.getUser().getId(), Status.TODO).size());
-        modelAndView.addObject("doneCount", todoService.getTodoListByStatus(sessionData.getUser().getId(), Status.DONE).size());
-        modelAndView.addObject("totalCount", (todoService.getTodoListByUser(sessionData.getUser().getId()).size()));
+        int totalCount = todoList.size();
+        int doneCount = todoService.getTodoListByStatus(sessionData.getUser().getId(), Status.DONE).size();
+        int todoCount = totalCount - doneCount;
+        modelAndView.addObject("totalCount", totalCount);
+        modelAndView.addObject("doneCount", doneCount);
+        modelAndView.addObject("todoCount", todoCount);
         modelAndView.addObject("homeTabStyle", "active");
         modelAndView.setViewName("user/home");
         return modelAndView;
 
     }
 
-    /*
-    **********************
+    /**********************
     * Account details page
-    **********************
-    */
+    **********************/
 
     @RequestMapping("/user/account")
     public ModelAndView redirectToAccountPage() {
@@ -149,11 +157,9 @@ public class UserController {
         return modelAndView;
     }
 
-    /*
-    **********************
+    /**********************
     * Delete Account
-    **********************
-    */
+    **********************/
 
     @RequestMapping(value = "/user/account/delete.do", method = RequestMethod.POST)
     public String deleteAccount(HttpSession session) {
@@ -163,52 +169,55 @@ public class UserController {
         return "index";
     }
 
-    /*
-    **********************
+    /**********************
     * Change password
-    **********************
-    */
+    **********************/
 
     @RequestMapping(value = "/user/account/password.do", method = RequestMethod.POST)
     public String changePassword(@Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult, Model model) {
         User user = sessionData.getUser();
+        String view = "user/account";
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
-            return "user/account";
+            return view;
         }
-        if (!changePasswordForm.getPassword().equals(changePasswordForm.getConfirmPassword())) {
+        if (newPasswordDoesNotMatchConfirmationPassword(changePasswordForm.getPassword(), changePasswordForm.getConfirmPassword())) {
             model.addAttribute("error", messageProvider.getMessage("account.password.confirmation.error", null, sessionData.getLocale()));
             model.addAttribute("user", user);
-            return "user/account";
+            return view;
         }
-        if (!user.getPassword().equals(changePasswordForm.getCurrentPassword())) {
+        if (currentPasswordIsIncorrect(changePasswordForm, user)) {
             model.addAttribute("error", messageProvider.getMessage("account.password.error", null, sessionData.getLocale()));
             model.addAttribute("user", user);
-            return "user/account";
-        } else { // validation ok
-            user.setPassword(changePasswordForm.getPassword());
-            userService.update(user);
-            model.addAttribute("updatePasswordSuccessMessage", messageProvider.getMessage("account.password.update.success", null, sessionData.getLocale()));
-            model.addAttribute("user", user);
-            return "user/account";
+            return view;
         }
+
+        user.setPassword(changePasswordForm.getPassword());
+        userService.update(user);
+        model.addAttribute("updatePasswordSuccessMessage", messageProvider.getMessage("account.password.update.success", null, sessionData.getLocale()));
+        model.addAttribute("user", user);
+        return view;
+
     }
 
-    /*
-    *****************************
+    private boolean currentPasswordIsIncorrect(ChangePasswordForm changePasswordForm, User user) {
+        return !user.getPassword().equals(changePasswordForm.getCurrentPassword());
+    }
+
+    /*****************************
     * Update personal information
-    *****************************
-    */
+    *****************************/
 
     @RequestMapping(value = "/user/account/update.do", method = RequestMethod.POST)
-    public String updatePersonalInformation(@RequestParam String firstname, @RequestParam String lastname, @RequestParam String email, Model model) {
+    public String updatePersonalInformation(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, Model model) {
         User user = sessionData.getUser();
 
-        if (userService.getUserByEmail(email) != null && !email.equals(user.getEmail())) {
+        if (emailIsAlreadyUsed(email)) {
             model.addAttribute("error", messageProvider.getMessage("account.email.alreadyUsed", new Object[]{email}, sessionData.getLocale()));
-        } else { // validation ok
-            user.setFirstName(firstname);
-            user.setLastName(lastname);
+        } else {
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
             user.setEmail(email);
             userService.update(user);
             model.addAttribute("updateProfileSuccessMessage", messageProvider.getMessage("account.profile.update.success", null, sessionData.getLocale()));
