@@ -24,12 +24,12 @@
 
 package io.github.benas.todolist.web.pages.todo;
 
+import io.github.benas.todolist.web.pages.user.Home;
 import io.github.todolist.core.domain.Priority;
 import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
-import io.github.benas.todolist.web.pages.user.Home;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
@@ -52,9 +52,6 @@ public class Update {
 
     @Inject
     private Messages messages;
-
-    @Property
-    private long id;
 
     @Property
     private String title;
@@ -85,18 +82,11 @@ public class Update {
     @OnEvent(value = EventConstants.ACTIVATE)
     public Object init(long todoId) {
         todo = todoService.getTodoById(todoId);
-        //TODO should use beanEditForm component, but must override all styles
-        if (todo != null) {
-            id = todo.getId();
-            title = todo.getTitle();
-            dueDate = todo.getDueDate();
-            status = todo.getStatus();
-            priority = todo.getPriority();
-            return null;
-        } else {
+        if (todo == null) {
             errorPage.setError(messages.format("no.such.todo", todoId));
             return errorPage;
         }
+        return null;
     }
 
     @OnEvent(value = EventConstants.SUCCESS, component = "updateTodoForm")

@@ -24,7 +24,7 @@
 
 package io.github.benas.todolist.web.pages.user;
 
-import io.github.todolist.core.domain.Priority;
+import io.github.benas.todolist.web.common.util.TodolistUtils;
 import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
@@ -37,6 +37,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+
+import static io.github.benas.todolist.web.common.util.TodolistUtils.DATE_FORMAT;
 
 /**
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
@@ -71,35 +73,27 @@ public class Home {
         todoList = todoService.getTodoListByUser(loggedUserId);
         totalCount = todoList.size();
         doneCount = todoService.getTodoListByStatus(loggedUserId, Status.DONE).size();
-        todoCount = todoService.getTodoListByStatus(loggedUserId, Status.TODO).size();
+        todoCount = totalCount - todoCount;
     }
 
-    @OnEvent(value=EventConstants.ACTION, component="deleteTodoLink")
-    public void deleteTodo(long todoId){
+    @OnEvent(value = EventConstants.ACTION, component = "deleteTodoLink")
+    public void deleteTodo(long todoId) {
         Todo todo = todoService.getTodoById(todoId);
-        if (todo != null){
+        if (todo != null) {
             todoService.remove(todo);
         }
     }
 
     public String getCurrentStatusLabel() {
-        return currentTodo.getStatus().equals(Status.DONE) ? "label-success" : "";
+        return TodolistUtils.getStatusLabel(currentTodo.getStatus());
     }
 
     public String getCurrentPriorityIcon() {
-        String priorityIcon = "";
-        if (currentTodo.getPriority().equals(Priority.HIGH)) {
-            priorityIcon = "up";
-        } else if (currentTodo.getPriority().equals(Priority.MEDIUM)) {
-            priorityIcon = "right";
-        } else if (currentTodo.getPriority().equals(Priority.LOW)) {
-            priorityIcon = "down";
-        }
-        return priorityIcon;
+        return TodolistUtils.getPriorityIcon(currentTodo.getPriority());
     }
 
     public String getCurrentDueDate() {
-        return new SimpleDateFormat("dd/MM/yyyy").format(currentTodo.getDueDate());
+        return new SimpleDateFormat(DATE_FORMAT).format(currentTodo.getDueDate());
     }
 
 }

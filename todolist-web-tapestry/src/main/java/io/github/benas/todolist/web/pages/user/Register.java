@@ -46,45 +46,46 @@ public class Register {
 
     @Inject
     private UserService userService;
-    
+
     @Inject
     private Messages messages;
 
-	@Property
-	private String firstname;
-	
-	@Property
-	private String lastname;
-	
-	@Property
-	private String email;
-	
-	@Property
-	private String password;
-	
-	@Property
-	private String confirmationPassword;
+    @Property
+    private String firstName;
+
+    @Property
+    private String lastName;
+
+    @Property
+    private String email;
+
+    @Property
+    private String password;
+
+    @Property
+    private String confirmationPassword;
 
     @Property
     private String error;
 
     @Property
-	@InjectComponent
-	private Form registerForm;
-	
-	@OnEvent(value=EventConstants.VALIDATE,component="registerForm")
-	public void validateForm() {
+    @InjectComponent
+    private Form registerForm;
+
+    @OnEvent(value = EventConstants.VALIDATE, component = "registerForm")
+    public void validateForm() {
         User user = userService.getUserByEmail(email);
-        if (user != null)
+        if (user != null) {
             registerForm.recordError(messages.format("register.error.global.account", email));
+        }
         if (!password.equals(confirmationPassword)) {
             registerForm.recordError(messages.get("register.error.password.confirmation.error"));
         }
     }
-	
-	@OnEvent(value=EventConstants.SUCCESS,component="registerForm")
-	public Object onRegisterSuccess() {
-        User user = new User(firstname, lastname, email, password);
+
+    @OnEvent(value = EventConstants.SUCCESS, component = "registerForm")
+    public Object onRegisterSuccess() {
+        User user = new User(firstName, lastName, email, password);
         userService.create(user);
         loggedUser = userService.getUserByEmail(email);
         return Home.class;

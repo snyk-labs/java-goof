@@ -24,6 +24,7 @@
 
 package io.github.benas.todolist.web.pages.todo;
 
+import io.github.benas.todolist.web.data.TodoStreamResponse;
 import io.github.todolist.core.domain.Priority;
 import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
@@ -31,10 +32,12 @@ import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.ExportService;
 import io.github.todolist.core.service.api.TodoService;
 import io.github.todolist.core.util.ExportFormat;
-import io.github.benas.todolist.web.data.TodoStreamResponse;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.StreamResponse;
-import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.OnEvent;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -57,7 +60,7 @@ public class Export {
     private ExportService exportService;
 
     @Property
-    private String filename;
+    private String fileName;
 
     @Property
     private Status statusFilter;
@@ -76,7 +79,7 @@ public class Export {
     public StreamResponse exportTodoList() {
         List<Todo> todoList = todoService.getTodoListByStatusAndPriority(loggedUser.getId(), statusFilter, priorityFilter);
         byte[] bytes = exportService.exportTodoList(todoList, format);
-        return new TodoStreamResponse(new ByteArrayInputStream(bytes), format, filename);
+        return new TodoStreamResponse(new ByteArrayInputStream(bytes), format, fileName);
     }
 
 }

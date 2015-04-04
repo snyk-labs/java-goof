@@ -24,8 +24,7 @@
 
 package io.github.benas.todolist.web.pages.todo;
 
-import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
+import io.github.benas.todolist.web.common.util.TodolistUtils;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
@@ -38,8 +37,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import static io.github.benas.todolist.web.common.util.TodolistUtils.DATE_FORMAT;
 
 /**
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
@@ -76,23 +75,15 @@ public class Search {
     }
 
     public String getCurrentStatusLabel() {
-        return currentTodo.getStatus().equals(Status.DONE) ? "label-success" : "";
+        return TodolistUtils.getStatusLabel(currentTodo.getStatus());
     }
 
     public String getCurrentPriorityIcon() {
-        String priorityIcon = "";
-        if (currentTodo.getPriority().equals(Priority.HIGH)) {
-            priorityIcon = "up";
-        } else if (currentTodo.getPriority().equals(Priority.MEDIUM)) {
-            priorityIcon = "right";
-        } else if (currentTodo.getPriority().equals(Priority.LOW)) {
-            priorityIcon = "down";
-        }
-        return priorityIcon;
+        return TodolistUtils.getPriorityIcon(currentTodo.getPriority());
     }
 
     public String getCurrentDueDate() {
-        return new SimpleDateFormat("dd/MM/yyyy").format(currentTodo.getDueDate());
+        return new SimpleDateFormat(DATE_FORMAT).format(currentTodo.getDueDate());
     }
 
     public String getQuery() {
@@ -104,29 +95,7 @@ public class Search {
     }
 
     public String getCurrentHighlightedTitle() {
-        return doHighlight(currentTodo.getTitle(), query);
+        return TodolistUtils.highlight(currentTodo.getTitle(), query);
     }
 
-    /**
-     * Apply a search/replace of the pattern in the input text.
-     * @param input text to which apply the style for each pattern matched
-     * @param pattern the pattern to highlight
-     * @return the transformed text
-     */
-    private String doHighlight(final String input, final String pattern) {
-
-        String cssClass = "label label-warning";
-        String startSpanTag = "<span class=\"" + cssClass + "\">";
-        String endSpanTag = "</span>";
-
-        StringBuilder stringBuilder = new StringBuilder(startSpanTag);
-        stringBuilder.append(pattern);
-        stringBuilder.append(endSpanTag);
-
-        Pattern p = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = p.matcher(input);
-
-        return matcher.replaceAll(stringBuilder.toString());
-
-    }
 }

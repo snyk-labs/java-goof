@@ -36,13 +36,13 @@ import java.io.InputStream;
  */
 public class TodoStreamResponse implements StreamResponse {
 
-    private InputStream is;
-    private String filename = "myTodoList";
+    private InputStream inputStream;
+    private String fileName = "myTodoList";
     private String fileExtension = "json";
     private String contentType = "text/json";
 
-    public TodoStreamResponse(InputStream is, ExportFormat exportFormat, String... args) {
-        this.is = is;
+    public TodoStreamResponse(InputStream inputStream, ExportFormat exportFormat, String fileName) {
+        this.inputStream = inputStream;
         if (exportFormat.equals(ExportFormat.PDF)) {
             contentType = "application/pdf";
             fileExtension = "pdf";
@@ -50,8 +50,8 @@ public class TodoStreamResponse implements StreamResponse {
             contentType = "text/xml";
             fileExtension = "xml";
         }
-        if (args != null) {
-            this.filename = args[0];
+        if (fileName != null) {
+            this.fileName = fileName;
         }
     }
 
@@ -60,10 +60,10 @@ public class TodoStreamResponse implements StreamResponse {
     }
 
     public InputStream getStream() throws IOException {
-        return is;
+        return inputStream;
     }
 
     public void prepareResponse(Response response) {
-        response.setHeader("Content-Disposition", "attachment; filename=" + filename + "." + fileExtension);
+        response.setHeader("Content-Disposition", "attachment; filename=" + fileName + "." + fileExtension);
     }
 }

@@ -24,10 +24,10 @@
 
 package io.github.benas.todolist.web.pages.user;
 
+import io.github.benas.todolist.web.pages.Index;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
 import io.github.todolist.core.service.api.UserService;
-import io.github.benas.todolist.web.pages.Index;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.*;
@@ -39,6 +39,7 @@ import org.apache.tapestry5.services.Request;
 /**
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
+@SuppressWarnings("unused")
 public class Account {
 
     @Inject
@@ -101,11 +102,23 @@ public class Account {
         email = loggedUser.getEmail();
     }
 
+    /*
+     * Update account
+     */
+
     @OnEvent(value = EventConstants.VALIDATE, component = "updateAccountForm")
     public void validateUpdateAccountForm() {
-        if (userService.getUserByEmail(email) != null && !email.equals(loggedUser.getEmail())) {
+        if (isAlreadyUsed(email) && isDifferent(email)) {
             updateAccountForm.recordError(messages.format("account.email.alreadyUsed", email));
         }
+    }
+
+    private boolean isDifferent(String email) {
+        return !email.equals(loggedUser.getEmail());
+    }
+
+    private boolean isAlreadyUsed(String email) {
+        return userService.getUserByEmail(email) != null;
     }
 
     @OnEvent(value = EventConstants.SUCCESS, component = "updateAccountForm")
@@ -118,14 +131,22 @@ public class Account {
         return null;
     }
 
+    /*
+     * Change password
+     */
+
     @OnEvent(value = EventConstants.VALIDATE, component = "changePasswordForm")
     public void validateChangePasswordForm() {
-        if (!currentPassword.equals(loggedUser.getPassword())) {
+        if (isIncorrect(currentPassword)) {
             changePasswordForm.recordError(messages.get("account.password.error"));
         } else {
             if (!newPassword.equals(confirmPassword))
                 changePasswordForm.recordError(messages.get("account.password.confirmation.error"));
         }
+    }
+
+    private boolean isIncorrect(String password) {
+        return !password.equals(loggedUser.getPassword());
     }
 
     @OnEvent(value = EventConstants.SUCCESS, component = "changePasswordForm")
@@ -136,8 +157,12 @@ public class Account {
         return null;
     }
 
-    @OnEvent(value= EventConstants.ACTION,component="deleteAccountLink")
-    public Object deleteAccount(){
+    /*
+     * Change password
+     */
+
+    @OnEvent(value = EventConstants.ACTION, component = "deleteAccountLink")
+    public Object deleteAccount() {
         userService.remove(loggedUser);
         request.getSession(false).invalidate();
         loggedUser = null;
