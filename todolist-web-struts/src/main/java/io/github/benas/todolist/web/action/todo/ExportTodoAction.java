@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * Action class to export todo list.
  *
- * benas (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class ExportTodoAction extends BaseAction {
 
@@ -87,7 +87,7 @@ public class ExportTodoAction extends BaseAction {
     }
 
     public String getFileName() {
-        return exportForm.getFileName();
+        return exportForm.getFileName() + "." + exportForm.getExportFormat().toString().toLowerCase();
     }
 
     public String getContentType() {
