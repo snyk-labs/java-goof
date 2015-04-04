@@ -24,18 +24,18 @@
                                 <legend>Update my profile <p class="alert-success">${requestScope.updateProfileSuccessMessage}</p></legend>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="firstname">First Name :</label>
+                                    <label class="control-label" for="firstName">First Name :</label>
 
                                     <div class="controls">
-                                        <s:textfield name="user.firstname" id="firstname" cssClass="input-medium" required="required"/>
+                                        <s:textfield name="user.firstName" id="firstName" cssClass="input-medium" required="required"/>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="lastname">Last Name :</label>
+                                    <label class="control-label" for="lastName">Last Name :</label>
 
                                     <div class="controls">
-                                        <s:textfield name="user.lastname" id="lastname" cssClass="input-medium" required="required"/>
+                                        <s:textfield name="user.lastName" id="lastName" cssClass="input-medium" required="required"/>
                                     </div>
                                 </div>
 
@@ -65,10 +65,10 @@
                                 <legend>Update my Password <p class="alert-success">${requestScope.updatePasswordSuccessMessage}</p></legend>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="currentpassword">Current password :</label>
+                                    <label class="control-label" for="currentPassword">Current password :</label>
 
                                     <div class="controls">
-                                        <s:password id="currentpassword" name="changePasswordForm.currentpassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <s:password id="currentPassword" name="changePasswordForm.currentPassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
                                         <p class="help-block alert-error"><c:out value="${requestScope.errorCurrentPassword}"/></p>
                                     </div>
                                 </div>
@@ -83,10 +83,10 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="confirmpassword">Confirm Password :</label>
+                                    <label class="control-label" for="confirmPassword">Confirm Password :</label>
 
                                     <div class="controls">
-                                        <s:password id="confirmpassword" name="changePasswordForm.confirmpassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <s:password id="confirmPassword" name="changePasswordForm.confirmPassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
                                         <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmationPassword}"/></p>
                                     </div>
                                 </div>
