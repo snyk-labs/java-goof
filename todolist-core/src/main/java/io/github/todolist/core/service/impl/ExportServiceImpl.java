@@ -65,6 +65,7 @@ public class ExportServiceImpl implements ExportService {
 
         byte[] result = new byte[]{};
 
+        // TODO replace with switch
         if (exportFormat.equals(ExportFormat.XML)) {
             result = getTodolistAsXml(todoList);
         }

@@ -22,52 +22,43 @@
  *   THE SOFTWARE.
  */
 
-package io.github.benas.todolist.web.action.user;
+package io.github.benas.todolist.web.common.tags;
 
-import com.opensymphony.xwork2.Action;
-import io.github.todolist.core.domain.Todo;
-import io.github.todolist.core.domain.User;
-import io.github.benas.todolist.web.action.BaseAction;
+import io.github.benas.todolist.web.common.util.TodolistUtils;
 
-import java.util.List;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
+import java.io.IOException;
 
 /**
- * Action class to load user's todo list in home page.
+ * Utility tag to transcode todo status to css style value.
  *
- * benas (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-public class HomeAction extends BaseAction {
 
-    List<Todo> todoList;
+public class StatusStyleTag extends SimpleTagSupport {
 
-    public String execute() {
-        User user = getSessionUser();
-        todoList = todoService.getTodoListByUser(user.getId());
-        return Action.SUCCESS;
+    /**
+     * The todo status.
+     */
+    private boolean status;
+
+    @Override
+    public void doTag() throws JspException, IOException {
+
+        JspWriter out = getJspContext().getOut();
+        String statusStyle = TodolistUtils.getStatusStyle(status);
+        out.print(statusStyle);
+
     }
 
     /*
-     * Getters for model attributes
+     * setters for tag attributes
      */
 
-    public List<Todo> getTodoList() {
-        return todoList;
-    }
-
-    public String getHomeTabStyle() {
-        return "active";
-    }
-
-    public int getTotalCount() {
-        return todoService.getTodoListByUser(getSessionUser().getId()).size();
-    }
-
-    public int getDoneCount() {
-        return todoService.getTodoListByStatus(getSessionUser().getId(), true).size();
-    }
-
-    public int getTodoCount() {
-        return todoService.getTodoListByStatus(getSessionUser().getId(), false).size();
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
 }

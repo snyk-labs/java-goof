@@ -37,10 +37,10 @@ import java.util.Date;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "findTodosByUser", query = "SELECT t FROM Todo t where t.userId = ?1 order by t.dueDate"),
-        @NamedQuery(name = "findTodosByStatus", query = "SELECT t FROM Todo t where t.userId = ?1 and t.status = ?2 order by t.dueDate"),
-        @NamedQuery(name = "findTodosByPriority", query = "SELECT t FROM Todo t where t.userId = ?1 and t.priority = ?2 order by t.dueDate"),
         @NamedQuery(name = "findTodosByTitle", query = "SELECT t FROM Todo t where t.userId = ?1 and upper(t.title) like ?2 order by t.dueDate"),
-        @NamedQuery(name = "findTodosByStatusAndPriority", query = "SELECT t FROM Todo t where t.userId = ?1 and t.status = ?2 and t.priority = ?3 order by t.dueDate")
+        @NamedQuery(name = "findTodosByPriority", query = "SELECT t FROM Todo t where t.userId = ?1 and t.priority = ?2 order by t.dueDate"),
+        @NamedQuery(name = "findTodosByStatus", query = "SELECT t FROM Todo t where t.userId = ?1 and t.done = ?2 order by t.dueDate"),
+        @NamedQuery(name = "findTodosByStatusAndPriority", query = "SELECT t FROM Todo t where t.userId = ?1 and t.done = ?2 and t.priority = ?3 order by t.dueDate")
 })
 public class Todo implements Serializable {
 
@@ -53,9 +53,7 @@ public class Todo implements Serializable {
     @Column(length = 512)
     private String title;
 
-    //TODO change to boolean done (KISS!)
-    @Enumerated(value = EnumType.ORDINAL)
-    private Status status;
+    private boolean done;
 
     @Enumerated(value = EnumType.ORDINAL)
     private Priority priority;
@@ -64,14 +62,13 @@ public class Todo implements Serializable {
     private Date dueDate;
 
     public Todo() {
-        status = Status.TODO;
         priority = Priority.LOW;
     }
 
-    public Todo(long userId, String title, Status status, Priority priority, Date dueDate) {
+    public Todo(long userId, String title, boolean done, Priority priority, Date dueDate) {
         this.userId = userId;
         this.title = title;
-        this.status = status;
+        this.done = done;
         this.priority = priority;
         this.dueDate = dueDate;
     }
@@ -101,12 +98,12 @@ public class Todo implements Serializable {
         this.title = title;
     }
 
-    public Status getStatus() {
-        return status;
+    public boolean isDone() {
+        return done;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public Priority getPriority() {
@@ -131,7 +128,7 @@ public class Todo implements Serializable {
         sb.append("id=").append(id);
         sb.append(", userId=").append(userId);
         sb.append(", title='").append(title).append('\'');
-        sb.append(", status=").append(status);
+        sb.append(", done=").append(done);
         sb.append(", priority=").append(priority);
         sb.append(", dueDate=").append(dueDate);
         sb.append('}');

@@ -35,7 +35,7 @@
                             <td>${currentTodo.title}</td>
                             <td><fmt:formatDate value="${currentTodo.dueDate}" pattern="dd/MM/yyyy"/></td>
                             <td><i class="icon-circle-arrow-<tl:priorityIcon priority="${currentTodo.priority}"/>"></i> ${currentTodo.priority}</td>
-                            <td><span class="label <tl:statusLabel status="${currentTodo.status}"/> "> ${currentTodo.status}</span></td>
+                            <td><span class="label <tl:statusStyle status="${currentTodo.done}"/> "> <tl:statusLabel status="${currentTodo.done}"/></span></td>
                             <td>
                                 <a class="btn btn-mini btn-primary" href="/user/todos/${currentTodo.id}/update"><i class="icon-edit icon-white"></i> Edit</a>
                                 <a class="btn btn-mini btn-danger" data-toggle="modal" href="#confirm_delete_${currentTodo.id}"><i class="icon-remove icon-white"></i> Delete</a>

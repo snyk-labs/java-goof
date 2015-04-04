@@ -44,8 +44,8 @@
                             <label class="control-label" for="status">Status:</label>
                             <div class="controls">
                                 <select id="status" name="status">
-                                  <option value="TODO">Todo</option>
-                                  <option value="DONE">Done</option>
+                                  <option value="false">Todo</option>
+                                  <option value="true">Done</option>
                               </select>
                             </div>
                         </div>

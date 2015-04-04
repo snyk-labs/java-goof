@@ -25,7 +25,6 @@
 package io.github.benas.todolist.web.servlet.todo;
 
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.service.api.TodoService;
 import org.springframework.context.ApplicationContext;
@@ -48,7 +47,7 @@ import java.util.ResourceBundle;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
-@WebServlet(name = "UpdateTodoServlet",urlPatterns = {"/todos/update", "/todos/update.do"})
+@WebServlet(name = "UpdateTodoServlet", urlPatterns = {"/todos/update", "/todos/update.do"})
 public class UpdateTodoServlet extends HttpServlet {
 
     private TodoService todoService;
@@ -64,12 +63,12 @@ public class UpdateTodoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try{
+        try {
             long todoId = Long.parseLong(request.getParameter("todoId"));
-            Todo todo = todoService.getTodoById(todoId); // FIXME security issue : may provide an id for a todo of another user!
-            request.setAttribute("todo",todo);
+            Todo todo = todoService.getTodoById(todoId); // FIXME security : may provide an id for a todo of another user!
+            request.setAttribute("todo", todo);
             request.getRequestDispatcher("/WEB-INF/views/todo/update.jsp").forward(request, response);
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("no.such.todo"), request.getParameter("todoId")));
             request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
         }
@@ -89,7 +88,7 @@ public class UpdateTodoServlet extends HttpServlet {
         Todo todo = todoService.getTodoById(todoId);
         todo.setTitle(title);
         todo.setDueDate(new Date(dueDate));
-        todo.setStatus(Status.valueOf(status));
+        todo.setDone(Boolean.valueOf(status));
         todo.setPriority(Priority.valueOf(priority));
         todoService.update(todo);
         request.getRequestDispatcher("/todos").forward(request, response);

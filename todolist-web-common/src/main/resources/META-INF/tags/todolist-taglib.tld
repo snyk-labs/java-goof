@@ -52,5 +52,17 @@
         </attribute>
     </tag>
 
+    <tag>
+        <description>Tag to transcode todo status to css style</description>
+        <name>statusStyle</name>
+        <tag-class>io.github.benas.todolist.web.common.tags.StatusStyleTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>status</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
 
 </taglib>

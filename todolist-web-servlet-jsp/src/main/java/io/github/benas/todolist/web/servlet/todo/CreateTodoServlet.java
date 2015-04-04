@@ -25,7 +25,6 @@
 package io.github.benas.todolist.web.servlet.todo;
 
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
@@ -77,7 +76,7 @@ public class CreateTodoServlet extends HttpServlet {
         String dueDate = request.getParameter("dueDate");
         String priority = request.getParameter("priority");
 
-        Todo todo = new Todo(user.getId(), title, Status.TODO, Priority.valueOf(priority), new Date(dueDate));
+        Todo todo = new Todo(user.getId(), title, false, Priority.valueOf(priority), new Date(dueDate));
         todoService.create(todo);
         request.getRequestDispatcher("/todos").forward(request, response);
 

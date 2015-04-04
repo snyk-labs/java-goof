@@ -25,7 +25,6 @@
 package io.github.benas.todolist.web.controller;
 
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.ExportService;
@@ -35,7 +34,6 @@ import io.github.benas.todolist.web.common.util.TodolistUtils;
 import io.github.benas.todolist.web.util.ExportFormatPropertyEditor;
 import io.github.benas.todolist.web.util.SessionData;
 import io.github.benas.todolist.web.util.TodoPriorityPropertyEditor;
-import io.github.benas.todolist.web.util.TodoStatusPropertyEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +80,6 @@ public class TodoController {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
         binder.registerCustomEditor(Priority.class, new TodoPriorityPropertyEditor());
-        binder.registerCustomEditor(Status.class, new TodoStatusPropertyEditor());
         binder.registerCustomEditor(ExportFormat.class, new ExportFormatPropertyEditor());
     }
 
@@ -100,7 +97,7 @@ public class TodoController {
     @RequestMapping(value = "/user/todos/new.do", method = RequestMethod.POST)
     public String doCreateTodo(@ModelAttribute Todo todo) {
         final User user = sessionData.getUser();
-        todo.setStatus(Status.TODO);
+        todo.setDone(false);
         todo.setUserId(user.getId());
         todoService.create(todo);
         return "redirect:/user/todos";
@@ -164,7 +161,7 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/user/todos/export.do", method = RequestMethod.POST)
-    public void exportTodoList(@RequestParam String filename, @RequestParam Status statusFilter,
+    public void exportTodoList(@RequestParam String filename, @RequestParam boolean statusFilter,
                                @RequestParam Priority priorityFilter, @RequestParam ExportFormat format, HttpServletResponse response) {
 
         List<Todo> todoList = todoService.getTodoListByStatusAndPriority(sessionData.getUser().getId(), statusFilter, priorityFilter);

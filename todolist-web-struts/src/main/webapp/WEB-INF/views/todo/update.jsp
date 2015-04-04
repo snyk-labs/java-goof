@@ -46,7 +46,7 @@
                         <div class="control-group">
                             <label class="control-label" for="status">Status:</label>
                             <div class="controls">
-                                <s:select id="status" name="todo.status" list="#{'DONE':'Done', 'TODO':'Todo'}" />
+                                <s:select id="status" name="todo.done" list="#{'true':'Done', 'false':'Todo'}" />
                             </div>
                         </div>
 

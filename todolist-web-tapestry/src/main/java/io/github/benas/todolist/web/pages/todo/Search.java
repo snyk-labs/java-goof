@@ -75,7 +75,11 @@ public class Search {
     }
 
     public String getCurrentStatusLabel() {
-        return TodolistUtils.getStatusLabel(currentTodo.getStatus());
+        return TodolistUtils.getStatusLabel(currentTodo.isDone());
+    }
+
+    public String getCurrentStatusStyle() {
+        return TodolistUtils.getStatusStyle(currentTodo.isDone());
     }
 
     public String getCurrentPriorityIcon() {

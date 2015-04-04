@@ -25,7 +25,6 @@
 package io.github.benas.todolist.web.services;
 
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
@@ -49,7 +48,6 @@ public class TodoListModule {
     }
 
     public static void contributeTypeCoercer(Configuration<CoercionTuple> configuration) {
-        add(configuration, Status.class);
         add(configuration, Priority.class);
     }
 

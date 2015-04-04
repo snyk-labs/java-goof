@@ -25,7 +25,6 @@
 package io.github.benas.todolist.web.pages.user;
 
 import io.github.benas.todolist.web.common.util.TodolistUtils;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
@@ -72,7 +71,7 @@ public class Home {
         Long loggedUserId = loggedUser.getId();
         todoList = todoService.getTodoListByUser(loggedUserId);
         totalCount = todoList.size();
-        doneCount = todoService.getTodoListByStatus(loggedUserId, Status.DONE).size();
+        doneCount = todoService.getTodoListByStatus(loggedUserId, true).size();
         todoCount = totalCount - todoCount;
     }
 
@@ -85,7 +84,11 @@ public class Home {
     }
 
     public String getCurrentStatusLabel() {
-        return TodolistUtils.getStatusLabel(currentTodo.getStatus());
+        return TodolistUtils.getStatusLabel(currentTodo.isDone());
+    }
+
+    public String getCurrentStatusStyle() {
+        return TodolistUtils.getStatusStyle(currentTodo.isDone());
     }
 
     public String getCurrentPriorityIcon() {

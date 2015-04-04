@@ -26,7 +26,6 @@ package io.github.benas.todolist.web.pages.todo;
 
 import io.github.benas.todolist.web.pages.user.Home;
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
@@ -60,7 +59,7 @@ public class Update {
     private Priority priority;
 
     @Property
-    private Status status;
+    private boolean status;
 
     @Property
     private Date dueDate;
@@ -94,7 +93,7 @@ public class Update {
         todo.setTitle(title);
         todo.setDueDate(dueDate);
         todo.setPriority(priority);
-        todo.setStatus(status);
+        todo.setDone(status);
         todoService.update(todo);
         return Home.class;
     }

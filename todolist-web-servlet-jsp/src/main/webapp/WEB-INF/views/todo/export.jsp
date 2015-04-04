@@ -30,8 +30,8 @@
                             <label class="control-label" for="statusFilter">Status filter:</label>
                             <div class="controls">
                                 <select id="statusFilter" name="statusFilter">
-                                    <option value="DONE">Done</option>
-                                    <option value="TODO">Todo</option>
+                                    <option value="true">Done</option>
+                                    <option value="false">Todo</option>
                                 </select>
                             </div>
                         </div>

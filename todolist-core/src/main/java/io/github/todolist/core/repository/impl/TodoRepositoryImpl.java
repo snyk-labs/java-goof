@@ -25,7 +25,6 @@
 package io.github.todolist.core.repository.impl;
 
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.repository.api.TodoRepository;
 import org.springframework.stereotype.Repository;
@@ -65,7 +64,7 @@ public class TodoRepositoryImpl implements TodoRepository {
     /**
      * {@inheritDoc}
      */
-    public List<Todo> getTodoListByUserAndStatus(final long userId, final Status status) {
+    public List<Todo> getTodoListByUserAndStatus(final long userId, final boolean status) {
         TypedQuery<Todo> query = em.createNamedQuery("findTodosByStatus", Todo.class);
         query.setParameter(1, userId);
         query.setParameter(2, status);
@@ -85,7 +84,7 @@ public class TodoRepositoryImpl implements TodoRepository {
     /**
      * {@inheritDoc}
      */
-    public List<Todo> getTodoListByUserAndStatusAndPriority(final long userId, final Status status, final Priority priority) {
+    public List<Todo> getTodoListByUserAndStatusAndPriority(final long userId, final boolean status, final Priority priority) {
         TypedQuery<Todo> query = em.createNamedQuery("findTodosByStatusAndPriority", Todo.class);
         query.setParameter(1, userId);
         query.setParameter(2, status);

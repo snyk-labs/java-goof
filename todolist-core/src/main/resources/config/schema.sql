@@ -1,7 +1,7 @@
 CREATE TABLE user (
   id int IDENTITY NOT NULL PRIMARY KEY,
-  firstname varchar(32) DEFAULT NULL,
-  lastname varchar(32) DEFAULT NULL,
+  firstName varchar(32) DEFAULT NULL,
+  lastName varchar(32) DEFAULT NULL,
   email varchar(32) NOT NULL,
   password varchar(32) DEFAULT NULL
 );
@@ -12,7 +12,7 @@ CREATE TABLE todo (
   id int IDENTITY NOT NULL PRIMARY KEY,
   userId int NOT NULL,
   title varchar(512) DEFAULT NULL,
-  status tinyint NOT NULL,
+  done boolean DEFAULT FALSE NOT NULL,
   priority tinyint NOT NULL,
   dueDate date DEFAULT NULL
 );

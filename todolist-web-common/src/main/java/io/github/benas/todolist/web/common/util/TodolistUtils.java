@@ -25,7 +25,6 @@
 package io.github.benas.todolist.web.common.util;
 
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,8 +72,18 @@ public class TodolistUtils {
      * @param status the status of the todo
      * @return the css style of the status
      */
-    public static String getStatusLabel(Status status) {
-        return Status.DONE.equals(status) ? "label-success" : "";
+    public static String getStatusStyle(boolean status) {
+        return status ? "label-success" : "";
+    }
+
+    /**
+     * Return the label of the given status.
+     *
+     * @param status the status of the todo
+     * @return the label of the status
+     */
+    public static String getStatusLabel(boolean status) {
+        return status ? "DONE" : "TODO";
     }
 
     /**

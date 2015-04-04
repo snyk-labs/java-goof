@@ -24,7 +24,6 @@
 
 package io.github.benas.todolist.web.servlet.user;
 
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
@@ -83,7 +82,7 @@ public class HomeServlet extends HttpServlet {
     private int getDoneTodoCount(List<Todo> todoList) {
         int count = 0;
         for (Todo todo : todoList) {
-            if (todo.getStatus().equals(Status.DONE)) {
+            if (todo.isDone()) {
                 count ++;
             }
         }

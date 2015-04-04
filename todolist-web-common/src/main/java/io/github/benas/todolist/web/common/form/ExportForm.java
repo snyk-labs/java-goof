@@ -25,7 +25,6 @@
 package io.github.benas.todolist.web.common.form;
 
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.util.ExportFormat;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -43,7 +42,7 @@ public class ExportForm {
      * Status, priority and export format will always be selected from a drop down list and they will be provided anyway
      */
 
-    private Status status;
+    private boolean status;
 
     private Priority priority;
 
@@ -57,11 +56,11 @@ public class ExportForm {
         this.fileName = fileName;
     }
 
-    public Status getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

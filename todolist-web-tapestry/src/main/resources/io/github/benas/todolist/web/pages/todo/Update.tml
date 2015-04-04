@@ -24,28 +24,28 @@
                     <div class="control-group">
                         <label class="control-label" t:type="label" t:for="title">Title:</label>
                         <div class="controls">
-                            <input t:type="textField" t:id="title" required="required" autofocus="autofocus" />
+                            <input t:type="textField" t:id="title" t:value="prop:todo.title" required="required" autofocus="autofocus" />
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label class="control-label" t:type="label" t:for="dueDate">Due date:</label>
                         <div class="controls">
-                            <input t:type="dateField" t:id="dueDate" required="required" readonly="readonly" />
+                            <input t:type="dateField" t:id="dueDate" t:value="prop:todo.dueDate" required="required" readonly="readonly" />
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label class="control-label" t:type="label" t:for="status">Status:</label>
                         <div class="controls">
-                            <select t:type="select" t:id="status" blankOption="never"/>
+                            <select t:type="select" t:id="status" t:value="prop:todo.done" model="literal:true=DONE,false=TODO" blankOption="never"/>
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label class="control-label" t:type="label" t:for="priority">Priority:</label>
                         <div class="controls">
-                            <select t:type="select" t:id="priority" blankOption="never"/>
+                            <select t:type="select" t:id="priority" t:value="prop:todo.priority" blankOption="never"/>
                         </div>
                     </div>
 

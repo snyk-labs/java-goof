@@ -45,9 +45,9 @@
                         <div class="control-group">
                             <label class="control-label" for="status">Status:</label>
                             <div class="controls">
-                                <sf:select id="status" path="status">
-                                  <sf:option value="TODO">Todo</sf:option>
-                                  <sf:option value="DONE">Done</sf:option>
+                                <sf:select id="status" path="done">
+                                  <sf:option value="true">Todo</sf:option>
+                                  <sf:option value="false">Done</sf:option>
                               </sf:select>
                             </div>
                         </div>

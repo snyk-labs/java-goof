@@ -26,7 +26,6 @@ package io.github.benas.todolist.web.pages.todo;
 
 import io.github.benas.todolist.web.pages.user.Home;
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
@@ -72,7 +71,7 @@ public class Create {
 
     @OnEvent(value = EventConstants.SUCCESS, component = "createTodoForm")
     public Object createTodo() {
-        Todo todo = new Todo(loggedUser.getId(), title, Status.TODO, priority, dueDate);
+        Todo todo = new Todo(loggedUser.getId(), title, false, priority, dueDate);
         todoService.create(todo);
         return Home.class;
     }

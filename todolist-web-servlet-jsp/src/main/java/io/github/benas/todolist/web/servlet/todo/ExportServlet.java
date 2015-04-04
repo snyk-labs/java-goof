@@ -25,7 +25,6 @@
 package io.github.benas.todolist.web.servlet.todo;
 
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.ExportService;
@@ -82,22 +81,31 @@ public class ExportServlet extends HttpServlet {
         String priorityFilter = request.getParameter("priorityFilter");
         String format = request.getParameter("format");
 
-        List<Todo> todoList = todoService.getTodoListByStatusAndPriority(user.getId(), Status.valueOf(statusFilter), Priority.valueOf(priorityFilter));
+        List<Todo> todoList = todoService.getTodoListByStatusAndPriority(user.getId(), Boolean.valueOf(statusFilter), Priority.valueOf(priorityFilter));
 
         ServletOutputStream servletOutputStream = response.getOutputStream();
         byte[] bytes = exportService.exportTodoList(todoList, ExportFormat.valueOf(format.trim().toUpperCase()));
 
         String contentType = "text";
-        if (format.equalsIgnoreCase(ExportFormat.PDF.toString()))
-               contentType = "application";
-        response.setContentType(contentType + "/" + format);
+        if (format.equalsIgnoreCase(ExportFormat.PDF.toString())) {
+            contentType = "application";
+        }
+        response.setContentType(getContentType(format, contentType));
         response.setContentLength(bytes.length);
-        response.setHeader( "Content-Disposition", "attachment; filename=\"" + filename + "." + format + "\"" );
+        response.setHeader( "Content-Disposition", getContentDisposition(filename, format));
 
         servletOutputStream.write(bytes, 0, bytes.length);
         servletOutputStream.flush();
         servletOutputStream.close();
 
+    }
+
+    private String getContentType(String format, String contentType) {
+        return contentType + "/" + format;
+    }
+
+    private String getContentDisposition(String filename, String format) {
+        return "attachment; filename=\"" + filename + "." + format + "\"";
     }
 
 }

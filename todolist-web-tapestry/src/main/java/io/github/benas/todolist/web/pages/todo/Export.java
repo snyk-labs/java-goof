@@ -26,7 +26,6 @@ package io.github.benas.todolist.web.pages.todo;
 
 import io.github.benas.todolist.web.data.TodoStreamResponse;
 import io.github.todolist.core.domain.Priority;
-import io.github.todolist.core.domain.Status;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.ExportService;
@@ -63,7 +62,7 @@ public class Export {
     private String fileName;
 
     @Property
-    private Status statusFilter;
+    private boolean statusFilter;
 
     @Property
     private Priority priorityFilter;
