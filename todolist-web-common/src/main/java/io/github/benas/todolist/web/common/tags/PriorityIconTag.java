@@ -24,6 +24,9 @@
 
 package io.github.benas.todolist.web.common.tags;
 
+import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.todolist.core.domain.Priority;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -32,31 +35,21 @@ import java.io.IOException;
 /**
  * Utility tag to transcode todo priority to icon value.
  *
- *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
 public class PriorityIconTag extends SimpleTagSupport {
 
     /**
-     * The toto priority.
+     * The todo's priority.
      */
     private String priority;
 
     @Override
     public void doTag() throws JspException, IOException {
-
         JspWriter out = getJspContext().getOut();
-        String priorityIcon = "";
-        if (priority.equals("HIGH")) {
-            priorityIcon = "up";
-        } else if (priority.equals("MEDIUM")) {
-            priorityIcon = "right";
-        } else if (priority.equals("LOW")) {
-            priorityIcon = "down";
-        }
+        String priorityIcon = TodolistUtils.getPriorityIcon(Priority.valueOf(priority));
         out.print(priorityIcon);
-
     }
 
     /*
