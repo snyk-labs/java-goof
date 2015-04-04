@@ -25,21 +25,30 @@
 package io.github.benas.todolist.web.action.user;
 
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.util.logging.Logger;
+import com.opensymphony.xwork2.util.logging.LoggerFactory;
+
 import io.github.todolist.core.domain.User;
 import io.github.benas.todolist.web.common.form.LoginForm;
 import io.github.benas.todolist.web.common.util.TodolistUtils;
 import io.github.benas.todolist.web.action.BaseAction;
 
 /**
- * Action class that handles login/logout process.
+ * Action class that controls login/logout process.
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class SessionAction extends BaseAction {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SessionAction.class.getName());
+
     private LoginForm loginForm;
 
     private String error;
+
+    /*********
+     * Login
+     *********/
 
     public String login() {
         return Action.SUCCESS;
@@ -56,12 +65,16 @@ public class SessionAction extends BaseAction {
         }
     }
 
+    /*********
+     * Logout
+     *********/
+
     public String doLogout() {
         if (session instanceof org.apache.struts2.dispatcher.SessionMap) {
             try {
                 ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
             } catch (IllegalStateException e) {
-                logger.error("Unable to invalidate session.", e);
+                LOGGER.error("Unable to invalidate session.", e);
             }
         }
         return Action.SUCCESS;

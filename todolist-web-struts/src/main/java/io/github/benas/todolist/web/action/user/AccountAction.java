@@ -26,6 +26,8 @@ package io.github.benas.todolist.web.action.user;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.util.logging.Logger;
+import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import io.github.todolist.core.domain.User;
 import io.github.benas.todolist.web.common.form.ChangePasswordForm;
 import io.github.benas.todolist.web.common.form.RegistrationForm;
@@ -43,6 +45,8 @@ import java.util.Set;
  */
 public class AccountAction extends BaseAction {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountAction.class.getName());
+
     private ChangePasswordForm changePasswordForm;
 
     private RegistrationForm registrationForm;
@@ -54,10 +58,18 @@ public class AccountAction extends BaseAction {
     private String error, errorFirstName, errorLastName, errorEmail, errorPassword,
             errorCurrentPassword, errorConfirmationPassword, errorConfirmPasswordMatching;
 
+    /*****************
+     * Account details
+     *****************/
+
     public String account() {
         user = getSessionUser();
         return Action.SUCCESS;
     }
+
+    /**********************
+     * Register new account
+     *********************/
 
     public String register() {
         return Action.SUCCESS;
@@ -65,126 +77,163 @@ public class AccountAction extends BaseAction {
 
     public String doRegister() {
 
-        /*
-         * Validate registration form using Bean Validation API
-         */
-        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "firstname");
-        if (constraintViolations.size() > 0) {
-            errorFirstName = constraintViolations.iterator().next().getMessage();
-            error =  getText("register.error.global");
-        }
-
-        constraintViolations = validator.validateProperty(registrationForm, "lastname");
-        if (constraintViolations.size() > 0) {
-            errorLastName = constraintViolations.iterator().next().getMessage();
-            error = getText("register.error.global");
-        }
-
-        constraintViolations = validator.validateProperty(registrationForm, "email");
-        if (constraintViolations.size() > 0) {
-            errorEmail = constraintViolations.iterator().next().getMessage();
-            error = getText("register.error.global");
-        }
-
-        constraintViolations = validator.validateProperty(registrationForm, "password");
-        if (constraintViolations.size() > 0) {
-            errorPassword = constraintViolations.iterator().next().getMessage();
-            error = getText("register.error.global");
-        }
-
-        constraintViolations = validator.validateProperty(registrationForm, "confirmationPassword");
-        if (constraintViolations.size() > 0) {
-            errorConfirmationPassword = constraintViolations.iterator().next().getMessage();
-            error = getText("register.error.global");
-        }
-
-        if (!registrationForm.getConfirmationPassword().equals(registrationForm.getPassword())) {
-            errorConfirmPasswordMatching = getText("register.error.password.confirmation.error");
-            error = getText("register.error.global");
-        }
+        validateRegistrationForm();
 
         if (error != null) {
-            return ActionSupport.INPUT;//if invalid input, do not continue to business constraints validation
+            return ActionSupport.INPUT;
         }
 
-        if (userService.getUserByEmail(registrationForm.getEmail()) != null ) {
+        if (isAlreadyUsed(registrationForm.getEmail())) {
             error = MessageFormat.format(getText("register.error.global.account"), registrationForm.getEmail());
             return ActionSupport.INPUT;
         }
 
-        /*
-         * Validation ok, register the user
-         */
         User user = new User(registrationForm.getFirstname(), registrationForm.getLastname(), registrationForm.getEmail(), registrationForm.getPassword());
         user = userService.create(user);
         session.put(TodolistUtils.SESSION_USER, user);
         return Action.SUCCESS;
     }
 
-    public String doUpdate() {
-        User user = getSessionUser();
-        if (userService.getUserByEmail(this.user.getEmail()) != null && !this.user.getEmail().equals(user.getEmail())) {
-            error = MessageFormat.format(getText("account.email.alreadyUsed"), this.user.getEmail());
-            return Action.INPUT;
-        } else { // validation ok
-            user.setFirstName(this.user.getFirstName());
-            user.setLastName(this.user.getLastName());
-            user.setEmail(this.user.getEmail());
-            userService.update(user);
-            session.put(TodolistUtils.SESSION_USER, user);
-            updateProfileSuccessMessage = getText("account.profile.update.success");
-            return Action.SUCCESS;
+    private boolean isAlreadyUsed(String email) {
+        return userService.getUserByEmail(email) != null;
+    }
+
+    private void validateRegistrationForm() {
+        validateFirstName();
+
+        validateLastName();
+
+        validateEmail();
+
+        validatePassword();
+
+        validateConfirmationPassword();
+
+        checkPasswordsMatch();
+    }
+
+    private void checkPasswordsMatch() {
+        if (confirmationPasswordDoesNotMatchPassword()) {
+            errorConfirmPasswordMatching = getText("register.error.password.confirmation.error");
+            error = getText("register.error.global");
         }
     }
 
+    private boolean confirmationPasswordDoesNotMatchPassword() {
+        return !registrationForm.getConfirmationPassword().equals(registrationForm.getPassword());
+    }
+
+    private void validateConfirmationPassword() {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "confirmationPassword");
+        if (!constraintViolations.isEmpty()) {
+            errorConfirmationPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("register.error.global");
+        }
+    }
+
+    private void validatePassword() {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "password");
+        if (!constraintViolations.isEmpty()) {
+            errorPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("register.error.global");
+        }
+    }
+
+    private void validateEmail() {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "email");
+        if (!constraintViolations.isEmpty()) {
+            errorEmail = constraintViolations.iterator().next().getMessage();
+            error = getText("register.error.global");
+        }
+    }
+
+    private void validateLastName() {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "lastName");
+        if (!constraintViolations.isEmpty()) {
+            errorLastName = constraintViolations.iterator().next().getMessage();
+            error = getText("register.error.global");
+        }
+    }
+
+    private void validateFirstName() {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "firstName");
+        if (!constraintViolations.isEmpty()) {
+            errorFirstName = constraintViolations.iterator().next().getMessage();
+            error =  getText("register.error.global");
+        }
+    }
+
+    /**********************
+     * Update account
+     *********************/
+
+    public String doUpdate() {
+        User user = getSessionUser();
+
+        String email = this.user.getEmail();
+
+        if (isAlreadyUsed(email) && isDifferent(user.getEmail())) {
+            error = MessageFormat.format(getText("account.email.alreadyUsed"), email);
+            return Action.INPUT;
+        }
+
+        user.setFirstName(this.user.getFirstName());
+        user.setLastName(this.user.getLastName());
+        user.setEmail(email);
+        userService.update(user);
+        session.put(TodolistUtils.SESSION_USER, user);
+        updateProfileSuccessMessage = getText("account.profile.update.success");
+        return Action.SUCCESS;
+
+    }
+
+    private boolean isDifferent(String email) {
+        return !this.user.getEmail().equals(email);
+    }
+
+    /**********************
+     * Delete account
+     *********************/
+
     public String doDelete() {
         User user = getSessionUser();
-        //remove user
         userService.remove(user);
 
-        //invalidate session
+        invalidateSession();
+        return Action.SUCCESS;
+    }
+
+    private void invalidateSession() {
         session.put(TodolistUtils.SESSION_USER, null);
         if (session instanceof org.apache.struts2.dispatcher.SessionMap) {
             try {
                 ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
             } catch (IllegalStateException e) {
-                logger.error("Unable to invalidate session.", e);
+                LOGGER.error("Unable to invalidate session.", e);
             }
         }
-        return Action.SUCCESS;
     }
+
+    /**********************
+     * Change password
+     *********************/
 
     public String doChangePassword() {
 
-        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations = validator.validateProperty(changePasswordForm, "currentpassword");
-        if (constraintViolations.size() > 0) {
-            errorCurrentPassword = constraintViolations.iterator().next().getMessage();
-            error = getText("account.password.error.global");
-        }
-        constraintViolations = validator.validateProperty(changePasswordForm, "password");
-        if (constraintViolations.size() > 0) {
-            errorPassword = constraintViolations.iterator().next().getMessage();
-            error = getText("account.password.error.global");
-        }
-
-        constraintViolations = validator.validateProperty(changePasswordForm, "confirmpassword");
-        if (constraintViolations.size() > 0) {
-            errorConfirmationPassword = constraintViolations.iterator().next().getMessage();
-            error = getText("account.password.error.global");
-        }
+        validateChangePasswordForm();
 
         if (error != null) {
-            return ActionSupport.INPUT;//if invalid input, do not continue to business constraints validation
+            return Action.INPUT;
         }
 
         User user = getSessionUser();
-        if (!changePasswordForm.getCurrentPassword().equals(user.getPassword())) {
+        if (incorrectCurrentPassword(user)) {
             errorCurrentPassword = getText("account.password.error");
             error = getText("account.password.error.global");
             return Action.INPUT;
         }
 
-        if (!changePasswordForm.getPassword().equals(changePasswordForm.getConfirmPassword())) {
+        if (newPasswordDoesNotMatchConfirmationPassword()) {
             errorConfirmationPassword = getText("account.password.confirmation.error");
             error = getText("account.password.error.global");
             return Action.INPUT;
@@ -198,9 +247,53 @@ public class AccountAction extends BaseAction {
         return Action.SUCCESS;
     }
 
-    /*
+    private boolean newPasswordDoesNotMatchConfirmationPassword() {
+        return !changePasswordForm.getPassword().equals(changePasswordForm.getConfirmPassword());
+    }
+
+    private boolean incorrectCurrentPassword(User user) {
+        return !changePasswordForm.getCurrentPassword().equals(user.getPassword());
+    }
+
+    private void validateChangePasswordForm() {
+        validateCurrentPassword();
+
+        validateNewPassword();
+
+        validateConfirmPassword();
+    }
+
+    private void validateConfirmPassword() {
+        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations;
+        constraintViolations = validator.validateProperty(changePasswordForm, "confirmPassword");
+        if (!constraintViolations.isEmpty()) {
+            errorConfirmationPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("account.password.error.global");
+        }
+    }
+
+    private void validateNewPassword() {
+        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations;
+        constraintViolations = validator.validateProperty(changePasswordForm, "password");
+        if (!constraintViolations.isEmpty()) {
+            errorPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("account.password.error.global");
+        }
+    }
+
+    private void validateCurrentPassword() {
+        Set<ConstraintViolation<ChangePasswordForm>> constraintViolations;
+        constraintViolations = validator.validateProperty(changePasswordForm, "currentPassword");
+        if (!constraintViolations.isEmpty()) {
+            errorCurrentPassword = constraintViolations.iterator().next().getMessage();
+            error = getText("account.password.error.global");
+        }
+    }
+
+    /******************************
      * Getters for model attributes
-     */
+     ******************************/
+
     public String getRegisterTabStyle() {
         return "active";
     }
@@ -257,9 +350,9 @@ public class AccountAction extends BaseAction {
         return errorCurrentPassword;
     }
 
-    /*
+    /****************************************
      * Setters for request parameters binding
-     */
+     ****************************************/
 
     public void setChangePasswordForm(ChangePasswordForm changePasswordForm) {
         this.changePasswordForm = changePasswordForm;

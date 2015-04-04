@@ -27,8 +27,6 @@ package io.github.benas.todolist.web.action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
 import io.github.todolist.core.service.api.UserService;
@@ -45,8 +43,6 @@ import java.util.Map;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class BaseAction extends ActionSupport implements Preparable {
-
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected TodoService todoService;
 
