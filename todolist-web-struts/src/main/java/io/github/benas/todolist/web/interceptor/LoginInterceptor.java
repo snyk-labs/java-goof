@@ -34,9 +34,9 @@ import io.github.benas.todolist.web.common.util.TodolistUtils;
 import java.util.Map;
 
 /**
- * Custom interceptor to ensure that access to /user/* and /todos/* is allowed to only logged users.
+ * Custom interceptor to ensure that access to protected resources is allowed to only logged users.
  *
- * benas (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 public class LoginInterceptor extends AbstractInterceptor {
 
