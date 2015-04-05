@@ -74,11 +74,6 @@ public class Todo implements Serializable {
         return id;
     }
 
-    //TODO no setter for id should be provided (so should be removed), used only by struts for request param binding
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public long getUserId() {
         return userId;
     }

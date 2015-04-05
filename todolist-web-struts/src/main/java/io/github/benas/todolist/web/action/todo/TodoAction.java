@@ -41,6 +41,8 @@ public class TodoAction extends BaseAction {
 
     private Todo todo;
 
+    private long todoId;
+
     public String create() {
         return Action.SUCCESS;
     }
@@ -52,22 +54,31 @@ public class TodoAction extends BaseAction {
     }
 
     public String update() {
-        todo = todoService.getTodoById(todo.getId());//populate the update form
+        todo = todoService.getTodoById(todoId);
+        //FIXME the todo should belong to the logged user
         return Action.SUCCESS;
     }
 
     public String doUpdate() {
-        todoService.update(todo);
+
+        Todo t = todoService.getTodoById(todoId); // Unable to update the model "todo" since there is no setter for the id
+        t.setDone(todo.isDone());
+        t.setDueDate(todo.getDueDate());
+        t.setPriority(todo.getPriority());
+        t.setTitle(todo.getTitle());
+        t.setUserId(todo.getUserId());
+        todoService.update(t);
         return Action.SUCCESS;
     }
 
     public String doDelete() {
-        Todo todo = todoService.getTodoById(this.todo.getId());
+        Todo todo = todoService.getTodoById(todoId);
+        //FIXME the todo should belong to the logged user
         if (todo != null) {
             todoService.remove(todo);
             return Action.SUCCESS;
         } else {
-            error = MessageFormat.format(getText("no.such.todo"), this.todo.getId());
+            error = MessageFormat.format(getText("no.such.todo"), todoId);
             return Action.ERROR;
         }
     }
@@ -90,9 +101,8 @@ public class TodoAction extends BaseAction {
         this.todo = todo;
     }
 
-    public void setTodoId(String todoId) {
-        this.todo = new Todo();
-        todo.setId(Long.valueOf(todoId));
+    public void setTodoId(long todoId) {
+        this.todoId = todoId;
     }
 
 }

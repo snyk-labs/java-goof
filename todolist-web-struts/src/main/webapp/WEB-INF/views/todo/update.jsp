@@ -25,7 +25,7 @@
                             <div class="controls">
                                 <s:textfield id="id" name="todo.id" disabled="true" />
                                 <%--issue with value="todo.id"--%>
-                                <input type="hidden" name="todo.id" value="${todo.id}"/>
+                                <input type="hidden" name="todoId" value="${todo.id}"/>
                             </div>
                         </div>
 
