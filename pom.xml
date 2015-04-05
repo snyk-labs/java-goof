@@ -10,6 +10,10 @@
     <url>https://github.com/benas/todolist-mvc</url>
 
     <properties>
+        <spring.version>3.2.6.RELEASE</spring.version>
+        <hibernate.version>4.3.7.Final</hibernate.version>
+        <tapestry.version>5.3.8</tapestry.version>
+        <struts2.version>2.3.20</struts2.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -28,6 +32,7 @@
             <id>benas</id>
             <name>Mahmoud Ben Hassine</name>
             <email>mahmoud@benhassine.fr</email>
+            <url>http://www.mahmoud-benhassine.fr</url>
         </developer>
     </developers>
 
@@ -37,5 +42,54 @@
             <url>http://opensource.org/licenses/mit-license.php</url>
         </license>
     </licenses>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.2</version>
+                    <configuration>
+                        <verbose>true</verbose>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                        <showWarnings>true</showWarnings>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.9</version>
+                    <executions>
+                        <execution>
+                            <id>install</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>sources</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <warName>todolist</warName>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.2</version>
+                    <configuration>
+                        <warFile>target/todolist.war</warFile>
+                        <path>/</path>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>

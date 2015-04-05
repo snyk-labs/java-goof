@@ -11,10 +11,6 @@
     <packaging>war</packaging>
     <name>todolist-web-tapestry Maven Webapp</name>
 
-    <properties>
-        <spring.version>3.2.3.RELEASE</spring.version>
-    </properties>
-
     <dependencies>
 
         <dependency>
@@ -48,7 +44,7 @@
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
-            <version>5.3.6</version>
+            <version>${tapestry.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
@@ -61,7 +57,7 @@
         <dependency>
             <groupId>org.got5</groupId>
             <artifactId>tapestry5-jquery</artifactId>
-            <version>3.3.1</version>
+            <version>3.4.2</version>
         </dependency>
 
     </dependencies>
@@ -82,50 +78,5 @@
 
     <build>
         <finalName>todolist</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <verbose>true</verbose>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <showWarnings>true</showWarnings>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>install</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>sources</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <warName>todolist</warName>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <warFile>target/todolist.war</warFile>
-                    <path>/</path>
-                </configuration>
-            </plugin>
-
-        </plugins>
     </build>
 </project>
