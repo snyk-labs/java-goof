@@ -27,7 +27,7 @@ package io.github.benas.todolist.web.servlet.user.account;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.UserService;
 import io.github.benas.todolist.web.common.form.ChangePasswordForm;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -96,7 +96,7 @@ public class ChangePasswordServlet extends HttpServlet {
         }
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
+        User user = (User) session.getAttribute(TodoListUtils.SESSION_USER);
 
         if (!confirmationPassword.equals(newPassword)) {
             request.setAttribute("errorConfirmationPassword", resourceBundle.getString("account.password.confirmation.error"));
@@ -114,7 +114,7 @@ public class ChangePasswordServlet extends HttpServlet {
 
         user.setPassword(newPassword);
         userService.update(user);
-        session.setAttribute(TodolistUtils.SESSION_USER, user);
+        session.setAttribute(TodoListUtils.SESSION_USER, user);
         request.setAttribute("updatePasswordSuccessMessage", resourceBundle.getString("account.password.update.success"));
         request.getRequestDispatcher("/user/account").forward(request, response);
 

@@ -25,7 +25,7 @@
 package io.github.benas.todolist.web.filter;
 
 import io.github.todolist.core.domain.User;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -48,7 +48,7 @@ public class LoginFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
-        User user = (User)session.getAttribute(TodolistUtils.SESSION_USER);
+        User user = (User)session.getAttribute(TodoListUtils.SESSION_USER);
         if ( user != null ) {
             chain.doFilter(request, response);
         }

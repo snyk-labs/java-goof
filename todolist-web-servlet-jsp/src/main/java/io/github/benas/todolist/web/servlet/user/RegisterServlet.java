@@ -27,7 +27,7 @@ package io.github.benas.todolist.web.servlet.user;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.UserService;
 import io.github.benas.todolist.web.common.form.RegistrationForm;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -122,7 +122,7 @@ public class RegisterServlet extends HttpServlet {
         User user = new User(name, email, password);
         user = userService.create(user);
         HttpSession session = request.getSession(true);
-        session.setAttribute(TodolistUtils.SESSION_USER, user);
+        session.setAttribute(TodoListUtils.SESSION_USER, user);
         request.getRequestDispatcher("/todos").forward(request, response);
 
     }

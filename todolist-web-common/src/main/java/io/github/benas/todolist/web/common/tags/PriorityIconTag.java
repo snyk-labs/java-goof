@@ -24,7 +24,7 @@
 
 package io.github.benas.todolist.web.common.tags;
 
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.Priority;
 
 import javax.servlet.jsp.JspException;
@@ -48,7 +48,7 @@ public class PriorityIconTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException {
         JspWriter out = getJspContext().getOut();
-        String priorityIcon = TodolistUtils.getPriorityIcon(Priority.valueOf(priority));
+        String priorityIcon = TodoListUtils.getPriorityIcon(Priority.valueOf(priority));
         out.print(priorityIcon);
     }
 

@@ -24,7 +24,7 @@
 
 package io.github.benas.todolist.web.common.tags;
 
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -48,7 +48,7 @@ public class StatusLabelTag extends SimpleTagSupport {
     public void doTag() throws JspException, IOException {
 
         JspWriter out = getJspContext().getOut();
-        String statusLabel = TodolistUtils.getStatusLabel(status);
+        String statusLabel = TodoListUtils.getStatusLabel(status);
         out.print(statusLabel);
 
     }

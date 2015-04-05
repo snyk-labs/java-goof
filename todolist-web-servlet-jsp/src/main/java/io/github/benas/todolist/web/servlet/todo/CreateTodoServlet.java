@@ -28,7 +28,7 @@ import io.github.todolist.core.domain.Priority;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -62,7 +62,7 @@ public class CreateTodoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("today", new SimpleDateFormat(TodolistUtils.DATE_FORMAT).format(new Date()));
+        request.setAttribute("today", new SimpleDateFormat(TodoListUtils.DATE_FORMAT).format(new Date()));
         request.getRequestDispatcher("/WEB-INF/views/todo/create.jsp").forward(request, response);
     }
 
@@ -70,7 +70,7 @@ public class CreateTodoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
+        User user = (User) session.getAttribute(TodoListUtils.SESSION_USER);
 
         String title = request.getParameter("title");
         String dueDate = request.getParameter("dueDate");

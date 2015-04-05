@@ -24,7 +24,7 @@
 
 package io.github.benas.todolist.web.pages.todo;
 
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
@@ -38,7 +38,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static io.github.benas.todolist.web.common.util.TodolistUtils.DATE_FORMAT;
+import static io.github.benas.todolist.web.common.util.TodoListUtils.DATE_FORMAT;
 
 /**
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
@@ -75,15 +75,15 @@ public class Search {
     }
 
     public String getCurrentStatusLabel() {
-        return TodolistUtils.getStatusLabel(currentTodo.isDone());
+        return TodoListUtils.getStatusLabel(currentTodo.isDone());
     }
 
     public String getCurrentStatusStyle() {
-        return TodolistUtils.getStatusStyle(currentTodo.isDone());
+        return TodoListUtils.getStatusStyle(currentTodo.isDone());
     }
 
     public String getCurrentPriorityIcon() {
-        return TodolistUtils.getPriorityIcon(currentTodo.getPriority());
+        return TodoListUtils.getPriorityIcon(currentTodo.getPriority());
     }
 
     public String getCurrentDueDate() {
@@ -99,7 +99,7 @@ public class Search {
     }
 
     public String getCurrentHighlightedTitle() {
-        return TodolistUtils.highlight(currentTodo.getTitle(), query);
+        return TodoListUtils.highlight(currentTodo.getTitle(), query);
     }
 
 }

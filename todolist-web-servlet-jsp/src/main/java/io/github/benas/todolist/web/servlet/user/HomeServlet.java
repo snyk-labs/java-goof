@@ -27,7 +27,7 @@ package io.github.benas.todolist.web.servlet.user;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -62,7 +62,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
+        User user = (User) session.getAttribute(TodoListUtils.SESSION_USER);
         List<Todo> todoList = todoService.getTodoListByUser(user.getId());
 
         //todo list is request scoped to avoid storing and synchronizing it in session for each CRUD operation
@@ -70,7 +70,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("homeTabStyle", "active");
 
         int totalCount = todoList.size();
-        int doneCount = TodolistUtils.countTotalDone(todoList);
+        int doneCount = TodoListUtils.countTotalDone(todoList);
         int todoCount = totalCount - doneCount;
         request.setAttribute("totalCount", totalCount);
         request.setAttribute("doneCount", doneCount);

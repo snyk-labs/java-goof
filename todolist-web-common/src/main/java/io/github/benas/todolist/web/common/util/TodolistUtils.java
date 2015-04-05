@@ -36,9 +36,9 @@ import java.util.regex.Pattern;
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-public class TodolistUtils {
+public class TodoListUtils {
 
-    private TodolistUtils() { }
+    private TodoListUtils() { }
 
     public static final String SESSION_USER = "user";
 

@@ -29,7 +29,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import io.github.todolist.core.domain.User;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 
 import java.util.Map;
 
@@ -44,7 +44,7 @@ public class LoginInterceptor extends AbstractInterceptor {
     public String intercept(ActionInvocation invocation) throws Exception {
 
         Map<String, Object> session = ActionContext.getContext().getSession();
-        User user = (User) session.get(TodolistUtils.SESSION_USER);
+        User user = (User) session.get(TodoListUtils.SESSION_USER);
 
         if (user != null) {
             return invocation.invoke();

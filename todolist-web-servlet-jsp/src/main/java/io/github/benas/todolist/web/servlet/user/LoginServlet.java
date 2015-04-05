@@ -27,7 +27,7 @@ package io.github.benas.todolist.web.servlet.user;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.UserService;
 import io.github.benas.todolist.web.common.form.LoginForm;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -108,7 +108,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             HttpSession session = request.getSession(true);//create session
             User user = userService.getUserByEmail(email);
-            session.setAttribute(TodolistUtils.SESSION_USER, user);
+            session.setAttribute(TodoListUtils.SESSION_USER, user);
             nextPage = "/todos";
         }
         request.getRequestDispatcher(nextPage).forward(request, response);

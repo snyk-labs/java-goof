@@ -25,7 +25,7 @@
 package io.github.benas.todolist.web.action.user;
 
 import com.opensymphony.xwork2.Action;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.benas.todolist.web.action.BaseAction;
@@ -51,7 +51,7 @@ public class HomeAction extends BaseAction {
         User user = getSessionUser();
         todoList = todoService.getTodoListByUser(user.getId());
         totalCount = todoList.size();
-        doneCount = TodolistUtils.countTotalDone(todoList);
+        doneCount = TodoListUtils.countTotalDone(todoList);
         todoCount = totalCount - doneCount;
         return Action.SUCCESS;
     }

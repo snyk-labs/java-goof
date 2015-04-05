@@ -31,7 +31,7 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import io.github.todolist.core.domain.User;
 import io.github.benas.todolist.web.common.form.ChangePasswordForm;
 import io.github.benas.todolist.web.common.form.RegistrationForm;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.benas.todolist.web.action.BaseAction;
 
 import javax.validation.ConstraintViolation;
@@ -90,7 +90,7 @@ public class AccountAction extends BaseAction {
 
         User user = new User(registrationForm.getName(), registrationForm.getEmail(), registrationForm.getPassword());
         user = userService.create(user);
-        session.put(TodolistUtils.SESSION_USER, user);
+        session.put(TodoListUtils.SESSION_USER, user);
         return Action.SUCCESS;
     }
 
@@ -170,7 +170,7 @@ public class AccountAction extends BaseAction {
         user.setName(this.user.getName());
         user.setEmail(email);
         userService.update(user);
-        session.put(TodolistUtils.SESSION_USER, user);
+        session.put(TodoListUtils.SESSION_USER, user);
         updateProfileSuccessMessage = getText("account.profile.update.success");
         return Action.SUCCESS;
 
@@ -193,7 +193,7 @@ public class AccountAction extends BaseAction {
     }
 
     private void invalidateSession() {
-        session.put(TodolistUtils.SESSION_USER, null);
+        session.put(TodoListUtils.SESSION_USER, null);
         if (session instanceof org.apache.struts2.dispatcher.SessionMap) {
             try {
                 ((org.apache.struts2.dispatcher.SessionMap) session).invalidate();
@@ -230,7 +230,7 @@ public class AccountAction extends BaseAction {
 
         user.setPassword(changePasswordForm.getNewPassword());
         user = userService.update(user);
-        session.put(TodolistUtils.SESSION_USER, user);
+        session.put(TodoListUtils.SESSION_USER, user);
         this.user = user;
         updatePasswordSuccessMessage = getText("account.password.update.success");
         return Action.SUCCESS;

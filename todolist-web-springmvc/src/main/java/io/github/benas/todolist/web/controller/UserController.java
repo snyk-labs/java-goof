@@ -24,7 +24,7 @@
 
 package io.github.benas.todolist.web.controller;
 
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
@@ -134,7 +134,7 @@ public class UserController {
         List<Todo> todoList = todoService.getTodoListByUser(sessionData.getUser().getId());
         modelAndView.addObject("todoList", todoList);
         int totalCount = todoList.size();
-        int doneCount = TodolistUtils.countTotalDone(todoList);
+        int doneCount = TodoListUtils.countTotalDone(todoList);
         int todoCount = totalCount - doneCount;
         modelAndView.addObject("totalCount", totalCount);
         modelAndView.addObject("doneCount", doneCount);

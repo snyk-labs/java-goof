@@ -26,7 +26,7 @@ package io.github.benas.todolist.web.servlet.user.account;
 
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.UserService;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -66,7 +66,7 @@ public class UpdateAccountServlet extends HttpServlet {
         String email = request.getParameter("email");
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
+        User user = (User) session.getAttribute(TodoListUtils.SESSION_USER);
 
         if (userService.getUserByEmail(email) != null && !email.equals(user.getEmail())) {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("account.email.alreadyUsed"), email));

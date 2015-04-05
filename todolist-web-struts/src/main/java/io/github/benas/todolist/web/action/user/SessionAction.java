@@ -30,7 +30,7 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
 
 import io.github.todolist.core.domain.User;
 import io.github.benas.todolist.web.common.form.LoginForm;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.benas.todolist.web.action.BaseAction;
 
 /**
@@ -57,7 +57,7 @@ public class SessionAction extends BaseAction {
     public String doLogin() {
         if (userService.login(loginForm.getEmail(), loginForm.getPassword())) {
             User user = userService.getUserByEmail(loginForm.getEmail());
-            session.put(TodolistUtils.SESSION_USER, user);
+            session.put(TodoListUtils.SESSION_USER, user);
             return Action.SUCCESS;
         } else {
             error = getText("login.error.global.invalid");

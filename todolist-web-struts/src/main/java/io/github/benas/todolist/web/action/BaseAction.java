@@ -30,7 +30,7 @@ import com.opensymphony.xwork2.Preparable;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
 import io.github.todolist.core.service.api.UserService;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -60,7 +60,7 @@ public class BaseAction extends ActionSupport implements Preparable {
     }
 
     protected User getSessionUser() {
-        return (User) session.get(TodolistUtils.SESSION_USER);
+        return (User) session.get(TodoListUtils.SESSION_USER);
     }
 
     /*

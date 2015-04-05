@@ -24,7 +24,7 @@
 
 package io.github.benas.todolist.web.controller;
 
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.benas.todolist.web.util.SessionData;
 import io.github.benas.todolist.web.util.TodoPriorityPropertyEditor;
 import io.github.todolist.core.domain.Priority;
@@ -67,7 +67,7 @@ public class TodoController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(TodolistUtils.DATE_FORMAT);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(TodoListUtils.DATE_FORMAT);
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
         binder.registerCustomEditor(Priority.class, new TodoPriorityPropertyEditor());
@@ -79,7 +79,7 @@ public class TodoController {
 
     @RequestMapping("/user/todos/new")
     public String redirectToCreateTodoPage(Model model) {
-        model.addAttribute("today", new SimpleDateFormat(TodolistUtils.DATE_FORMAT).format(new Date()));
+        model.addAttribute("today", new SimpleDateFormat(TodoListUtils.DATE_FORMAT).format(new Date()));
         model.addAttribute("todo", new Todo());
         return "todo/create";
     }

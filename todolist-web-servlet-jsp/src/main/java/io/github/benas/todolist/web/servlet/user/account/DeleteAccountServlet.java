@@ -26,7 +26,7 @@ package io.github.benas.todolist.web.servlet.user.account;
 
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.UserService;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -57,7 +57,7 @@ public class DeleteAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
+        User user = (User) session.getAttribute(TodoListUtils.SESSION_USER);
         userService.remove(user);
         session.invalidate();
         request.getRequestDispatcher("/index").forward(request, response);

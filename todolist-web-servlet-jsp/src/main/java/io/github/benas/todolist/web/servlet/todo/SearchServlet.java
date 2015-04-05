@@ -27,7 +27,7 @@ package io.github.benas.todolist.web.servlet.todo;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -64,7 +64,7 @@ public class SearchServlet extends HttpServlet {
         String title = request.getParameter("title");
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute(TodolistUtils.SESSION_USER);
+        User user = (User) session.getAttribute(TodoListUtils.SESSION_USER);
 
         List<Todo> todoList = todoService.searchTodoListByTitle(user.getId(), "%" + title + "%");
         request.setAttribute("todoList", todoList);
