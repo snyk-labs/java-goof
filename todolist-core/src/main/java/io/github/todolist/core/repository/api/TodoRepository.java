@@ -24,7 +24,6 @@
 
 package io.github.todolist.core.repository.api;
 
-import io.github.todolist.core.domain.Priority;
 import io.github.todolist.core.domain.Todo;
 
 import java.util.List;
@@ -57,31 +56,6 @@ public interface TodoRepository {
      * @return the todo list containing the 'title' parameter in their title for the given user
      */
     List<Todo> getTodoListByUserAndTitle(final long userId, final String title);
-
-    /**
-     * Get todo list by status for the given user.
-     * @param userId the user identifier
-     * @param status the todo status
-     * @return the todo list for the given user
-     */
-    List<Todo> getTodoListByUserAndStatus(final long userId, final boolean status);
-
-    /**
-     * Get todo list by priority for the given user.
-     * @param userId the user identifier
-     * @param priority the todo {@link Priority}
-     * @return the todo list for the given user
-     */
-    List<Todo> getTodoListByUserAndPriority(final long userId, final Priority priority);
-
-    /**
-     * Get todo list by status and priority for the given user.
-     * @param userId the user identifier
-     * @param status the todo status
-     * @param priority the todo {@link Priority}
-     * @return the todo list for the given user
-     */
-    List<Todo> getTodoListByUserAndStatusAndPriority(final long userId, final boolean status, final Priority priority);
 
     /**
      * Create a new todo.

@@ -25,7 +25,9 @@
 package io.github.benas.todolist.web.common.util;
 
 import io.github.todolist.core.domain.Priority;
+import io.github.todolist.core.domain.Todo;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -108,6 +110,21 @@ public class TodolistUtils {
 
         return matcher.replaceAll(stringBuilder.toString());
 
+    }
+
+    /**
+     * Count the number of todos that are done.
+     * @param todoList the todos list
+     * @return the number of todos done
+     */
+    public static int countTotalDone(List<Todo> todoList) {
+        int count = 0;
+        for (Todo todo : todoList) {
+            if (todo.isDone()) {
+                count ++;
+            }
+        }
+        return count;
     }
 
 }

@@ -71,8 +71,8 @@ public class Home {
         Long loggedUserId = loggedUser.getId();
         todoList = todoService.getTodoListByUser(loggedUserId);
         totalCount = todoList.size();
-        doneCount = todoService.getTodoListByStatus(loggedUserId, true).size();
-        todoCount = totalCount - todoCount;
+        doneCount = TodolistUtils.countTotalDone(todoList);
+        todoCount = totalCount - doneCount;
     }
 
     @OnEvent(value = EventConstants.ACTION, component = "deleteTodoLink")

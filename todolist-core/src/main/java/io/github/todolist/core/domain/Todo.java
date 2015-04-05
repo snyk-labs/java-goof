@@ -37,10 +37,7 @@ import java.util.Date;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "findTodosByUser", query = "SELECT t FROM Todo t where t.userId = ?1 order by t.dueDate"),
-        @NamedQuery(name = "findTodosByTitle", query = "SELECT t FROM Todo t where t.userId = ?1 and upper(t.title) like ?2 order by t.dueDate"),
-        @NamedQuery(name = "findTodosByPriority", query = "SELECT t FROM Todo t where t.userId = ?1 and t.priority = ?2 order by t.dueDate"),
-        @NamedQuery(name = "findTodosByStatus", query = "SELECT t FROM Todo t where t.userId = ?1 and t.done = ?2 order by t.dueDate"),
-        @NamedQuery(name = "findTodosByStatusAndPriority", query = "SELECT t FROM Todo t where t.userId = ?1 and t.done = ?2 and t.priority = ?3 order by t.dueDate")
+        @NamedQuery(name = "findTodosByTitle", query = "SELECT t FROM Todo t where t.userId = ?1 and upper(t.title) like ?2 order by t.dueDate")
 })
 public class Todo implements Serializable {
 

@@ -70,23 +70,13 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("homeTabStyle", "active");
 
         int totalCount = todoList.size();
-        int doneCount = getDoneTodoCount(todoList);
+        int doneCount = TodolistUtils.countTotalDone(todoList);
         int todoCount = totalCount - doneCount;
         request.setAttribute("totalCount", totalCount);
         request.setAttribute("doneCount", doneCount);
         request.setAttribute("todoCount", todoCount);
 
         request.getRequestDispatcher("/WEB-INF/views/user/home.jsp").forward(request, response);
-    }
-
-    private int getDoneTodoCount(List<Todo> todoList) {
-        int count = 0;
-        for (Todo todo : todoList) {
-            if (todo.isDone()) {
-                count ++;
-            }
-        }
-        return count;
     }
 
     @Override

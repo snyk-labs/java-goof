@@ -24,7 +24,6 @@
 
 package io.github.todolist.core.service.api;
 
-import io.github.todolist.core.domain.Priority;
 import io.github.todolist.core.domain.Todo;
 
 import java.util.List;
@@ -49,31 +48,6 @@ public interface TodoService {
      * @return the todo list for the given user
      */
     List<Todo> getTodoListByUser(final long userId);
-
-    /**
-     * Get todo list by status for the given user.
-     * @param userId the user's id
-     * @param status the todo's status
-     * @return the todo list for the given user
-     */
-    List<Todo> getTodoListByStatus(final long userId, final boolean status);
-
-    /**
-     * Get todo list by priority for the given user.
-     * @param userId the user's id
-     * @param priority the todo's {@link Priority}
-     * @return the todo list for the given user
-     */
-    List<Todo> getTodoListByPriority(final long userId, final Priority priority);
-
-    /**
-     * Get todo list by status and priority for the given user.
-     * @param userId the user's id
-     * @param status the todo's status
-     * @param priority the todo's {@link Priority}
-     * @return the todo list for the given user
-     */
-    List<Todo> getTodoListByStatusAndPriority(final long userId, final boolean status, final Priority priority);
 
     /**
      * Search todo list by title for the given user.

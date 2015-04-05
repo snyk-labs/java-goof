@@ -24,7 +24,6 @@
 
 package io.github.todolist.core.service.impl;
 
-import io.github.todolist.core.domain.Priority;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.repository.api.TodoRepository;
 import io.github.todolist.core.service.api.TodoService;
@@ -58,27 +57,6 @@ public class TodoServiceImpl implements TodoService {
      */
     public List<Todo> getTodoListByUser(final long userId) {
         return todoRepository.getTodoListByUser(userId);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public List<Todo> getTodoListByStatus(final long userId, final boolean status) {
-        return todoRepository.getTodoListByUserAndStatus(userId, status);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public List<Todo> getTodoListByPriority(final long userId, final Priority priority) {
-        return todoRepository.getTodoListByUserAndPriority(userId, priority);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public List<Todo> getTodoListByStatusAndPriority(final long userId, final boolean status, final Priority priority) {
-        return todoRepository.getTodoListByUserAndStatusAndPriority(userId, status, priority);
     }
 
     /**
