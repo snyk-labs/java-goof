@@ -8,7 +8,6 @@
         <li><a href="/user/todos"><i class="icon-home"></i> Home</a></li>
         <li><a href="/user/account"><i class="icon-user"></i> My account</a></li>
         <li><a href="/user/todos/new"><i class="icon-file"></i> Create a todo</a></li>
-        <li><a href="/user/todos/export"><i class="icon-download-alt"></i> Export my todo list</a></li>
         <li class="divider"></li>
         <li class="nav-header">Search todo</li>
         <li>

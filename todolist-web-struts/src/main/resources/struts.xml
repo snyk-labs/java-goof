@@ -56,23 +56,6 @@
             </result>
         </action>
 
-        <action name="export" class="io.github.benas.todolist.web.action.todo.ExportTodoAction" method="export">
-            <interceptor-ref name="loginInterceptor"/>
-            <interceptor-ref name="defaultStack"/>
-            <result>/WEB-INF/views/todo/export.jsp</result>
-        </action>
-
-        <action name="export.do" class="io.github.benas.todolist.web.action.todo.ExportTodoAction" method="doExport">
-            <interceptor-ref name="loginInterceptor"/>
-            <interceptor-ref name="defaultStack"/>
-            <result name="success" type="stream">
-                <param name="contentDisposition">attachment;filename="${fileName}"</param>
-                <param name="contentType">${contentType}</param>
-                <param name="inputName">inputStream</param>
-                <param name="bufferSize">1024</param>
-            </result>
-        </action>
-
         <action name="search" class="io.github.benas.todolist.web.action.todo.SearchTodoAction">
             <interceptor-ref name="loginInterceptor"/>
             <interceptor-ref name="defaultStack"/>

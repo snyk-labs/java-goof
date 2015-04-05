@@ -24,16 +24,13 @@
 
 package io.github.benas.todolist.web.controller;
 
+import io.github.benas.todolist.web.common.util.TodolistUtils;
+import io.github.benas.todolist.web.util.SessionData;
+import io.github.benas.todolist.web.util.TodoPriorityPropertyEditor;
 import io.github.todolist.core.domain.Priority;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
-import io.github.todolist.core.service.api.ExportService;
 import io.github.todolist.core.service.api.TodoService;
-import io.github.todolist.core.util.ExportFormat;
-import io.github.benas.todolist.web.common.util.TodolistUtils;
-import io.github.benas.todolist.web.util.ExportFormatPropertyEditor;
-import io.github.benas.todolist.web.util.SessionData;
-import io.github.benas.todolist.web.util.TodoPriorityPropertyEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +42,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -71,16 +65,12 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @Autowired
-    private ExportService exportService;
-
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(TodolistUtils.DATE_FORMAT);
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
         binder.registerCustomEditor(Priority.class, new TodoPriorityPropertyEditor());
-        binder.registerCustomEditor(ExportFormat.class, new ExportFormatPropertyEditor());
     }
 
     /**********************
@@ -150,65 +140,4 @@ public class TodoController {
         return "todo/search";
     }
 
-
-    /**********************
-    * Export Todo list
-    **********************/
-
-    @RequestMapping("/user/todos/export")
-    public String redirectToExportTodoListPage() {
-        return "todo/export";
-    }
-
-    @RequestMapping(value = "/user/todos/export.do", method = RequestMethod.POST)
-    public void exportTodoList(@RequestParam String filename, @RequestParam boolean statusFilter,
-                               @RequestParam Priority priorityFilter, @RequestParam ExportFormat format, HttpServletResponse response) {
-
-        List<Todo> todoList = todoService.getTodoListByStatusAndPriority(sessionData.getUser().getId(), statusFilter, priorityFilter);
-
-        byte[] bytes = exportService.exportTodoList(todoList, format);
-
-        renderExportedTodoList(filename, format, response, bytes);
-
-    }
-
-    private void renderExportedTodoList(String filename, ExportFormat format, HttpServletResponse response, byte[] bytes) {
-        ServletOutputStream servletOutputStream = null;
-        try {
-            servletOutputStream = response.getOutputStream();
-            String contentType = "text";
-            if (format.equals(ExportFormat.PDF)) {
-                contentType = "application";
-            }
-            response.setContentType(getContentType(format, contentType));
-            response.setContentLength(bytes.length);
-            response.setHeader("Content-Disposition", getContentDisposition(filename, format));
-            servletOutputStream.write(bytes, 0, bytes.length);
-
-        } catch (IOException e) {
-            LOGGER.error("error while exporting todo list");
-            //TODO show an error message to the user
-        } finally {
-            closeServletOutputStream(servletOutputStream);
-        }
-    }
-
-    private String getContentDisposition(String filename, ExportFormat format) {
-        return "attachment; filename=\"" + filename + "." + format.toString().toLowerCase() + "\"";
-    }
-
-    private String getContentType(ExportFormat format, String contentType) {
-        return contentType + "/" + format.toString().toLowerCase();
-    }
-
-    private void closeServletOutputStream(ServletOutputStream servletOutputStream) {
-        if (servletOutputStream != null) {
-            try {
-                servletOutputStream.flush();
-                servletOutputStream.close();
-            } catch (IOException e) {
-                throw new RuntimeException("Unable to close servletOutputStream", e);
-            }
-        }
-    }
 }
