@@ -19,7 +19,7 @@
                 <fieldset>
 
                     <div class="control-group">
-                        <label class="control-label" for="name">Name :</label>
+                        <label class="control-label" for="name">Name:</label>
                         <div class="controls">
                             <sf:input path="name" id="name" type="text" class="input-medium" required="required"/>
                             <p class="help-block alert-error"><sf:errors path="name" cssClass="error"/></p>
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="email">Email :</label>
+                        <label class="control-label" for="email">Email:</label>
                         <div class="controls">
                             <sf:input path="email" id="email" type="text" class="input-medium" placeholder="your@email.com" required="required"/>
                             <p class="help-block alert-error"><sf:errors path="email" cssClass="error"/></p>
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="password">Password :</label>
+                        <label class="control-label" for="password">Password:</label>
                         <div class="controls">
                             <sf:input type="password" path="password" id="password" class="input-medium" placeholder="min 6 characters" required="required"/>
                             <p class="help-block alert-error"><sf:errors path="password" cssClass="error"/></p>
@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="confirmationPassword">Confirm Password :</label>
+                        <label class="control-label" for="confirmationPassword">Confirmation password:</label>
                         <div class="controls">
                             <sf:input type="password" path="confirmationPassword" id="confirmationPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
                             <p class="help-block alert-error"><sf:errors path="confirmationPassword" cssClass="error"/></p>

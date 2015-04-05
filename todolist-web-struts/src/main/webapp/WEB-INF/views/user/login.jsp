@@ -18,7 +18,7 @@
                 <fieldset>
 
                     <div class="control-group">
-                        <label class="control-label" for="email">Email :</label>
+                        <label class="control-label" for="email">Email:</label>
                         <div class="controls">
                             <s:textfield id="email" name="loginForm.email" cssClass="input-medium" placeholder="your@email.com" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorEmail}"/></p>
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="password">Password :</label>
+                        <label class="control-label" for="password">Password:</label>
                         <div class="controls">
                             <s:password id="password" name="loginForm.password" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorPassword}"/></p>

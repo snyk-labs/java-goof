@@ -13,7 +13,7 @@
         <div class="span9">
             <div class="well">
                 <div class="page-header">
-                    <h1>Search results for title : '${param.title}' </h1>
+                    <h1>Search results for title: '${param.title}' </h1>
                 </div>
 
                 <table class="table table-bordered table-striped">
