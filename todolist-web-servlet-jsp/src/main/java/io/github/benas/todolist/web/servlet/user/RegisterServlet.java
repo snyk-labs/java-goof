@@ -84,25 +84,21 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
 
         RegistrationForm registrationForm = new RegistrationForm();
-        registrationForm.setFirstname(firstName);
-        registrationForm.setLastname(lastName);
+        registrationForm.setName(name);
         registrationForm.setEmail(email);
         registrationForm.setPassword(password);
         registrationForm.setConfirmationPassword(confirmPassword);
 
         String nextPage = "/WEB-INF/views/user/register.jsp";
 
-        checkFirstName(request, registrationForm);
-
-        checkLastName(request, registrationForm);
+        checkName(request, registrationForm);
 
         checkEmail(request, registrationForm);
 
@@ -123,7 +119,7 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        User user = new User(firstName, lastName, email, password);
+        User user = new User(name, email, password);
         user = userService.create(user);
         HttpSession session = request.getSession(true);
         session.setAttribute(TodolistUtils.SESSION_USER, user);
@@ -169,20 +165,11 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
-    private void checkLastName(HttpServletRequest request, RegistrationForm registrationForm) {
+    private void checkName(HttpServletRequest request, RegistrationForm registrationForm) {
         Set<ConstraintViolation<RegistrationForm>> constraintViolations;
-        constraintViolations = validator.validateProperty(registrationForm, "lastName");
+        constraintViolations = validator.validateProperty(registrationForm, "name");
         if (!constraintViolations.isEmpty()) {
-            request.setAttribute("errorLastName", constraintViolations.iterator().next().getMessage());
-            addGlobalRegistrationErrorAttribute(request);
-        }
-    }
-
-    private void checkFirstName(HttpServletRequest request, RegistrationForm registrationForm) {
-        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
-        constraintViolations = validator.validateProperty(registrationForm, "firstName");
-        if (!constraintViolations.isEmpty()) {
-            request.setAttribute("errorFirstName", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("errorName", constraintViolations.iterator().next().getMessage());
             addGlobalRegistrationErrorAttribute(request);
         }
     }

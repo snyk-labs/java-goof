@@ -24,18 +24,18 @@
                                 <legend>Update my profile <p class="alert-success">${updateProfileSuccessMessage}</p></legend>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="firstName">First Name :</label>
+                                    <label class="control-label" for="id">Id :</label>
 
                                     <div class="controls">
-                                        <input name="firstName" id="firstName" value="${user.firstName}" type="text" class="input-medium" required="required"/>
+                                        <input name="id" id="id" value="${user.id}" type="text" class="input-medium" disabled="disabled"/>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="lastName">Last Name :</label>
+                                    <label class="control-label" for="name">Name :</label>
 
                                     <div class="controls">
-                                        <input name="lastName" id="lastName" value="${user.lastName}" type="text" class="input-medium" required="required"/>
+                                        <input name="name" id="name" value="${user.name}" type="text" class="input-medium" required="required"/>
                                     </div>
                                 </div>
 

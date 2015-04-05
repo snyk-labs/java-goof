@@ -19,18 +19,10 @@
                 <fieldset>
 
                     <div class="control-group">
-                        <label class="control-label" for="firstname">First Name :</label>
+                        <label class="control-label" for="name">Name :</label>
                         <div class="controls">
-                            <sf:input path="firstname" id="firstname" type="text" class="input-medium" required="required"/>
-                            <p class="help-block alert-error"><sf:errors path="firstname" cssClass="error"/></p>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="lastname">Last Name :</label>
-                        <div class="controls">
-                            <sf:input path="lastname" id="lastname" type="text" class="input-medium" required="required"/>
-                            <p class="help-block alert-error"><sf:errors path="lastname" cssClass="error"/></p>
+                            <sf:input path="name" id="name" type="text" class="input-medium" required="required"/>
+                            <p class="help-block alert-error"><sf:errors path="name" cssClass="error"/></p>
                         </div>
                     </div>
 

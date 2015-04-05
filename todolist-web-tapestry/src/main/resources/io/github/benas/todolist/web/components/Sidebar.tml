@@ -2,7 +2,7 @@
 
     <div class="well sidebar-nav">
         <ul class="nav nav-list">
-            <li class="nav-header">Hi ${loggedUser.firstName} !</li>
+            <li class="nav-header">Hi ${loggedUser.name} !</li>
             <li><t:pageLink t:page="user/Home"><i class="icon-home"></i> Home</t:pageLink></li>
             <li><t:pageLink t:page="user/Account"><i class="icon-user"></i> My account</t:pageLink></li>
             <li><t:pageLink t:page="todo/Create"><i class="icon-file"></i> Create a todo</t:pageLink></li>

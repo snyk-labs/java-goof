@@ -23,18 +23,18 @@
                                 <legend>Update my profile <p class="alert-success">${requestScope.updateProfileSuccessMessage}</p></legend>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="firstName">First Name :</label>
+                                    <label class="control-label" for="id">Id :</label>
 
                                     <div class="controls">
-                                        <input name="firstName" id="firstName" value="${sessionScope.user.firstName}" type="text" class="input-medium" required="required"/>
+                                        <input name="id" id="id" value="${sessionScope.user.id}" type="text" class="input-medium" disabled="disabled"/>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="lastName">Last Name :</label>
+                                    <label class="control-label" for="name">Name :</label>
 
                                     <div class="controls">
-                                        <input name="lastname" id="lastName" value="${sessionScope.user.lastName}" type="text" class="input-medium" required="required"/>
+                                        <input name="name" id="name" value="${sessionScope.user.name}" type="text" class="input-medium" required="required"/>
                                     </div>
                                 </div>
 

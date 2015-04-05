@@ -5,7 +5,7 @@
 
 <div class="well sidebar-nav">
     <ul class="nav nav-list">
-        <li class="nav-header">Hi ${sessionScope.user.firstName} !</li>
+        <li class="nav-header">Hi ${sessionScope.user.name} !</li>
         <li><a href="/user/home"><i class="icon-home"></i> Home</a></li>
         <li><a href="/user/account"><i class="icon-user"></i> My account</a></li>
         <li><a href="/todo/new"><i class="icon-file"></i> Create a todo</a></li>

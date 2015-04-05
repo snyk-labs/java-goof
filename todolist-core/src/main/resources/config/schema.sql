@@ -1,7 +1,6 @@
 CREATE TABLE user (
   id int IDENTITY NOT NULL PRIMARY KEY,
-  firstName varchar(32) DEFAULT NULL,
-  lastName varchar(32) DEFAULT NULL,
+  name varchar(32) DEFAULT NULL,
   email varchar(32) NOT NULL,
   password varchar(32) DEFAULT NULL
 );

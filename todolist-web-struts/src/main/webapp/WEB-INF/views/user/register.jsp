@@ -19,18 +19,10 @@
                 <fieldset>
 
                     <div class="control-group">
-                        <label class="control-label" for="firstname">First Name :</label>
+                        <label class="control-label" for="name">Name :</label>
                         <div class="controls">
-                            <s:textfield id="firstname" name="registrationForm.firstname" type="text" cssClass="input-medium" required="required"/>
-                            <p class="help-block alert-error"><c:out value="${requestScope.errorFirstName}"/></p>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="lastname">Last Name :</label>
-                        <div class="controls">
-                            <s:textfield id="lastname" name="registrationForm.lastname" type="text" cssClass="input-medium" required="required"/>
-                            <p class="help-block alert-error"><c:out value="${requestScope.errorLastName}"/></p>
+                            <s:textfield id="name" name="registrationForm.name" type="text" cssClass="input-medium" required="required"/>
+                            <p class="help-block alert-error"><c:out value="${requestScope.errorName}"/></p>
                         </div>
                     </div>
 

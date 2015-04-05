@@ -43,10 +43,7 @@ public class User implements Serializable {
     @GeneratedValue
     private Long id;
 
-    //TODO simplify with just the user name
-    private String firstName;
-
-    private String lastName;
+    private String name;
 
     private String email;
 
@@ -55,9 +52,8 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(String name, String email, String password) {
+        this.name = name;
         this.email = email;
         this.password = password;
     }
@@ -66,20 +62,12 @@ public class User implements Serializable {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -102,8 +90,7 @@ public class User implements Serializable {
     public String toString() {
         return "User[" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ']';

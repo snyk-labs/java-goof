@@ -36,11 +36,8 @@ import javax.validation.constraints.Size;
  */
 public class RegistrationForm {
 
-    @NotEmpty(message = "{registration.error.firstname.required}")
-    private String firstname;
-
-    @NotEmpty(message = "{registration.error.lastname.required}")
-    private String lastname;
+    @NotEmpty(message = "{registration.error.name.required}")
+    private String name;
 
     @NotEmpty(message = "{registration.error.email.required}")
     @Email(message = "{registration.error.email.invalid}")
@@ -54,20 +51,12 @@ public class RegistrationForm {
     @Size(min = 6, message = "{registration.error.confirmpassword.size}")
     private String confirmationPassword;
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

@@ -100,8 +100,7 @@ public class UserController {
         }
 
         User user = new User();
-        user.setFirstName(registrationForm.getFirstname());
-        user.setLastName(registrationForm.getLastname());
+        user.setName(registrationForm.getName());
         user.setEmail(registrationForm.getEmail());
         user.setPassword(registrationForm.getPassword());
 
@@ -209,14 +208,13 @@ public class UserController {
     *****************************/
 
     @RequestMapping(value = "/user/account/update.do", method = RequestMethod.POST)
-    public String updatePersonalInformation(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, Model model) {
+    public String updatePersonalInformation(@RequestParam String name, @RequestParam String email, Model model) {
         User user = sessionData.getUser();
 
         if (emailIsAlreadyUsed(email)) {
             model.addAttribute("error", messageProvider.getMessage("account.email.alreadyUsed", new Object[]{email}, sessionData.getLocale()));
         } else {
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
+            user.setName(name);
             user.setEmail(email);
             userService.update(user);
             model.addAttribute("updateProfileSuccessMessage", messageProvider.getMessage("account.profile.update.success", null, sessionData.getLocale()));

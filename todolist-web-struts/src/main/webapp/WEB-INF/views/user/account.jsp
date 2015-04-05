@@ -24,18 +24,18 @@
                                 <legend>Update my profile <p class="alert-success">${requestScope.updateProfileSuccessMessage}</p></legend>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="firstName">First Name :</label>
+                                    <label class="control-label" for="id">Id :</label>
 
                                     <div class="controls">
-                                        <s:textfield name="user.firstName" id="firstName" cssClass="input-medium" required="required"/>
+                                        <s:textfield name="user.id" id="id" cssClass="input-medium" disabled="true"/>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="lastName">Last Name :</label>
+                                    <label class="control-label" for="name">Name :</label>
 
                                     <div class="controls">
-                                        <s:textfield name="user.lastName" id="lastName" cssClass="input-medium" required="required"/>
+                                        <s:textfield name="user.name" id="name" cssClass="input-medium" required="required"/>
                                     </div>
                                 </div>
 

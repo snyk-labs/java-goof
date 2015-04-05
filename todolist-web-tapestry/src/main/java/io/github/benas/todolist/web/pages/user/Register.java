@@ -51,10 +51,7 @@ public class Register {
     private Messages messages;
 
     @Property
-    private String firstName;
-
-    @Property
-    private String lastName;
+    private String name;
 
     @Property
     private String email;
@@ -85,7 +82,7 @@ public class Register {
 
     @OnEvent(value = EventConstants.SUCCESS, component = "registerForm")
     public Object onRegisterSuccess() {
-        User user = new User(firstName, lastName, email, password);
+        User user = new User(name, email, password);
         userService.create(user);
         loggedUser = userService.getUserByEmail(email);
         return Home.class;

@@ -55,7 +55,7 @@ public class AccountAction extends BaseAction {
 
     private String updateProfileSuccessMessage, updatePasswordSuccessMessage;
 
-    private String error, errorFirstName, errorLastName, errorEmail, errorPassword,
+    private String error, errorName, errorEmail, errorPassword,
             errorCurrentPassword, errorConfirmationPassword, errorConfirmPasswordMatching;
 
     /*****************
@@ -88,7 +88,7 @@ public class AccountAction extends BaseAction {
             return ActionSupport.INPUT;
         }
 
-        User user = new User(registrationForm.getFirstname(), registrationForm.getLastname(), registrationForm.getEmail(), registrationForm.getPassword());
+        User user = new User(registrationForm.getName(), registrationForm.getEmail(), registrationForm.getPassword());
         user = userService.create(user);
         session.put(TodolistUtils.SESSION_USER, user);
         return Action.SUCCESS;
@@ -99,9 +99,7 @@ public class AccountAction extends BaseAction {
     }
 
     private void validateRegistrationForm() {
-        validateFirstName();
-
-        validateLastName();
+        validateName();
 
         validateEmail();
 
@@ -147,18 +145,10 @@ public class AccountAction extends BaseAction {
         }
     }
 
-    private void validateLastName() {
-        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "lastName");
+    private void validateName() {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "name");
         if (!constraintViolations.isEmpty()) {
-            errorLastName = constraintViolations.iterator().next().getMessage();
-            error = getText("register.error.global");
-        }
-    }
-
-    private void validateFirstName() {
-        Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "firstName");
-        if (!constraintViolations.isEmpty()) {
-            errorFirstName = constraintViolations.iterator().next().getMessage();
+            errorName = constraintViolations.iterator().next().getMessage();
             error =  getText("register.error.global");
         }
     }
@@ -177,8 +167,7 @@ public class AccountAction extends BaseAction {
             return Action.INPUT;
         }
 
-        user.setFirstName(this.user.getFirstName());
-        user.setLastName(this.user.getLastName());
+        user.setName(this.user.getName());
         user.setEmail(email);
         userService.update(user);
         session.put(TodolistUtils.SESSION_USER, user);
@@ -314,12 +303,8 @@ public class AccountAction extends BaseAction {
         return error;
     }
 
-    public String getErrorFirstName() {
-        return errorFirstName;
-    }
-
-    public String getErrorLastName() {
-        return errorLastName;
+    public String getErrorName() {
+        return errorName;
     }
 
     public String getErrorEmail() {

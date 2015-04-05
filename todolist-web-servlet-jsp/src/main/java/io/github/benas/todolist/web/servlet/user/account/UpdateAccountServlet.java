@@ -62,8 +62,7 @@ public class UpdateAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String name = request.getParameter("name");
         String email = request.getParameter("email");
 
         HttpSession session = request.getSession();
@@ -76,8 +75,7 @@ public class UpdateAccountServlet extends HttpServlet {
             return;
         }
 
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
+        user.setName(name);
         user.setEmail(email);
         userService.update(user);
         request.setAttribute("updateProfileSuccessMessage", resourceBundle.getString("account.profile.update.success"));

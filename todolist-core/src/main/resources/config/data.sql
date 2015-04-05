@@ -1,5 +1,6 @@
 --users
-INSERT INTO user VALUES (1,'Foo', 'Bar','foo@bar.org', 'foobar');
+INSERT INTO user VALUES (1,'Foo','foo@bar.org', 'foobar');
+INSERT INTO user VALUES (2,'Bar','bar@foo.org', 'barfoo');
 
 --todos
 
