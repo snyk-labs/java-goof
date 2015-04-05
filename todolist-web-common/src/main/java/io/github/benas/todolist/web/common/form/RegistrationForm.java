@@ -47,8 +47,8 @@ public class RegistrationForm {
     @Size(min = 6, message = "{registration.error.password.size}")
     private String password;
 
-    @NotEmpty(message = "{registration.error.confirmpassword.required}")
-    @Size(min = 6, message = "{registration.error.confirmpassword.size}")
+    @NotEmpty(message = "{registration.error.confirmationPassword.required}")
+    @Size(min = 6, message = "{registration.error.confirmationPassword.size}")
     private String confirmationPassword;
 
     public String getName() {

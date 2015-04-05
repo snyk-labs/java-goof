@@ -182,7 +182,7 @@ public class UserController {
             model.addAttribute("user", user);
             return view;
         }
-        if (newPasswordDoesNotMatchConfirmationPassword(changePasswordForm.getPassword(), changePasswordForm.getConfirmPassword())) {
+        if (newPasswordDoesNotMatchConfirmationPassword(changePasswordForm.getNewPassword(), changePasswordForm.getConfirmationPassword())) {
             model.addAttribute("error", messageProvider.getMessage("account.password.confirmation.error", null, sessionData.getLocale()));
             model.addAttribute("user", user);
             return view;
@@ -193,7 +193,7 @@ public class UserController {
             return view;
         }
 
-        user.setPassword(changePasswordForm.getPassword());
+        user.setPassword(changePasswordForm.getNewPassword());
         userService.update(user);
         model.addAttribute("updatePasswordSuccessMessage", messageProvider.getMessage("account.password.update.success", null, sessionData.getLocale()));
         model.addAttribute("user", user);

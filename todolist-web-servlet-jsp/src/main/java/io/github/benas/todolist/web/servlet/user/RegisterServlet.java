@@ -87,14 +87,14 @@ public class RegisterServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String confirmationPassword = request.getParameter("confirmationPassword");
 
 
         RegistrationForm registrationForm = new RegistrationForm();
         registrationForm.setName(name);
         registrationForm.setEmail(email);
         registrationForm.setPassword(password);
-        registrationForm.setConfirmationPassword(confirmPassword);
+        registrationForm.setConfirmationPassword(confirmationPassword);
 
         String nextPage = "/WEB-INF/views/user/register.jsp";
 
@@ -106,7 +106,7 @@ public class RegisterServlet extends HttpServlet {
 
         checkConfirmationPassword(request, registrationForm);
 
-        checkPasswordsMatch(request, password, confirmPassword);
+        checkPasswordsMatch(request, password, confirmationPassword);
 
         if (isInvalid(request)) {
             request.getRequestDispatcher(nextPage).forward(request, response);
@@ -131,9 +131,9 @@ public class RegisterServlet extends HttpServlet {
         return request.getAttribute("error") != null;
     }
 
-    private void checkPasswordsMatch(HttpServletRequest request, String password, String confirmPassword) {
-        if (!confirmPassword.equals(password)) {
-            request.setAttribute("errorConfirmPasswordMatching", resourceBundle.getString("register.error.password.confirmation.error"));
+    private void checkPasswordsMatch(HttpServletRequest request, String password, String confirmationPassword) {
+        if (!confirmationPassword.equals(password)) {
+            request.setAttribute("errorConfirmationPasswordMatching", resourceBundle.getString("register.error.password.confirmation.error"));
             addGlobalRegistrationErrorAttribute(request);
         }
     }
@@ -142,7 +142,7 @@ public class RegisterServlet extends HttpServlet {
         Set<ConstraintViolation<RegistrationForm>> constraintViolations;
         constraintViolations = validator.validateProperty(registrationForm, "confirmationPassword");
         if (!constraintViolations.isEmpty()) {
-            request.setAttribute("errorConfirmPassword", constraintViolations.iterator().next().getMessage());
+            request.setAttribute("errorConfirmationPassword", constraintViolations.iterator().next().getMessage());
             addGlobalRegistrationErrorAttribute(request);
         }
     }

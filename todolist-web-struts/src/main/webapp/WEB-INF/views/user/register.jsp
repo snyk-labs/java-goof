@@ -19,7 +19,7 @@
                 <fieldset>
 
                     <div class="control-group">
-                        <label class="control-label" for="name">Name :</label>
+                        <label class="control-label" for="name">Name:</label>
                         <div class="controls">
                             <s:textfield id="name" name="registrationForm.name" type="text" cssClass="input-medium" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorName}"/></p>
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="email">Email :</label>
+                        <label class="control-label" for="email">Email:</label>
                         <div class="controls">
                             <s:textfield id="email" name="registrationForm.email" cssClass="input-medium" placeholder="your@email.com" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorEmail}"/></p>
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="password">Password :</label>
+                        <label class="control-label" for="password">Password:</label>
                         <div class="controls">
                             <s:password id="password" name="registrationForm.password" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorPassword}"/></p>
@@ -43,11 +43,11 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="confirmationPassword">Confirm Password :</label>
+                        <label class="control-label" for="confirmationPassword">Confirmation password:</label>
                         <div class="controls">
                             <s:password id="confirmationPassword" name="registrationForm.confirmationPassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmationPassword}"/></p>
-                            <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmPasswordMatching}"/></p>
+                            <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmationPasswordMatching}"/></p>
                         </div>
                     </div>
 

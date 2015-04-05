@@ -25,21 +25,21 @@
                             <legend>Update my profile <p class="alert-success">${updateProfileSuccessMessage}</p></legend>
 
                             <div class="control-group">
-                                <label class="control-label" for="id">Id :</label>
+                                <label class="control-label" for="id">Id:</label>
                                 <div class="controls">
                                     <input t:type="textField" t:id="id" class="input-medium" t:disabled="true"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="name">Name :</label>
+                                <label class="control-label" for="name">Name:</label>
                                 <div class="controls">
                                     <input t:type="textField" t:id="name" class="input-medium" required="required"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="email">Email :</label>
+                                <label class="control-label" for="email">Email:</label>
                                 <div class="controls">
                                     <input t:type="textField" t:id="email" t:validate="email" class="input-medium" required="required"/>
                                 </div>
@@ -69,23 +69,23 @@
                             <legend>Update my Password <p class="alert-success">${updatePasswordSuccessMessage}</p></legend>
 
                             <div class="control-group">
-                                <label class="control-label" t:type="label" t:for="currentPassword">Current password :</label>
+                                <label class="control-label" t:type="label" t:for="currentPassword">Current password:</label>
                                 <div class="controls">
                                     <input t:type="passwordField" t:id="currentPassword" class="input-medium" required="required" t:validate="minlength=6" placeholder="min 6 characters"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" t:type="label" t:for="newPassword">New password :</label>
+                                <label class="control-label" t:type="label" t:for="newPassword">New password:</label>
                                 <div class="controls">
                                     <input t:type="passwordField" t:id="newPassword" class="input-medium" required="required" t:validate="minlength=6" placeholder="min 6 characters"/>
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" t:type="label" t:for="confirmPassword">Confirm Password :</label>
+                                <label class="control-label" t:type="label" t:for="confirmationPassword">Confirmation password:</label>
                                 <div class="controls">
-                                    <input t:type="passwordField" t:id="confirmPassword" class="input-medium" required="required" t:validate="minlength=6" placeholder="min 6 characters"/>
+                                    <input t:type="passwordField" t:id="confirmationPassword" class="input-medium" required="required" t:validate="minlength=6" placeholder="min 6 characters"/>
                                 </div>
                             </div>
 

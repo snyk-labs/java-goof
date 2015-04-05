@@ -39,35 +39,35 @@ public class ChangePasswordForm {
     @Size(min = 6, message = "{update.currentPassword.size}")
     private String currentPassword;
 
-    @NotEmpty(message = "{update.password.required}")
-    @Size(min = 6, message = "{update.password.size}")
-    private String password;
+    @NotEmpty(message = "{update.newPassword.required}")
+    @Size(min = 6, message = "{update.newPassword.size}")
+    private String newPassword;
 
-    @NotEmpty(message = "{update.confirmPassword.required}")
-    @Size(min = 6, message = "{update.confirmPassword.size}")
-    private String confirmPassword;
+    @NotEmpty(message = "{update.confirmationPassword.required}")
+    @Size(min = 6, message = "{update.confirmationPassword.size}")
+    private String confirmationPassword;
 
     public String getCurrentPassword() {
         return currentPassword;
     }
 
-    public void setCurrentPassword(String currentpassword) {
-        this.currentPassword = currentpassword;
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
+    public String getConfirmationPassword() {
+        return confirmationPassword;
     }
 
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
+    public void setConfirmationPassword(String confirmationPassword) {
+        this.confirmationPassword = confirmationPassword;
     }
 }

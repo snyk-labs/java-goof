@@ -55,8 +55,8 @@ public class AccountAction extends BaseAction {
 
     private String updateProfileSuccessMessage, updatePasswordSuccessMessage;
 
-    private String error, errorName, errorEmail, errorPassword,
-            errorCurrentPassword, errorConfirmationPassword, errorConfirmPasswordMatching;
+    private String error, errorName, errorEmail, errorPassword, errorNewPassword,
+            errorCurrentPassword, errorConfirmationPassword, errorConfirmationPasswordMatching;
 
     /*****************
      * Account details
@@ -112,7 +112,7 @@ public class AccountAction extends BaseAction {
 
     private void checkPasswordsMatch() {
         if (confirmationPasswordDoesNotMatchPassword()) {
-            errorConfirmPasswordMatching = getText("register.error.password.confirmation.error");
+            errorConfirmationPasswordMatching = getText("register.error.password.confirmation.error");
             error = getText("register.error.global");
         }
     }
@@ -228,7 +228,7 @@ public class AccountAction extends BaseAction {
             return Action.INPUT;
         }
 
-        user.setPassword(changePasswordForm.getPassword());
+        user.setPassword(changePasswordForm.getNewPassword());
         user = userService.update(user);
         session.put(TodolistUtils.SESSION_USER, user);
         this.user = user;
@@ -237,7 +237,7 @@ public class AccountAction extends BaseAction {
     }
 
     private boolean newPasswordDoesNotMatchConfirmationPassword() {
-        return !changePasswordForm.getPassword().equals(changePasswordForm.getConfirmPassword());
+        return !changePasswordForm.getNewPassword().equals(changePasswordForm.getConfirmationPassword());
     }
 
     private boolean incorrectCurrentPassword(User user) {
@@ -254,7 +254,7 @@ public class AccountAction extends BaseAction {
 
     private void validateConfirmPassword() {
         Set<ConstraintViolation<ChangePasswordForm>> constraintViolations;
-        constraintViolations = validator.validateProperty(changePasswordForm, "confirmPassword");
+        constraintViolations = validator.validateProperty(changePasswordForm, "confirmationPassword");
         if (!constraintViolations.isEmpty()) {
             errorConfirmationPassword = constraintViolations.iterator().next().getMessage();
             error = getText("account.password.error.global");
@@ -263,9 +263,9 @@ public class AccountAction extends BaseAction {
 
     private void validateNewPassword() {
         Set<ConstraintViolation<ChangePasswordForm>> constraintViolations;
-        constraintViolations = validator.validateProperty(changePasswordForm, "password");
+        constraintViolations = validator.validateProperty(changePasswordForm, "newPassword");
         if (!constraintViolations.isEmpty()) {
-            errorPassword = constraintViolations.iterator().next().getMessage();
+            errorNewPassword = constraintViolations.iterator().next().getMessage();
             error = getText("account.password.error.global");
         }
     }
@@ -314,13 +314,16 @@ public class AccountAction extends BaseAction {
     public String getErrorPassword() {
         return errorPassword;
     }
+    public String getErrorNewPassword() {
+        return errorNewPassword;
+    }
 
     public String getErrorConfirmationPassword() {
         return errorConfirmationPassword;
     }
 
-    public String getErrorConfirmPasswordMatching() {
-        return errorConfirmPasswordMatching;
+    public String getErrorConfirmationPasswordMatching() {
+        return errorConfirmationPasswordMatching;
     }
 
     public String getUpdateProfileSuccessMessage() {

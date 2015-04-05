@@ -85,7 +85,7 @@ public class Account {
     private String newPassword;
 
     @Property
-    private String confirmPassword;
+    private String confirmationPassword;
 
     @Property
     @Persist(value = PersistenceConstants.FLASH)
@@ -139,7 +139,7 @@ public class Account {
         if (isIncorrect(currentPassword)) {
             changePasswordForm.recordError(messages.get("account.password.error"));
         } else {
-            if (!newPassword.equals(confirmPassword))
+            if (!newPassword.equals(confirmationPassword))
                 changePasswordForm.recordError(messages.get("account.password.confirmation.error"));
         }
     }

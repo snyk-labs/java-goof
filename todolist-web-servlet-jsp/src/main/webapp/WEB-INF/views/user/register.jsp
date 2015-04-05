@@ -18,7 +18,7 @@
                 <fieldset>
 
                     <div class="control-group">
-                        <label class="control-label" for="name">Name :</label>
+                        <label class="control-label" for="name">Name:</label>
                         <div class="controls">
                             <input id="name" name="name" type="text" class="input-medium" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorName}"/></p>
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="email">Email :</label>
+                        <label class="control-label" for="email">Email:</label>
                         <div class="controls">
                             <input id="email" name="email" type="email" class="input-medium" placeholder="your@email.com" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorEmail}"/></p>
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="password">Password :</label>
+                        <label class="control-label" for="password">Password:</label>
                         <div class="controls">
                             <input type="password" id="password" name="password" class="input-medium" placeholder="min 6 characters" required="required"/>
                             <p class="help-block alert-error"><c:out value="${requestScope.errorPassword}"/></p>
@@ -42,11 +42,11 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="confirmPassword">Confirm Password :</label>
+                        <label class="control-label" for="confirmationPassword">Confirmation password:</label>
                         <div class="controls">
-                            <input type="password" id="confirmPassword" name="confirmPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
-                            <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmPassword}"/></p>
-                            <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmPasswordMatching}"/></p>
+                            <input type="password" id="confirmationPassword" name="confirmationPassword" class="input-medium" placeholder="min 6 characters" required="required"/>
+                            <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmationPassword}"/></p>
+                            <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmationPasswordMatching}"/></p>
                         </div>
                     </div>
 

@@ -24,7 +24,7 @@
                                 <legend>Update my profile <p class="alert-success">${requestScope.updateProfileSuccessMessage}</p></legend>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="id">Id :</label>
+                                    <label class="control-label" for="id">Id:</label>
 
                                     <div class="controls">
                                         <s:textfield name="user.id" id="id" cssClass="input-medium" disabled="true"/>
@@ -32,7 +32,7 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="name">Name :</label>
+                                    <label class="control-label" for="name">Name:</label>
 
                                     <div class="controls">
                                         <s:textfield name="user.name" id="name" cssClass="input-medium" required="required"/>
@@ -40,7 +40,7 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="email">Email :</label>
+                                    <label class="control-label" for="email">Email:</label>
 
                                     <div class="controls">
                                         <s:textfield name="user.email" id="email" cssClass="input-medium" required="required"/>
@@ -65,7 +65,7 @@
                                 <legend>Update my Password <p class="alert-success">${requestScope.updatePasswordSuccessMessage}</p></legend>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="currentPassword">Current password :</label>
+                                    <label class="control-label" for="currentPassword">Current password:</label>
 
                                     <div class="controls">
                                         <s:password id="currentPassword" name="changePasswordForm.currentPassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
@@ -74,19 +74,19 @@
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="password">New password :</label>
+                                    <label class="control-label" for="newPassword">New password:</label>
 
                                     <div class="controls">
-                                        <s:password id="password" name="changePasswordForm.password" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
-                                        <p class="help-block alert-error"><c:out value="${requestScope.errorPassword}"/></p>
+                                        <s:password id="newPassword" name="changePasswordForm.newPassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <p class="help-block alert-error"><c:out value="${requestScope.errorNewPassword}"/></p>
                                     </div>
                                 </div>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="confirmPassword">Confirm Password :</label>
+                                    <label class="control-label" for="confirmationPassword">Confirmation password:</label>
 
                                     <div class="controls">
-                                        <s:password id="confirmPassword" name="changePasswordForm.confirmPassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
+                                        <s:password id="confirmationPassword" name="changePasswordForm.confirmationPassword" cssClass="input-medium" placeholder="min 6 characters" required="required"/>
                                         <p class="help-block alert-error"><c:out value="${requestScope.errorConfirmationPassword}"/></p>
                                     </div>
                                 </div>

@@ -17,28 +17,28 @@
             <fieldset>
 
                 <div class="control-group">
-                    <label class="control-label" t:type="label" t:for="name">Name :</label>
+                    <label class="control-label" t:type="label" t:for="name">Name:</label>
                     <div class="controls">
                         <input t:id="name" t:type="textField" required="required" class="input-medium"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" t:type="label" t:for="email">Email :</label>
+                    <label class="control-label" t:type="label" t:for="email">Email:</label>
                     <div class="controls">
                         <input t:id="email" t:type="textField" class="input-medium" required="required" t:validate="email" placeholder="your@email.com" />
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" t:type="label" t:for="password">Password :</label>
+                    <label class="control-label" t:type="label" t:for="password">Password:</label>
                     <div class="controls">
                         <input t:type="passwordField" t:id="password" class="input-medium" required="required" t:validate="minlength=6" placeholder="min 6 characters"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" t:type="label" t:for="confirmationPassword">Confirm Password :</label>
+                    <label class="control-label" t:type="label" t:for="confirmationPassword">Confirmation password:</label>
                     <div class="controls">
                         <input t:type="passwordField" t:id="confirmationPassword" class="input-medium" required="required" t:validate="minlength=6" placeholder="min 6 characters"/>
                     </div>
