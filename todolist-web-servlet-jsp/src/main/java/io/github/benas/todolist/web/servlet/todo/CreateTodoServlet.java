@@ -24,11 +24,11 @@
 
 package io.github.benas.todolist.web.servlet.todo;
 
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.Priority;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
-import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -49,7 +49,7 @@ import java.util.Date;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
-@WebServlet(name = "CreateTodoServlet",urlPatterns = {"/todos/new", "/todos/new.do"})
+@WebServlet(name = "CreateTodoServlet", urlPatterns = {"/todos/new", "/todos/new.do"})
 public class CreateTodoServlet extends HttpServlet {
 
     private TodoService todoService;

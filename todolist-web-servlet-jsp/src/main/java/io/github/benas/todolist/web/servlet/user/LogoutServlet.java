@@ -41,8 +41,8 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            request.getSession().invalidate();
-            request.getRequestDispatcher("/index").forward(request, response);
+        request.getSession().invalidate();
+        request.getRequestDispatcher("/index").forward(request, response);
     }
 
 }

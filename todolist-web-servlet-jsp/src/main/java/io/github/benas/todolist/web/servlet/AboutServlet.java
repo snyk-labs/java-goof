@@ -41,7 +41,7 @@ import java.io.IOException;
 public class AboutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("aboutTabStyle","active");
+        request.setAttribute("aboutTabStyle", "active");
         request.getRequestDispatcher("/WEB-INF/views/about.jsp").forward(request, response);
     }
 

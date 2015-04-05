@@ -37,12 +37,12 @@ import java.io.IOException;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
-@WebServlet(name = "IndexServlet",urlPatterns = {"/", "/index"})
+@WebServlet(name = "IndexServlet", urlPatterns = {"/", "/index"})
 public class IndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("indexTabStyle","active");
+        request.setAttribute("indexTabStyle", "active");
         request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
     }
 

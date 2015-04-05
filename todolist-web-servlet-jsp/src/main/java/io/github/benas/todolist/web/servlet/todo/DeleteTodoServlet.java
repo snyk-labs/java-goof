@@ -45,7 +45,7 @@ import java.util.ResourceBundle;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
-@WebServlet(name = "DeleteTodoServlet",urlPatterns = "/todos/delete.do")
+@WebServlet(name = "DeleteTodoServlet", urlPatterns = "/todos/delete.do")
 public class DeleteTodoServlet extends HttpServlet {
 
     private TodoService todoService;
@@ -67,7 +67,7 @@ public class DeleteTodoServlet extends HttpServlet {
             if (todo != null) {
                 todoService.remove(todo);
                 request.getRequestDispatcher("/todos").forward(request, response);
-            }  else {
+            } else {
                 redirectToErrorPage(request, response, String.valueOf(todoId));
             }
         } catch (NumberFormatException e) {

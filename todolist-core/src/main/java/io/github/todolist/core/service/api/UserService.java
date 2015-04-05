@@ -35,6 +35,7 @@ public interface UserService {
 
     /**
      * Get user by email.
+     *
      * @param email the user's email
      * @return the user with the given email or null if no such user
      */
@@ -42,7 +43,8 @@ public interface UserService {
 
     /**
      * Check user's email and password.
-     * @param email the user's email
+     *
+     * @param email    the user's email
      * @param password the user's password
      * @return true if the credentials match, false else
      */
@@ -50,6 +52,7 @@ public interface UserService {
 
     /**
      * Create a user.
+     *
      * @param user the user to create
      * @return the created user
      */
@@ -57,6 +60,7 @@ public interface UserService {
 
     /**
      * Update a user.
+     *
      * @param user the user to update.
      * @return the updated user
      */
@@ -64,6 +68,7 @@ public interface UserService {
 
     /**
      * Remove a user.
+     *
      * @param user the user to remove
      */
     void remove(final User user);

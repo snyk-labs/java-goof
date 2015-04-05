@@ -24,14 +24,14 @@
 
 package io.github.benas.todolist.web.controller;
 
+import io.github.benas.todolist.web.common.form.ChangePasswordForm;
+import io.github.benas.todolist.web.common.form.RegistrationForm;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
+import io.github.benas.todolist.web.util.SessionData;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
 import io.github.todolist.core.service.api.UserService;
-import io.github.benas.todolist.web.common.form.ChangePasswordForm;
-import io.github.benas.todolist.web.common.form.RegistrationForm;
-import io.github.benas.todolist.web.util.SessionData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -67,9 +67,11 @@ public class UserController {
     @Autowired
     private SessionData sessionData;
 
-    /**********************
-    * Registration Process
-    **********************/
+    /**
+     * *******************
+     * Registration Process
+     * ********************
+     */
 
     @RequestMapping("/register")
     public ModelAndView redirectToRegistrationPage() {
@@ -80,7 +82,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/register.do" , method = RequestMethod.POST)
+    @RequestMapping(value = "/register.do", method = RequestMethod.POST)
     public String doRegister(@Valid RegistrationForm registrationForm, BindingResult bindingResult, Model model) {
 
         final String view = "user/register";
@@ -122,9 +124,11 @@ public class UserController {
         return userService.getUserByEmail(email) != null;
     }
 
-    /**********************
-    * Home page
-    **********************/
+    /**
+     * *******************
+     * Home page
+     * ********************
+     */
 
     @RequestMapping("/user/todos")
     public ModelAndView loadTodoList() {
@@ -145,9 +149,11 @@ public class UserController {
 
     }
 
-    /**********************
-    * Account details page
-    **********************/
+    /**
+     * *******************
+     * Account details page
+     * ********************
+     */
 
     @RequestMapping("/user/account")
     public ModelAndView redirectToAccountPage() {
@@ -158,9 +164,11 @@ public class UserController {
         return modelAndView;
     }
 
-    /**********************
-    * Delete Account
-    **********************/
+    /**
+     * *******************
+     * Delete Account
+     * ********************
+     */
 
     @RequestMapping(value = "/user/account/delete.do", method = RequestMethod.POST)
     public String deleteAccount(HttpSession session) {
@@ -170,9 +178,11 @@ public class UserController {
         return "index";
     }
 
-    /**********************
-    * Change password
-    **********************/
+    /**
+     * *******************
+     * Change password
+     * ********************
+     */
 
     @RequestMapping(value = "/user/account/password.do", method = RequestMethod.POST)
     public String changePassword(@Valid ChangePasswordForm changePasswordForm, BindingResult bindingResult, Model model) {
@@ -206,9 +216,11 @@ public class UserController {
         return !user.getPassword().equals(changePasswordForm.getCurrentPassword());
     }
 
-    /*****************************
-    * Update personal information
-    *****************************/
+    /**
+     * **************************
+     * Update personal information
+     * ***************************
+     */
 
     @RequestMapping(value = "/user/account/update.do", method = RequestMethod.POST)
     public String updatePersonalInformation(@RequestParam String name, @RequestParam String email, Model model) {

@@ -68,10 +68,11 @@ public class HighlightTag extends SimpleTagSupport {
 
     /**
      * Apply a search/replace of the pattern in the input text.
+     *
      * @param input text to which apply the style for each pattern matched
      * @return the transformed text
      */
-    private String doHighlight(final String input){
+    private String doHighlight(final String input) {
 
         String startSpanTag = "<span class=\"" + cssClass + "\">";
         String endSpanTag = "</span>";

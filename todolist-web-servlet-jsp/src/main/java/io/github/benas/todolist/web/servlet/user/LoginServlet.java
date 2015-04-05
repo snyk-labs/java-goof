@@ -24,10 +24,10 @@
 
 package io.github.benas.todolist.web.servlet.user;
 
-import io.github.todolist.core.domain.User;
-import io.github.todolist.core.service.api.UserService;
 import io.github.benas.todolist.web.common.form.LoginForm;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
+import io.github.todolist.core.domain.User;
+import io.github.todolist.core.service.api.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -48,7 +48,7 @@ import java.util.Set;
 
 /**
  * Servlet that controls the login process.
- *
+ * <p/>
  * Get requests to "/login" redirects to login page.
  * Post requests to "/login.do" processes user login.
  *
@@ -131,7 +131,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void addGlobalLoginErrorAttribute(HttpServletRequest request) {
-        request.setAttribute("error",resourceBundle.getString("login.error.global"));
+        request.setAttribute("error", resourceBundle.getString("login.error.global"));
     }
 
     private boolean isInvalid(HttpServletRequest request) {

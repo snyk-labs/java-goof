@@ -24,10 +24,10 @@
 
 package io.github.benas.todolist.web.controller;
 
-import io.github.todolist.core.domain.User;
-import io.github.todolist.core.service.api.UserService;
 import io.github.benas.todolist.web.common.form.LoginForm;
 import io.github.benas.todolist.web.util.SessionData;
+import io.github.todolist.core.domain.User;
+import io.github.todolist.core.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -57,9 +57,11 @@ public class SessionController {
     @Autowired
     private SessionData sessionData;
 
-    /**********************
-    * Login methods
-    **********************/
+    /**
+     * *******************
+     * Login methods
+     * ********************
+     */
 
     @RequestMapping("/login")
     public ModelAndView redirectToLoginPage() {
@@ -99,9 +101,11 @@ public class SessionController {
         return !userService.login(loginForm.getEmail(), loginForm.getPassword());
     }
 
-    /**********************
-    * Logout method
-    **********************/
+    /**
+     * *******************
+     * Logout method
+     * ********************
+     */
 
     @RequestMapping("/user/logout")
     public String logout(HttpSession session) {

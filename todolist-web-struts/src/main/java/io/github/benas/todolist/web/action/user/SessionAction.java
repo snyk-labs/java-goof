@@ -27,11 +27,10 @@ package io.github.benas.todolist.web.action.user;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-
-import io.github.todolist.core.domain.User;
+import io.github.benas.todolist.web.action.BaseAction;
 import io.github.benas.todolist.web.common.form.LoginForm;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
-import io.github.benas.todolist.web.action.BaseAction;
+import io.github.todolist.core.domain.User;
 
 /**
  * Action class that controls login/logout process.
@@ -46,9 +45,11 @@ public class SessionAction extends BaseAction {
 
     private String error;
 
-    /*********
+    /**
+     * ******
      * Login
-     *********/
+     * *******
+     */
 
     public String login() {
         return Action.SUCCESS;
@@ -65,9 +66,11 @@ public class SessionAction extends BaseAction {
         }
     }
 
-    /*********
+    /**
+     * ******
      * Logout
-     *********/
+     * *******
+     */
 
     public String doLogout() {
         if (session instanceof org.apache.struts2.dispatcher.SessionMap) {

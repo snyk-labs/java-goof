@@ -24,9 +24,9 @@
 
 package io.github.benas.todolist.web.servlet.user.account;
 
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.UserService;
-import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 

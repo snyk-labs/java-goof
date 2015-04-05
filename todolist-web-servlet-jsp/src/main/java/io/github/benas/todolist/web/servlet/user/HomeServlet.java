@@ -24,10 +24,10 @@
 
 package io.github.benas.todolist.web.servlet.user;
 
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
-import io.github.benas.todolist.web.common.util.TodoListUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -47,7 +47,7 @@ import java.util.List;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
-@WebServlet(name = "HomeServlet" ,urlPatterns = "/todos")
+@WebServlet(name = "HomeServlet", urlPatterns = "/todos")
 public class HomeServlet extends HttpServlet {
 
     private TodoService todoService;
@@ -81,6 +81,6 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
+        doGet(request, response);
     }
 }

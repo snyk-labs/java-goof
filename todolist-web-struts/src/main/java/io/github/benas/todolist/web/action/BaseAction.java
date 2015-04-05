@@ -27,10 +27,10 @@ package io.github.benas.todolist.web.action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
+import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.User;
 import io.github.todolist.core.service.api.TodoService;
 import io.github.todolist.core.service.api.UserService;
-import io.github.benas.todolist.web.common.util.TodoListUtils;
 
 import javax.validation.Validation;
 import javax.validation.Validator;

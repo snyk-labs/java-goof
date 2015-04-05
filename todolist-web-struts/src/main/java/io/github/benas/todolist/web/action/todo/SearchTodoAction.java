@@ -25,8 +25,8 @@
 package io.github.benas.todolist.web.action.todo;
 
 import com.opensymphony.xwork2.Action;
-import io.github.todolist.core.domain.Todo;
 import io.github.benas.todolist.web.action.BaseAction;
+import io.github.todolist.core.domain.Todo;
 
 import java.util.List;
 

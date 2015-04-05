@@ -25,8 +25,8 @@
 package io.github.benas.todolist.web.action.todo;
 
 import com.opensymphony.xwork2.Action;
-import io.github.todolist.core.domain.Todo;
 import io.github.benas.todolist.web.action.BaseAction;
+import io.github.todolist.core.domain.Todo;
 
 import java.text.MessageFormat;
 
@@ -66,7 +66,7 @@ public class TodoAction extends BaseAction {
         if (todo != null) {
             todoService.remove(todo);
             return Action.SUCCESS;
-        }  else {
+        } else {
             error = MessageFormat.format(getText("no.such.todo"), this.todo.getId());
             return Action.ERROR;
         }
@@ -90,7 +90,7 @@ public class TodoAction extends BaseAction {
         this.todo = todo;
     }
 
-    public void setTodoId(String todoId){
+    public void setTodoId(String todoId) {
         this.todo = new Todo();
         todo.setId(Long.valueOf(todoId));
     }

@@ -37,6 +37,7 @@ public interface TodoRepository {
 
     /**
      * Get todo by id.
+     *
      * @param id the todo's id
      * @return the todo having the given id or null if no todo found with the given id
      */
@@ -44,6 +45,7 @@ public interface TodoRepository {
 
     /**
      * Get todo list for the given user.
+     *
      * @param userId the user's id
      * @return the todo list for the given user
      */
@@ -51,7 +53,8 @@ public interface TodoRepository {
 
     /**
      * Get todo list by title for the given user.
-     * @param title the todo title
+     *
+     * @param title  the todo title
      * @param userId the user identifier
      * @return the todo list containing the 'title' parameter in their title for the given user
      */
@@ -59,6 +62,7 @@ public interface TodoRepository {
 
     /**
      * Create a new todo.
+     *
      * @param todo the todo to create
      * @return the created todo
      */
@@ -66,6 +70,7 @@ public interface TodoRepository {
 
     /**
      * Update a todo.
+     *
      * @param todo the todo to update
      * @return the updated todo
      */
@@ -73,6 +78,7 @@ public interface TodoRepository {
 
     /**
      * Remove a todo.
+     *
      * @param todo the todo to remove
      */
     void remove(final Todo todo);

@@ -24,10 +24,10 @@
 
 package io.github.benas.todolist.web.servlet.user.account;
 
-import io.github.todolist.core.domain.User;
-import io.github.todolist.core.service.api.UserService;
 import io.github.benas.todolist.web.common.form.ChangePasswordForm;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
+import io.github.todolist.core.domain.User;
+import io.github.todolist.core.service.api.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -105,7 +105,7 @@ public class ChangePasswordServlet extends HttpServlet {
             return;
         }
 
-        if (!currentPassword.equals(user.getPassword())){
+        if (!currentPassword.equals(user.getPassword())) {
             request.setAttribute("errorCurrentPassword", resourceBundle.getString("account.password.error"));
             addGlobalChangePasswordErrorAttribute(request);
             request.getRequestDispatcher(nextPage).forward(request, response);

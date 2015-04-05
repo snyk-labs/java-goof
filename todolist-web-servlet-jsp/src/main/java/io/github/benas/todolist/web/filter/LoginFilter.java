@@ -24,8 +24,8 @@
 
 package io.github.benas.todolist.web.filter;
 
-import io.github.todolist.core.domain.User;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
+import io.github.todolist.core.domain.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -38,7 +38,7 @@ import java.io.IOException;
  *
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
-@WebFilter(filterName = "LoginFilter",urlPatterns = { "/user/*", "/todos/*" })
+@WebFilter(filterName = "LoginFilter", urlPatterns = {"/user/*", "/todos/*"})
 public class LoginFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
@@ -48,11 +48,10 @@ public class LoginFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
-        User user = (User)session.getAttribute(TodoListUtils.SESSION_USER);
-        if ( user != null ) {
+        User user = (User) session.getAttribute(TodoListUtils.SESSION_USER);
+        if (user != null) {
             chain.doFilter(request, response);
-        }
-        else {
+        } else {
             request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
         }
     }

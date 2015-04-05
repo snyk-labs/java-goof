@@ -73,9 +73,11 @@ public class TodoController {
         binder.registerCustomEditor(Priority.class, new TodoPriorityPropertyEditor());
     }
 
-    /**********************
-    * Create a new Todo
-    **********************/
+    /**
+     * *******************
+     * Create a new Todo
+     * ********************
+     */
 
     @RequestMapping("/user/todos/new")
     public String redirectToCreateTodoPage(Model model) {
@@ -93,9 +95,11 @@ public class TodoController {
         return "redirect:/user/todos";
     }
 
-    /**********************
-    * Update a Todo
-    **********************/
+    /**
+     * *******************
+     * Update a Todo
+     * ********************
+     */
 
     @RequestMapping("/user/todos/{todoId}/update")
     public String redirectToUpdateTodoPage(@PathVariable long todoId, Model model) {
@@ -110,9 +114,11 @@ public class TodoController {
         return "redirect:/user/todos";
     }
 
-    /**********************
-    * Delete Todo
-    **********************/
+    /**
+     * *******************
+     * Delete Todo
+     * ********************
+     */
 
     @RequestMapping(value = "/user/todos/{todoId}/delete", method = RequestMethod.POST)
     public ModelAndView deleteTodo(@PathVariable long todoId) {
@@ -128,9 +134,11 @@ public class TodoController {
         return modelAndView;
     }
 
-    /**********************
-    * Search Todo
-    **********************/
+    /**
+     * *******************
+     * Search Todo
+     * ********************
+     */
 
     @RequestMapping(value = "/user/todos/search", method = RequestMethod.GET)
     public String searchTodoList(@RequestParam String title, Model model) {

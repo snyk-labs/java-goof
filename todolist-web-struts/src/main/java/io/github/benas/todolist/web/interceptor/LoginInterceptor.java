@@ -28,8 +28,8 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import io.github.todolist.core.domain.User;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
+import io.github.todolist.core.domain.User;
 
 import java.util.Map;
 

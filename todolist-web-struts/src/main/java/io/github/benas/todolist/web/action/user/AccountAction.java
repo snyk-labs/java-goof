@@ -28,11 +28,11 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import io.github.todolist.core.domain.User;
+import io.github.benas.todolist.web.action.BaseAction;
 import io.github.benas.todolist.web.common.form.ChangePasswordForm;
 import io.github.benas.todolist.web.common.form.RegistrationForm;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
-import io.github.benas.todolist.web.action.BaseAction;
+import io.github.todolist.core.domain.User;
 
 import javax.validation.ConstraintViolation;
 import java.text.MessageFormat;
@@ -58,18 +58,22 @@ public class AccountAction extends BaseAction {
     private String error, errorName, errorEmail, errorPassword, errorNewPassword,
             errorCurrentPassword, errorConfirmationPassword, errorConfirmationPasswordMatching;
 
-    /*****************
+    /**
+     * **************
      * Account details
-     *****************/
+     * ***************
+     */
 
     public String account() {
         user = getSessionUser();
         return Action.SUCCESS;
     }
 
-    /**********************
+    /**
+     * *******************
      * Register new account
-     *********************/
+     * *******************
+     */
 
     public String register() {
         return Action.SUCCESS;
@@ -149,13 +153,15 @@ public class AccountAction extends BaseAction {
         Set<ConstraintViolation<RegistrationForm>> constraintViolations = validator.validateProperty(registrationForm, "name");
         if (!constraintViolations.isEmpty()) {
             errorName = constraintViolations.iterator().next().getMessage();
-            error =  getText("register.error.global");
+            error = getText("register.error.global");
         }
     }
 
-    /**********************
+    /**
+     * *******************
      * Update account
-     *********************/
+     * *******************
+     */
 
     public String doUpdate() {
         User user = getSessionUser();
@@ -180,9 +186,11 @@ public class AccountAction extends BaseAction {
         return !this.user.getEmail().equals(email);
     }
 
-    /**********************
+    /**
+     * *******************
      * Delete account
-     *********************/
+     * *******************
+     */
 
     public String doDelete() {
         User user = getSessionUser();
@@ -203,9 +211,11 @@ public class AccountAction extends BaseAction {
         }
     }
 
-    /**********************
+    /**
+     * *******************
      * Change password
-     *********************/
+     * *******************
+     */
 
     public String doChangePassword() {
 
@@ -279,9 +289,11 @@ public class AccountAction extends BaseAction {
         }
     }
 
-    /******************************
+    /**
+     * ***************************
      * Getters for model attributes
-     ******************************/
+     * ****************************
+     */
 
     public String getRegisterTabStyle() {
         return "active";
@@ -314,6 +326,7 @@ public class AccountAction extends BaseAction {
     public String getErrorPassword() {
         return errorPassword;
     }
+
     public String getErrorNewPassword() {
         return errorNewPassword;
     }
@@ -338,9 +351,11 @@ public class AccountAction extends BaseAction {
         return errorCurrentPassword;
     }
 
-    /****************************************
+    /**
+     * *************************************
      * Setters for request parameters binding
-     ****************************************/
+     * **************************************
+     */
 
     public void setChangePasswordForm(ChangePasswordForm changePasswordForm) {
         this.changePasswordForm = changePasswordForm;

@@ -25,16 +25,16 @@
 package io.github.benas.todolist.web.action.user;
 
 import com.opensymphony.xwork2.Action;
+import io.github.benas.todolist.web.action.BaseAction;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.domain.User;
-import io.github.benas.todolist.web.action.BaseAction;
 
 import java.util.List;
 
 /**
  * Action class to load user's todo list in home page.
- *
+ * <p/>
  * benas (mahmoud@benhassine.fr)
  */
 public class HomeAction extends BaseAction {

@@ -24,10 +24,10 @@
 
 package io.github.benas.todolist.web.servlet.user;
 
-import io.github.todolist.core.domain.User;
-import io.github.todolist.core.service.api.UserService;
 import io.github.benas.todolist.web.common.form.RegistrationForm;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
+import io.github.todolist.core.domain.User;
+import io.github.todolist.core.service.api.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -53,7 +53,7 @@ import java.util.Set;
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
 
-@WebServlet(name = "RegisterServlet",urlPatterns = {"/register","/register.do"})
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/register", "/register.do"})
 public class RegisterServlet extends HttpServlet {
 
     private UserService userService;
@@ -113,7 +113,7 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        if (userService.getUserByEmail(email) != null ) {
+        if (userService.getUserByEmail(email) != null) {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("register.error.global.account"), email));
             request.getRequestDispatcher(nextPage).forward(request, response);
             return;
@@ -175,7 +175,7 @@ public class RegisterServlet extends HttpServlet {
     }
 
     private void addGlobalRegistrationErrorAttribute(HttpServletRequest request) {
-        request.setAttribute("error",resourceBundle.getString("register.error.global"));
+        request.setAttribute("error", resourceBundle.getString("register.error.global"));
     }
 
 }

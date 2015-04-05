@@ -36,7 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
-    @RequestMapping(value = {"/index", "/" })
+    @RequestMapping(value = {"/index", "/"})
     public String redirectToIndexPage() {
         return "index";
     }
