@@ -94,14 +94,16 @@ public class UserController {
             return view;
         }
 
-        if (emailIsAlreadyUsed(registrationForm.getEmail())) {
-            model.addAttribute("error", messageProvider.getMessage("register.error.global.account", new Object[]{registrationForm.getEmail()}, sessionData.getLocale()));
+        final String newEmail = registrationForm.getEmail();
+
+        if (emailIsAlreadyUsed(newEmail)) {
+            model.addAttribute("error", messageProvider.getMessage("register.error.global.account", new Object[]{newEmail}, sessionData.getLocale()));
             return view;
         }
 
         User user = new User();
         user.setName(registrationForm.getName());
-        user.setEmail(registrationForm.getEmail());
+        user.setEmail(newEmail);
         user.setPassword(registrationForm.getPassword());
 
         user = userService.create(user);
@@ -211,7 +213,7 @@ public class UserController {
     public String updatePersonalInformation(@RequestParam String name, @RequestParam String email, Model model) {
         User user = sessionData.getUser();
 
-        if (emailIsAlreadyUsed(email)) {
+        if (emailIsAlreadyUsed(email) && isDifferent(email)) {
             model.addAttribute("error", messageProvider.getMessage("account.email.alreadyUsed", new Object[]{email}, sessionData.getLocale()));
         } else {
             user.setName(name);
@@ -222,6 +224,10 @@ public class UserController {
         }
         model.addAttribute("user", user);
         return "user/account";
+    }
+
+    private boolean isDifferent(String email) {
+        return !email.equals(sessionData.getUser().getEmail());
     }
 
 }
