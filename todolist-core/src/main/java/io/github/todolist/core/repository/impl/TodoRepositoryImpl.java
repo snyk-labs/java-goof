@@ -42,20 +42,20 @@ import java.util.List;
 public class TodoRepositoryImpl implements TodoRepository {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     /**
      * {@inheritDoc}
      */
     public Todo getTodoById(final long id) {
-        return em.find(Todo.class, id);
+        return entityManager.find(Todo.class, id);
     }
 
     /**
      * {@inheritDoc}
      */
     public List<Todo> getTodoListByUser(final long userId) {
-        TypedQuery<Todo> query = em.createNamedQuery("findTodosByUser", Todo.class);
+        TypedQuery<Todo> query = entityManager.createNamedQuery("findTodosByUser", Todo.class);
         query.setParameter(1, userId);
         return query.getResultList();
     }
@@ -64,7 +64,7 @@ public class TodoRepositoryImpl implements TodoRepository {
      * {@inheritDoc}
      */
     public List<Todo> getTodoListByUserAndTitle(final long userId, final String title) {
-        TypedQuery<Todo> query = em.createNamedQuery("findTodosByTitle", Todo.class);
+        TypedQuery<Todo> query = entityManager.createNamedQuery("findTodosByTitle", Todo.class);
         query.setParameter(1, userId);
         query.setParameter(2, title.toUpperCase());
         return query.getResultList();
@@ -74,14 +74,14 @@ public class TodoRepositoryImpl implements TodoRepository {
      * {@inheritDoc}
      */
     public Todo update(Todo todo) {
-        return em.merge(todo);
+        return entityManager.merge(todo);
     }
 
     /**
      * {@inheritDoc}
      */
     public Todo create(final Todo todo) {
-        em.persist(todo);
+        entityManager.persist(todo);
         return todo;
     }
 
@@ -89,8 +89,8 @@ public class TodoRepositoryImpl implements TodoRepository {
      * {@inheritDoc}
      */
     public void remove(final Todo todo) {
-        Todo t = em.find(Todo.class, todo.getId());
-        em.remove(t);
+        Todo t = entityManager.find(Todo.class, todo.getId());
+        entityManager.remove(t);
     }
 
 }

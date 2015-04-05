@@ -42,13 +42,13 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     /**
      * {@inheritDoc}
      */
     public User create(final User user) {
-        em.persist(user);
+        entityManager.persist(user);
         return user;
     }
 
@@ -56,29 +56,23 @@ public class UserRepositoryImpl implements UserRepository {
      * {@inheritDoc}
      */
     public User update(User user) {
-        return em.merge(user);
+        return entityManager.merge(user);
     }
 
     /**
      * {@inheritDoc}
      */
     public void remove(final User user) {
-        em.createNativeQuery("DELETE FROM todo t WHERE t.userId = " + user.getId()).executeUpdate();
-        User u = em.find(User.class, user.getId());
-        /*
-         * FIXME : should be em.remove(user) + remove all his todos
-         *
-         * Entity must be attached to the PC before being removed, or else => java.lang.IllegalArgumentException.
-         * Entity must be managed to call remove(em.merge(user)) does not fix the pb).
-         */
-        em.remove(u);
+        entityManager.createNativeQuery("DELETE FROM todo t WHERE t.userId = " + user.getId()).executeUpdate();
+        User u = entityManager.find(User.class, user.getId());
+        entityManager.remove(u);
     }
 
     /**
      * {@inheritDoc}
      */
     public User getUserByEmail(final String email) {
-        TypedQuery<User> query = em.createNamedQuery("findUserByEmail", User.class);
+        TypedQuery<User> query = entityManager.createNamedQuery("findUserByEmail", User.class);
         query.setParameter("p_email", email);
         List<User> users = query.getResultList();
         return (users != null && !users.isEmpty()) ? users.get(0) : null;
@@ -88,7 +82,7 @@ public class UserRepositoryImpl implements UserRepository {
      * {@inheritDoc}
      */
     public boolean login(final String email, final String password) {
-        TypedQuery<User> query = em.createNamedQuery("findUserByEmailAndPassword", User.class);
+        TypedQuery<User> query = entityManager.createNamedQuery("findUserByEmailAndPassword", User.class);
         query.setParameter("p_email", email);
         query.setParameter("p_password", password);
         List<User> users = query.getResultList();
