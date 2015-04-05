@@ -68,14 +68,6 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}
      */
     @Transactional(readOnly = true)
-    public User getUserById(final long id) {
-        return userRepository.getUserById(id);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Transactional(readOnly = true)
     public User getUserByEmail(final String email) {
         return userRepository.getUserByEmail(email);
     }

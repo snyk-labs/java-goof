@@ -77,13 +77,6 @@ public class UserRepositoryImpl implements UserRepository {
     /**
      * {@inheritDoc}
      */
-    public User getUserById(final long id) {
-        return em.find(User.class, id);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public User getUserByEmail(final String email) {
         TypedQuery<User> query = em.createNamedQuery("findUserByEmail", User.class);
         query.setParameter("p_email", email);

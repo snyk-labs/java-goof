@@ -34,13 +34,6 @@ import io.github.todolist.core.domain.User;
 public interface UserRepository {
 
     /**
-     * Get user by id.
-     * @param id the user's id
-     * @return the user with the given id or null if no such user
-     */
-    User getUserById(final long id);
-
-    /**
      * Get user by email.
      * @param email the user's email
      * @return the user with the given email or null if no such user
