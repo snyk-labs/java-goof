@@ -20,27 +20,27 @@
                         <td colspan="2"><strong>About</strong></td>
                     </tr>
                     <tr>
-                        <td>License</td>
-                        <td><a href="http://www.opensource.org/licenses/mit-license.php">The MIT License</a></td>
+                        <td>Home page</td>
+                        <td><a href="https://github.com/benas/todolist-mvc">https://github.com/benas/todolist-mvc</a></td>
                     </tr>
                     <tr>
-                        <td>Developed by</td>
-                        <td><a href="mailto:mahmoud@benhassine.fr">Benas</a></td>
+                        <td>License</td>
+                        <td><a href="http://www.opensource.org/licenses/mit-license.php">The MIT License</a></td>
                     </tr>
                     <tr>
                         <td colspan="2"><strong>Frameworks</strong></td>
                     </tr>
                     <tr>
                         <td><a href="http://spring.io/">Spring MVC</a></td>
-                        <td>3.2.4</td>
+                        <td>3.2</td>
                     </tr>
                     <tr>
                         <td><a href="http://spring.io/">Spring</a></td>
-                        <td>3.2.4</td>
+                        <td>3.2</td>
                     </tr>
                     <tr>
                         <td><a href="http://www.hibernate.org/">Hibernate</a></td>
-                        <td>4.2.1</td>
+                        <td>4.3</td>
                     </tr>
                     </tbody>
                 </table>
