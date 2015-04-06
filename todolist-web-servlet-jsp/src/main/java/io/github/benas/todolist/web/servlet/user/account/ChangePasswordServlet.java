@@ -46,6 +46,8 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import static io.github.benas.todolist.web.util.Views.ACCOUNT_PAGE;
+
 /**
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
@@ -82,7 +84,7 @@ public class ChangePasswordServlet extends HttpServlet {
         changePasswordForm.setNewPassword(newPassword);
         changePasswordForm.setConfirmationPassword(confirmationPassword);
 
-        String nextPage = "/WEB-INF/views/user/account.jsp";
+        String nextPage = ACCOUNT_PAGE;
 
         checkCurrentPassword(request, changePasswordForm);
 

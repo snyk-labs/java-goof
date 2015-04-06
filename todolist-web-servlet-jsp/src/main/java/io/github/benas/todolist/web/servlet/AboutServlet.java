@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static io.github.benas.todolist.web.util.Views.ABOUT_PAGE;
+
 /**
  * Servlet that controls the "about" page.
  *
@@ -42,7 +44,7 @@ public class AboutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("aboutTabStyle", "active");
-        request.getRequestDispatcher("/WEB-INF/views/about.jsp").forward(request, response);
+        request.getRequestDispatcher(ABOUT_PAGE).forward(request, response);
     }
 
 }

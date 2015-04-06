@@ -41,6 +41,8 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import static io.github.benas.todolist.web.util.Views.ACCOUNT_PAGE;
+
 /**
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
@@ -71,7 +73,7 @@ public class UpdateAccountServlet extends HttpServlet {
         if (userService.getUserByEmail(email) != null && !email.equals(user.getEmail())) {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("account.email.alreadyUsed"), email));
             request.setAttribute("user", user);
-            request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
+            request.getRequestDispatcher(ACCOUNT_PAGE).forward(request, response);
             return;
         }
 

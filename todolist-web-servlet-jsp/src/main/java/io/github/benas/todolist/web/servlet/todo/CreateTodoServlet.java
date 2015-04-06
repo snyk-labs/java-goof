@@ -43,6 +43,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static io.github.benas.todolist.web.util.Views.CREATE_TODO_PAGE;
+
 /**
  * Servlet that controls todo creation.
  *
@@ -63,7 +65,7 @@ public class CreateTodoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("today", new SimpleDateFormat(TodoListUtils.DATE_FORMAT).format(new Date()));
-        request.getRequestDispatcher("/WEB-INF/views/todo/create.jsp").forward(request, response);
+        request.getRequestDispatcher(CREATE_TODO_PAGE).forward(request, response);
     }
 
     @Override

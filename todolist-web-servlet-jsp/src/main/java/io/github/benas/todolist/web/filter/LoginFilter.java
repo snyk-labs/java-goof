@@ -33,6 +33,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static io.github.benas.todolist.web.util.Views.LOGIN_PAGE;
+
 /**
  * Filter to ensure that access to private resources is allowed only to logged users.
  *
@@ -52,7 +54,7 @@ public class LoginFilter implements Filter {
         if (user != null) {
             chain.doFilter(request, response);
         } else {
-            request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
+            request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
         }
     }
 

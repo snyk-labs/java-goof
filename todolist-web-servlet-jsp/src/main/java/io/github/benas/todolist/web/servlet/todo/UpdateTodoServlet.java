@@ -41,6 +41,9 @@ import java.text.MessageFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static io.github.benas.todolist.web.util.Views.ERROR_PAGE;
+import static io.github.benas.todolist.web.util.Views.UPDATE_TODO_PAGE;
+
 /**
  * Servlet that controls todo update.
  *
@@ -67,10 +70,10 @@ public class UpdateTodoServlet extends HttpServlet {
             long todoId = Long.parseLong(request.getParameter("todoId"));
             Todo todo = todoService.getTodoById(todoId); // FIXME security : may provide an id for a todo of another user!
             request.setAttribute("todo", todo);
-            request.getRequestDispatcher("/WEB-INF/views/todo/update.jsp").forward(request, response);
+            request.getRequestDispatcher(UPDATE_TODO_PAGE).forward(request, response);
         } catch (NumberFormatException e) {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("no.such.todo"), request.getParameter("todoId")));
-            request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
+            request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
         }
     }
 

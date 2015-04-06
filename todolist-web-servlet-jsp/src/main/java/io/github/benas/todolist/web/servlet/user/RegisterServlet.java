@@ -47,6 +47,8 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import static io.github.benas.todolist.web.util.Views.REGISTER_PAGE;
+
 /**
  * Servlet that controls the registration process.
  *
@@ -78,7 +80,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("registerTabStyle", "active");
-        request.getRequestDispatcher("/WEB-INF/views/user/register.jsp").forward(request, response);
+        request.getRequestDispatcher(REGISTER_PAGE).forward(request, response);
     }
 
     @Override
@@ -96,7 +98,7 @@ public class RegisterServlet extends HttpServlet {
         registrationForm.setPassword(password);
         registrationForm.setConfirmationPassword(confirmationPassword);
 
-        String nextPage = "/WEB-INF/views/user/register.jsp";
+        String nextPage = REGISTER_PAGE;
 
         checkName(request, registrationForm);
 

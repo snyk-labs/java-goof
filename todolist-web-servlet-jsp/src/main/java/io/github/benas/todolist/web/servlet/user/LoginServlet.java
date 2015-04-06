@@ -46,6 +46,8 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import static io.github.benas.todolist.web.util.Views.LOGIN_PAGE;
+
 /**
  * Servlet that controls the login process.
  * <p/>
@@ -80,7 +82,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("loginTabStyle", "active");
-        request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
+        request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -92,7 +94,7 @@ public class LoginServlet extends HttpServlet {
         loginForm.setEmail(email);
         loginForm.setPassword(password);
 
-        String nextPage = "/WEB-INF/views/user/login.jsp";
+        String nextPage = LOGIN_PAGE;
 
         checkEmail(request, loginForm);
 

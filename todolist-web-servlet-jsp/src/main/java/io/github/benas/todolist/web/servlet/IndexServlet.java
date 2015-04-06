@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static io.github.benas.todolist.web.util.Views.INDEX_PAGE;
+
 /**
  * Servlet that controls the "index" page.
  *
@@ -43,7 +45,7 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("indexTabStyle", "active");
-        request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
+        request.getRequestDispatcher(INDEX_PAGE).forward(request, response);
     }
 
     @Override

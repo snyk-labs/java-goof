@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
+import static io.github.benas.todolist.web.util.Views.ERROR_PAGE;
+
 /**
  * Servlet that controls todo deletion.
  *
@@ -77,7 +79,7 @@ public class DeleteTodoServlet extends HttpServlet {
 
     private void redirectToErrorPage(HttpServletRequest request, HttpServletResponse response, String todoId) throws ServletException, IOException {
         request.setAttribute("error", MessageFormat.format(resourceBundle.getString("no.such.todo"), todoId));
-        request.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(request, response);
+        request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
     }
 
 }

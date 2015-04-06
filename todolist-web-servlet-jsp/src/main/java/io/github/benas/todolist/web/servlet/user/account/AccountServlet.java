@@ -31,6 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static io.github.benas.todolist.web.util.Views.ACCOUNT_PAGE;
+
 /**
  * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
  */
@@ -40,7 +42,7 @@ public class AccountServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/views/user/account.jsp").forward(request, response);
+        request.getRequestDispatcher(ACCOUNT_PAGE).forward(request, response);
     }
 
     @Override

@@ -41,6 +41,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import static io.github.benas.todolist.web.util.Views.HOME_PAGE;
+
 /**
  * Servlet that controls action on the user's home page.
  *
@@ -76,7 +78,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("doneCount", doneCount);
         request.setAttribute("todoCount", todoCount);
 
-        request.getRequestDispatcher("/WEB-INF/views/user/home.jsp").forward(request, response);
+        request.getRequestDispatcher(HOME_PAGE).forward(request, response);
     }
 
     @Override
