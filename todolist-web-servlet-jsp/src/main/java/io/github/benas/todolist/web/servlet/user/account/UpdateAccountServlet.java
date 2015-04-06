@@ -70,7 +70,7 @@ public class UpdateAccountServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(TodoListUtils.SESSION_USER);
 
-        if (userService.getUserByEmail(email) != null && !email.equals(user.getEmail())) {
+        if (isAlreadyUsed(email) && isDifferent(email, user.getEmail())) {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("account.email.alreadyUsed"), email));
             request.setAttribute("user", user);
             request.getRequestDispatcher(ACCOUNT_PAGE).forward(request, response);
@@ -83,6 +83,14 @@ public class UpdateAccountServlet extends HttpServlet {
         request.setAttribute("updateProfileSuccessMessage", resourceBundle.getString("account.profile.update.success"));
         request.getRequestDispatcher("/user/account").forward(request, response);
 
+    }
+
+    private boolean isDifferent(String newEmail, String currentEmail) {
+        return !newEmail.equals(currentEmail);
+    }
+
+    private boolean isAlreadyUsed(String email) {
+        return userService.getUserByEmail(email) != null;
     }
 
 }

@@ -100,13 +100,7 @@ public class RegisterServlet extends HttpServlet {
 
         String nextPage = REGISTER_PAGE;
 
-        checkName(request, registrationForm);
-
-        checkEmail(request, registrationForm);
-
-        checkPassword(request, registrationForm);
-
-        checkConfirmationPassword(request, registrationForm);
+        validateRegistrationForm(request, registrationForm);
 
         checkPasswordsMatch(request, password, confirmationPassword);
 
@@ -115,7 +109,7 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        if (userService.getUserByEmail(email) != null) {
+        if (isAlreadyUsed(email)) {
             request.setAttribute("error", MessageFormat.format(resourceBundle.getString("register.error.global.account"), email));
             request.getRequestDispatcher(nextPage).forward(request, response);
             return;
@@ -129,6 +123,20 @@ public class RegisterServlet extends HttpServlet {
 
     }
 
+    private boolean isAlreadyUsed(String email) {
+        return userService.getUserByEmail(email) != null;
+    }
+
+    private void validateRegistrationForm(HttpServletRequest request, RegistrationForm registrationForm) {
+        validateName(request, registrationForm);
+
+        validateEmail(request, registrationForm);
+
+        validatePassword(request, registrationForm);
+
+        validateConfirmationPassword(request, registrationForm);
+    }
+
     private boolean isInvalid(HttpServletRequest request) {
         return request.getAttribute("error") != null;
     }
@@ -140,36 +148,36 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
-    private void checkConfirmationPassword(HttpServletRequest request, RegistrationForm registrationForm) {
-        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
-        constraintViolations = validator.validateProperty(registrationForm, "confirmationPassword");
+    private void validateConfirmationPassword(HttpServletRequest request, RegistrationForm registrationForm) {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations
+                = validator.validateProperty(registrationForm, "confirmationPassword");
         if (!constraintViolations.isEmpty()) {
             request.setAttribute("errorConfirmationPassword", constraintViolations.iterator().next().getMessage());
             addGlobalRegistrationErrorAttribute(request);
         }
     }
 
-    private void checkPassword(HttpServletRequest request, RegistrationForm registrationForm) {
-        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
-        constraintViolations = validator.validateProperty(registrationForm, "password");
+    private void validatePassword(HttpServletRequest request, RegistrationForm registrationForm) {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations
+                = validator.validateProperty(registrationForm, "password");
         if (!constraintViolations.isEmpty()) {
             request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
             addGlobalRegistrationErrorAttribute(request);
         }
     }
 
-    private void checkEmail(HttpServletRequest request, RegistrationForm registrationForm) {
-        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
-        constraintViolations = validator.validateProperty(registrationForm, "email");
+    private void validateEmail(HttpServletRequest request, RegistrationForm registrationForm) {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations
+                = validator.validateProperty(registrationForm, "email");
         if (!constraintViolations.isEmpty()) {
             request.setAttribute("errorEmail", constraintViolations.iterator().next().getMessage());
             addGlobalRegistrationErrorAttribute(request);
         }
     }
 
-    private void checkName(HttpServletRequest request, RegistrationForm registrationForm) {
-        Set<ConstraintViolation<RegistrationForm>> constraintViolations;
-        constraintViolations = validator.validateProperty(registrationForm, "name");
+    private void validateName(HttpServletRequest request, RegistrationForm registrationForm) {
+        Set<ConstraintViolation<RegistrationForm>> constraintViolations
+                = validator.validateProperty(registrationForm, "name");
         if (!constraintViolations.isEmpty()) {
             request.setAttribute("errorName", constraintViolations.iterator().next().getMessage());
             addGlobalRegistrationErrorAttribute(request);

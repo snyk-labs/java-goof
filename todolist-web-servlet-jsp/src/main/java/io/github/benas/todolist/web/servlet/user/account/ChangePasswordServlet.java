@@ -86,11 +86,7 @@ public class ChangePasswordServlet extends HttpServlet {
 
         String nextPage = ACCOUNT_PAGE;
 
-        checkCurrentPassword(request, changePasswordForm);
-
-        checkNewPassword(request, changePasswordForm);
-
-        checkConfirmationPassword(request, changePasswordForm);
+        validatePasswords(request, changePasswordForm);
 
         if (isInvalid(request)) {
             request.getRequestDispatcher(nextPage).forward(request, response);
@@ -122,7 +118,15 @@ public class ChangePasswordServlet extends HttpServlet {
 
     }
 
-    private void checkConfirmationPassword(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
+    private void validatePasswords(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
+        validateCurrentPassword(request, changePasswordForm);
+
+        validateNewPassword(request, changePasswordForm);
+
+        validateConfirmationPassword(request, changePasswordForm);
+    }
+
+    private void validateConfirmationPassword(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
         Set<ConstraintViolation<ChangePasswordForm>> constraintViolations
                 = validator.validateProperty(changePasswordForm, "confirmationPassword");
         if (!constraintViolations.isEmpty()) {
@@ -131,7 +135,7 @@ public class ChangePasswordServlet extends HttpServlet {
         }
     }
 
-    private void checkNewPassword(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
+    private void validateNewPassword(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
         Set<ConstraintViolation<ChangePasswordForm>> constraintViolations
                 = validator.validateProperty(changePasswordForm, "newPassword");
         if (!constraintViolations.isEmpty()) {
@@ -140,7 +144,7 @@ public class ChangePasswordServlet extends HttpServlet {
         }
     }
 
-    private void checkCurrentPassword(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
+    private void validateCurrentPassword(HttpServletRequest request, ChangePasswordForm changePasswordForm) {
         Set<ConstraintViolation<ChangePasswordForm>> constraintViolations
                 = validator.validateProperty(changePasswordForm, "currentPassword");
         if (!constraintViolations.isEmpty()) {

@@ -66,13 +66,14 @@ public class UpdateTodoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        final String id = request.getParameter("todoId");
         try {
-            long todoId = Long.parseLong(request.getParameter("todoId"));
+            long todoId = Long.parseLong(id);
             Todo todo = todoService.getTodoById(todoId); // FIXME security : may provide an id for a todo of another user!
             request.setAttribute("todo", todo);
             request.getRequestDispatcher(UPDATE_TODO_PAGE).forward(request, response);
         } catch (NumberFormatException e) {
-            request.setAttribute("error", MessageFormat.format(resourceBundle.getString("no.such.todo"), request.getParameter("todoId")));
+            request.setAttribute("error", MessageFormat.format(resourceBundle.getString("no.such.todo"), id));
             request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
         }
     }
@@ -85,8 +86,6 @@ public class UpdateTodoServlet extends HttpServlet {
         String dueDate = request.getParameter("dueDate");
         String priority = request.getParameter("priority");
         String status = request.getParameter("status");
-
-        //TODO populate a Todo bean and validate it using JSR 303
 
         Todo todo = todoService.getTodoById(todoId);
         todo.setTitle(title);

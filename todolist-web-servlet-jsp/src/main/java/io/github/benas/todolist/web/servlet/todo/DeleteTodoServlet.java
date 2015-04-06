@@ -63,17 +63,19 @@ public class DeleteTodoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        final String id = request.getParameter("todoId");
         try {
-            long todoId = Long.parseLong(request.getParameter("todoId"));
+            long todoId = Long.parseLong(id);
             Todo todo = todoService.getTodoById(todoId);
             if (todo != null) {
                 todoService.remove(todo);
                 request.getRequestDispatcher("/todos").forward(request, response);
             } else {
-                redirectToErrorPage(request, response, String.valueOf(todoId));
+                redirectToErrorPage(request, response, id);
             }
         } catch (NumberFormatException e) {
-            redirectToErrorPage(request, response, request.getParameter("todoId"));
+            redirectToErrorPage(request, response, id);
         }
     }
 

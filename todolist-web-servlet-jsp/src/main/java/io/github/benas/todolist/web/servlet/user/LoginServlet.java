@@ -50,7 +50,7 @@ import static io.github.benas.todolist.web.util.Views.LOGIN_PAGE;
 
 /**
  * Servlet that controls the login process.
- * <p/>
+ *
  * Get requests to "/login" redirects to login page.
  * Post requests to "/login.do" processes user login.
  *
@@ -96,16 +96,14 @@ public class LoginServlet extends HttpServlet {
 
         String nextPage = LOGIN_PAGE;
 
-        checkEmail(request, loginForm);
-
-        checkPassword(request, loginForm);
+        validateCredentials(request, loginForm);
 
         if (isInvalid(request)) {
             request.getRequestDispatcher(nextPage).forward(request, response);
             return;
         }
 
-        if (!userService.login(email, password)) {
+        if (isInvalidCombination(email, password)) {
             request.setAttribute("error", resourceBundle.getString("login.error.global.invalid"));
         } else {
             HttpSession session = request.getSession(true);//create session
@@ -116,7 +114,17 @@ public class LoginServlet extends HttpServlet {
         request.getRequestDispatcher(nextPage).forward(request, response);
     }
 
-    private void checkPassword(HttpServletRequest request, LoginForm loginForm) {
+    private void validateCredentials(HttpServletRequest request, LoginForm loginForm) {
+        validateEmail(request, loginForm);
+
+        validatePassword(request, loginForm);
+    }
+
+    private boolean isInvalidCombination(String email, String password) {
+        return !userService.login(email, password);
+    }
+
+    private void validatePassword(HttpServletRequest request, LoginForm loginForm) {
         Set<ConstraintViolation<LoginForm>> constraintViolations = validator.validateProperty(loginForm, "password");
         if (!constraintViolations.isEmpty()) {
             request.setAttribute("errorPassword", constraintViolations.iterator().next().getMessage());
@@ -124,7 +132,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    private void checkEmail(HttpServletRequest request, LoginForm loginForm) {
+    private void validateEmail(HttpServletRequest request, LoginForm loginForm) {
         Set<ConstraintViolation<LoginForm>> constraintViolations = validator.validateProperty(loginForm, "email");
         if (!constraintViolations.isEmpty()) {
             request.setAttribute("errorEmail", constraintViolations.iterator().next().getMessage());
