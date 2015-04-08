@@ -66,7 +66,7 @@ public class TodoRepositoryImpl implements TodoRepository {
     public List<Todo> getTodoListByUserAndTitle(final long userId, final String title) {
         TypedQuery<Todo> query = entityManager.createNamedQuery("findTodosByTitle", Todo.class);
         query.setParameter(1, userId);
-        query.setParameter(2, title.toUpperCase());
+        query.setParameter(2, "%" + title.toUpperCase() + "%");
         return query.getResultList();
     }
 

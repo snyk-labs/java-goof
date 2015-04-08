@@ -68,7 +68,7 @@ public class SearchServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(TodoListUtils.SESSION_USER);
 
-        List<Todo> todoList = todoService.searchTodoListByTitle(user.getId(), "%" + title + "%");
+        List<Todo> todoList = todoService.searchTodoListByTitle(user.getId(), title);
         request.setAttribute("todoList", todoList);
 
         request.getRequestDispatcher(SEARCH_PAGE).forward(request, response);
