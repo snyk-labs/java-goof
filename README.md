@@ -18,9 +18,9 @@ Two types of frameworks are being compared:
 * Tapestry
 * JSF
 
-Other frameworks will be added progressively (Wicket, Grails, Play, etc..), you are welcome to contribute with any Java web framework you are comfortable with.
+Other frameworks will be added progressively (JSR 371, Wicket, Grails, Play, etc..), you are welcome to contribute with any Java web framework you are comfortable with.
 
-Note that performance comparison is not addressed here since there are many excellent benchmarks on the web like [TechEmpower's Framework Benchmarks][].
+Performance comparison is not addressed here. There are many excellent benchmarks on the web like [TechEmpower's Framework Benchmarks][].
 
 The goal is to focus on features set and developer productivity using each framework:
 
@@ -75,7 +75,7 @@ Common web utilities (JSTL tags, Filters, Backing beans, etc) are packaged in a 
 
 For each web framework, a separate war module is created to implement ONLY the web layer of the application.
 
-View technology may vary for each framework. Here, JSP views are (re)used for most of current implementations.
+View technology may vary for each framework. Here, JSP views are (re)used for most of current implementations. Thymeleaf is also planned to be used as alternative to JSPs.
 
 URLs under `/user/*` and `/todos/*` must be accessible to only logged users. 
 This requirement should be implemented using a servlet filter or equivalent (Struts interceptor, Spring MVC interceptor, etc)
@@ -99,7 +99,7 @@ Finally, the static html template located in `src/site/template` can be used as 
 
 In order to compare these frameworks objectively, the best implementation should be provided for each framework.
 
-If you are an expert in some of these technologies, please don't hesitate to fix/improve every single aspect of the current implementation if any.
+If you are an expert in some of these technologies, please don't hesitate to fix/improve every single aspect of the current implementation.
 
 The goal of Todolist MVC is to be community driven, so every single contribution is welcome!
 
