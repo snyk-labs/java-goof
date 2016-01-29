@@ -12,6 +12,7 @@ Two types of frameworks are being compared:
 * Servlets/JSPs 
 * Spring MVC
 * Struts
+* JSR 371 Java EE 8 MVC 1.0 (WIP)
 
 #### 2. Component based frameworks
 
@@ -102,6 +103,15 @@ In order to compare these frameworks objectively, the best implementation should
 If you are an expert in some of these technologies, please don't hesitate to fix/improve every single aspect of the current implementation.
 
 The goal of Todolist MVC is to be community driven, so every single contribution is welcome!
+
+## Todo
+
+- [ ] Add Spring boot support
+- [ ] Add JSR 371 (Ozark) implementation
+- [ ] Add Thymeleaf support
+- [ ] Update static resources (Bootstrap, FontAwesome) to last versions
+- [ ] Update dependencies to last versions
+- [ ] Add comparsion table
 
 ## License
 Todolist MVC is released under the [MIT License][].
