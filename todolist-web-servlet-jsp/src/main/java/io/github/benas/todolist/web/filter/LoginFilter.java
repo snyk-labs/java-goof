@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *   Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ *   Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +38,7 @@ import static io.github.benas.todolist.web.util.Views.LOGIN_PAGE;
 /**
  * Filter to ensure that access to private resources is allowed only to logged users.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 @WebFilter(filterName = "LoginFilter", urlPatterns = {"/user/*", "/todos/*"})
 public class LoginFilter implements Filter {

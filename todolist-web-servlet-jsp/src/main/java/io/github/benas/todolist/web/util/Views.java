@@ -3,7 +3,7 @@ package io.github.benas.todolist.web.util;
 /**
  * Constants class for views names.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class Views {
 

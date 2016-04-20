@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *  Copyright (c) 2012, benas (mahmoud@benhassine.fr)
+ *  Copyright (c) 2012, benas (mahmoud.benhassine@icloud.com)
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ import java.beans.PropertyEditorSupport;
 /**
  * A custom property editor to map {@link Priority} values.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class TodoPriorityPropertyEditor extends PropertyEditorSupport {
 

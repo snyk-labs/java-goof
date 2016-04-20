@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- *   Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ *   Copyright (c) 2015, Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  *
  *   Permission is hereby granted, free of charge, to any person obtaining a copy
  *   of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +54,7 @@ import static io.github.benas.todolist.web.util.Views.LOGIN_PAGE;
  * Get requests to "/login" redirects to login page.
  * Post requests to "/login.do" processes user login.
  *
- * @author Mahmoud Ben Hassine (mahmoud@benhassine.fr)
+ * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login", "/login.do"})
