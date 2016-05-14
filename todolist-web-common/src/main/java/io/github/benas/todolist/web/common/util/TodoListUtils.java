@@ -38,11 +38,11 @@ import java.util.regex.Pattern;
  */
 public class TodoListUtils {
 
-    private TodoListUtils() { }
-
     public static final String SESSION_USER = "user";
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
+    
+    private TodoListUtils() { }
 
     /**
      * Return the icon name for the given priority.

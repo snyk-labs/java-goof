@@ -33,16 +33,16 @@ import org.apache.tapestry5.annotations.Persist;
 public class Error {
 
     @Persist(value = PersistenceConstants.FLASH)
-    private String error;
+    private String errorMessage;
 
-    public String getError() {
-        return error;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     /*
      * Setter needed to set error message
      */
-    public void setError(String error) {
-        this.error = error;
+    public void setErrorMessage(String error) {
+        this.errorMessage = error;
     }
 }
