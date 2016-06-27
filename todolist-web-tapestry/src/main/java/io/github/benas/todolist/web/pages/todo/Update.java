@@ -82,7 +82,7 @@ public class Update {
     public Object init(long todoId) {
         todo = todoService.getTodoById(todoId);
         if (todo == null) {
-            errorPage.setError(messages.format("no.such.todo", todoId));
+            errorPage.setErrorMessage(messages.format("no.such.todo", todoId));
             return errorPage;
         }
         return null;
