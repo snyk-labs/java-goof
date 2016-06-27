@@ -6,6 +6,8 @@ package io.github.benas.todolist.web.util;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class Views {
+    
+    private Views() {}
 
     public static final String PREFIX = "/WEB-INF/views";
 
