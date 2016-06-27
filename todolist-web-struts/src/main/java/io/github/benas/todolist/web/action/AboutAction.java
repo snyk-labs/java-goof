@@ -32,9 +32,10 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class AboutAction extends ActionSupport {
+    public static final String ACTIVE = "active";
 
     public String getAboutTabStyle() {
-        return "active";
+        return ACTIVE;
     }
 
 }

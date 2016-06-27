@@ -35,10 +35,11 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class HomeController {
+    public static final String INDEX = "index";
 
     @RequestMapping(value = {"/index", "/"})
     public String redirectToIndexPage() {
-        return "index";
+        return INDEX;
     }
 
     @RequestMapping("/about")
