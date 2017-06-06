@@ -1,1 +1,1 @@
-web: sh cd todolist-web-struts && mvn tomcat7:run 
+web: mvn -f todolist-web-struts tomcat7:run
