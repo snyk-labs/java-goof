@@ -27,8 +27,17 @@ package io.github.benas.todolist.web.action.todo;
 import com.opensymphony.xwork2.Action;
 import io.github.benas.todolist.web.action.BaseAction;
 import io.github.todolist.core.domain.Todo;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.text.MessageFormat;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Action class for Todo CRUD operations.
@@ -43,7 +52,31 @@ public class TodoAction extends BaseAction {
 
     private long todoId;
 
+    private File file;
+    private String contentType;
+    private String filename;
+
+    public void setUpload(File file) {
+        this.file = file;
+    }
+
+    public void setUploadContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public void setUploadFileName(String filename) {
+        this.filename = filename;
+    }
+
+    public String execute() {
+        return Action.SUCCESS;
+    }
+
+
     public String create() {
+        return Action.SUCCESS;
+    }
+    public String upload() {
         return Action.SUCCESS;
     }
 
@@ -51,6 +84,12 @@ public class TodoAction extends BaseAction {
         todo.setUserId(getSessionUser().getId());
         todoService.create(todo);
         return Action.SUCCESS;
+    }
+
+    public String doUpload(HttpServletRequest request) {
+        todo.setUserId(getSessionUser().getId());
+//        todoService.create(todo);
+       return Action.SUCCESS;
     }
 
     public String update() {

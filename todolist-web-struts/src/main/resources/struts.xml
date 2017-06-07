@@ -32,6 +32,21 @@
             </result>
         </action>
 
+        <action name="upload" class="io.github.benas.todolist.web.action.todo.TodoAction" method="upload">
+            <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
+            <result>/WEB-INF/views/todo/upload.jsp</result>
+        </action>
+
+        <action name="upload.do" class="io.github.benas.todolist.web.action.todo.TodoAction" method="doUpload">
+            <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
+            <result type="redirectAction">
+                <param name="actionName">home</param>
+                <param name="namespace">/user</param>
+            </result>
+        </action>
+
         <action name="update" class="io.github.benas.todolist.web.action.todo.TodoAction" method="update">
             <interceptor-ref name="loginInterceptor"/>
             <interceptor-ref name="defaultStack"/>
