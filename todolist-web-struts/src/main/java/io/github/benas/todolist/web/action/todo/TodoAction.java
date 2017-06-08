@@ -86,8 +86,8 @@ public class TodoAction extends BaseAction {
         return Action.SUCCESS;
     }
 
-    public String doUpload(HttpServletRequest request) {
-        todo.setUserId(getSessionUser().getId());
+    public String doUpload() {
+//        todo.setUserId(getSessionUser().getId());
 //        todoService.create(todo);
        return Action.SUCCESS;
     }

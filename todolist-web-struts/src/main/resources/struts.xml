@@ -41,10 +41,8 @@
         <action name="upload.do" class="io.github.benas.todolist.web.action.todo.TodoAction" method="doUpload">
             <interceptor-ref name="loginInterceptor"/>
             <interceptor-ref name="defaultStack"/>
-            <result type="redirectAction">
-                <param name="actionName">home</param>
-                <param name="namespace">/user</param>
-            </result>
+            <interceptor-ref name="fileUpload"/>
+            <result name="success">/WEB-INF/views/todo/create.jsp</result>
         </action>
 
         <action name="update" class="io.github.benas.todolist.web.action.todo.TodoAction" method="update">
