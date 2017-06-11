@@ -2,12 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.benas</groupId>
-    <artifactId>todolist-mvc</artifactId>
+    <groupId>io.github.snyk</groupId>
+    <artifactId>java-goof</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Todolist MVC parent module</name>
-    <description>Todolist MVC is a simple yet complete web application used to compare several Java Web Frameworks</description>
-    <url>https://github.com/benas/todolist-mvc</url>
+    <description>A vulnerable demo application, initially based on Ben Hassine's TodoMVC./description>
+    <url>https://github.com/snyk/java-goof</url>
 
     <properties>
         <spring.version>3.2.6.RELEASE</spring.version>
@@ -23,15 +23,6 @@
         <module>todolist-web-struts</module>
     </modules>
     <packaging>pom</packaging>
-
-    <developers>
-        <developer>
-            <id>benas</id>
-            <name>Mahmoud Ben Hassine</name>
-            <email>mahmoud.benhassine@icloud.com</email>
-            <url>http://benas.github.io</url>
-        </developer>
-    </developers>
 
     <licenses>
         <license>
