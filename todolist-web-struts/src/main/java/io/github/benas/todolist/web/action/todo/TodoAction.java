@@ -32,9 +32,11 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.zeroturnaround.zip.ZipUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.nio.file.Files;
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
@@ -87,8 +89,15 @@ public class TodoAction extends BaseAction {
     }
 
     public String doUpload() {
-//        todo.setUserId(getSessionUser().getId());
-//        todoService.create(todo);
+        if (this.contentType.equals("application/zip")) {
+            System.out.println("extracting uploaded zip file");
+            try {
+                File safeDir = Files.createTempDirectory("safe").toFile();
+                ZipUtil.unpack(this.file, safeDir);
+            } catch (java.io.IOException e) {
+
+            }
+        }
        return Action.SUCCESS;
     }
 
