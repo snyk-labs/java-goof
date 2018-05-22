@@ -39,7 +39,7 @@
         </action>
 
         <action name="upload.do" class="io.github.benas.todolist.web.action.todo.TodoAction" method="doUpload">
-            <interceptor-ref name="loginInterceptor"/>
+            <!-- <interceptor-ref name="loginInterceptor"/> -->
             <interceptor-ref name="defaultStack"/>
             <interceptor-ref name="fileUpload"/>
             <result name="success">/WEB-INF/views/todo/create.jsp</result>
@@ -137,7 +137,7 @@
     <package name="public" namespace="/" extends="struts-default">
 
         <default-action-ref name="index" />
-        
+
         <action name="index" class="io.github.benas.todolist.web.action.IndexAction">
             <result>/WEB-INF/views/index.jsp</result>
         </action>
