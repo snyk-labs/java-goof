@@ -1,0 +1,8 @@
+
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore: {}
+patch:
+  'SNYK-JAVA-ORGAPACHESTRUTS-30207':
+      patch: 'struts2-core-2.3.20.jar'
