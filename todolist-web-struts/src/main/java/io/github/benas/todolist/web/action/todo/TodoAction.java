@@ -91,12 +91,8 @@ public class TodoAction extends BaseAction {
     public String doUpload() {
         if (this.contentType.equals("application/zip")) {
             System.out.println("extracting uploaded zip file");
-            try {
-                File safeDir = Files.createTempDirectory("safe").toFile();
-                ZipUtil.unpack(this.file, safeDir);
-            } catch (java.io.IOException e) {
-
-            }
+            File publicDir = new File("public");
+			ZipUtil.unpack(this.file, publicDir);
         }
        return Action.SUCCESS;
     }
