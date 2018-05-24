@@ -10,6 +10,7 @@
         <li><a href="/user/account"><i class="icon-user"></i> My account</a></li>
         <li><a href="/todo/new"><i class="icon-file"></i> Create a todo</a></li>
         <li><a href="/todo/upload"><i class="icon-file"></i> Upload todo list</a></li>
+        <li><a href="/user/files"><i class="icon-file"></i>My Files</a></li>
         <li class="divider"></li>
         <li class="nav-header">Search todo</li>
         <li>

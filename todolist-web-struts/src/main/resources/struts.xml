@@ -94,6 +94,12 @@
             <result>/WEB-INF/views/user/home.jsp</result>
         </action>
 
+        <action name="files" class="io.github.benas.todolist.web.action.user.FilesAction">
+            <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
+            <result>/WEB-INF/views/user/files.jsp</result>
+        </action>
+
         <action name="logout" class="io.github.benas.todolist.web.action.user.SessionAction" method="doLogout">
             <interceptor-ref name="loginInterceptor"/>
             <interceptor-ref name="defaultStack"/>
@@ -145,6 +151,11 @@
         <action name="about" class="io.github.benas.todolist.web.action.AboutAction">
             <result>/WEB-INF/views/about.jsp</result>
         </action>
+
+        <action name="files" class="io.github.benas.todolist.web.action.FilesAction">
+            <result>/WEB-INF/views/files.jsp</result>
+        </action>
+
 
         <action name="login" class="io.github.benas.todolist.web.action.user.SessionAction" method="login">
             <result>/WEB-INF/views/user/login.jsp</result>
