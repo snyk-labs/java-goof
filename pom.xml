@@ -13,7 +13,7 @@
         <spring.version>3.2.6.RELEASE</spring.version>
         <hibernate.version>4.3.7.Final</hibernate.version>
         <tapestry.version>5.3.8</tapestry.version>
-        <struts2.version>2.3.20</struts2.version>
+        <struts2.version>2.3.28</struts2.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
