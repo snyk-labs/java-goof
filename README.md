@@ -1,5 +1,7 @@
 ## Java Goof
 
+~KOKO was here~
+
 A vulnerable demo application, initially based on [Ben Hassine](https://github.com/benas/)'s [TodoMVC](https://github.com/benas/todolist-mvc). 
 
 The goal of this application is to demonstrate through example how to find, exploit and fix vulnerable Maven packages. 
