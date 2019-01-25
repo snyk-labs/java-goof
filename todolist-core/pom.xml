@@ -87,7 +87,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.2.1</version>
+            <version>20030418.083655</version>
         </dependency>
 
         <!-- test dependencies -->
