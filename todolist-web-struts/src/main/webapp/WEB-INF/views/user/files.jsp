@@ -26,18 +26,20 @@
 
                     <tbody>
                     <%@ page import="java.io.*" %>
-					<% 
+					<%
 					File f = new File("public");
-					String [] fileNames = f.list();
-					File [] fileObjects= f.listFiles();
-					for (int i = 0; i < fileObjects.length; i++) {
-					if(!fileObjects[i].isDirectory()){
-						out.print("<tr>");
-						out.print("<td>");
-						out.print(fileNames[i]);
-						out.print("</td>");
-						out.print("</tr>");
-					 }
+	          			if (f.exists()) {
+	  					String [] fileNames = f.list();
+	  					File [] fileObjects= f.listFiles();
+	  					for (int i = 0; i < fileObjects.length; i++) {
+	  					if(!fileObjects[i].isDirectory()){
+	  						out.print("<tr>");
+	  						out.print("<td>");
+	  					 	out.print(fileNames[i]);
+	  					 	out.print("</td>");
+	  					 	out.print("</tr>");
+	  					  }
+	           			 }
 					}
 					%>
                     </tbody>

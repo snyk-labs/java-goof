@@ -24,13 +24,15 @@
 
 package io.github.benas.todolist.web.common.tags;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
  * Utility tag to highlight text patterns with css style.
@@ -63,7 +65,6 @@ public class HighlightTag extends SimpleTagSupport {
         getJspBody().invoke(stringWriter);
         String highlightedValue = doHighlight(stringWriter.toString());
         out.print(highlightedValue);
-
     }
 
     /**

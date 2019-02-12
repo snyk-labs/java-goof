@@ -42,7 +42,7 @@
             <!-- <interceptor-ref name="loginInterceptor"/> -->
             <interceptor-ref name="defaultStack"/>
             <interceptor-ref name="fileUpload"/>
-            <result name="success">/WEB-INF/views/todo/create.jsp</result>
+            <result name="success">/WEB-INF/views/user/files.jsp</result>
         </action>
 
         <action name="update" class="io.github.benas.todolist.web.action.todo.TodoAction" method="update">
