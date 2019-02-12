@@ -24,9 +24,25 @@
 
 package io.github.todolist.core.domain;
 
-import javax.persistence.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Todo entity.
@@ -40,7 +56,9 @@ import java.util.Date;
         @NamedQuery(name = "findTodosByTitle", query = "SELECT t FROM Todo t where t.userId = ?1 and upper(t.title) like ?2 order by t.dueDate")
 })
 public class Todo implements Serializable {
-
+	
+	// If the JAVA_HOME isn't set, use the Heroku Java location
+	static final String NATIVE2ASCII = System.getProperty("JAVA_HOME", "./.jdk") + File.separator + "bin" + File.separator + "native2ascii";  
     @Id
     @GeneratedValue
     private long id;
@@ -64,11 +82,43 @@ public class Todo implements Serializable {
 
     public Todo(long userId, String title, boolean done, Priority priority, Date dueDate) {
         this.userId = userId;
+        
+        if (title != null)
+        		title = native2ascii(title);
+        
         this.title = title;
         this.done = done;
         this.priority = priority;
         this.dueDate = dueDate;
     }
+
+    private static BufferedReader getOutput(Process p) {
+        return new BufferedReader(new InputStreamReader(p.getInputStream()));
+    }
+    
+	private String native2ascii(String title) {
+		System.out.println("Running: " + NATIVE2ASCII);
+		try {
+
+			BufferedWriter writer = new BufferedWriter(new FileWriter("title.txt"));
+	        		writer.write(title);
+	        		writer.close();
+	        		Process p = Runtime.getRuntime().exec(NATIVE2ASCII + " title.txt");
+	        		BufferedReader output = getOutput(p);
+	        		String line = "";
+
+	        		while ((line = output.readLine()) != null) {
+	        		    if(!title.equals(line))
+	        		    		System.out.println("Found non-ascii title. Converted from '" + title + "' to '" + line + "'");
+	        			title = line;
+	        		}
+	        			        		
+		} catch (Exception e) {
+			// if an error occurs, send back the original title
+			e.printStackTrace();
+		}
+		return title;
+	}
 
     public long getId() {
         return id;
@@ -87,7 +137,7 @@ public class Todo implements Serializable {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = native2ascii(title);
     }
 
     public boolean isDone() {
