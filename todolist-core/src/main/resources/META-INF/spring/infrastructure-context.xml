@@ -34,6 +34,8 @@
         <jdbc:script location="classpath:config/data.sql"/>
     </jdbc:initialize-database>
 
+    <bean class="io.snyk.agent.dynamic.Startup" id="snyk-agent" factory-method="activate"/>
+
     <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
         <property name="persistenceUnitName" value="todolist_pu"/>
         <property name="dataSource" ref="todolistDataSource"/>

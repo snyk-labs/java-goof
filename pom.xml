@@ -48,6 +48,18 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.snyk</groupId>
+            <artifactId>java-runtime-agent</artifactId>
+            <version>0.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>tools</artifactId>
+            <scope>system</scope>
+            <systemPath>${java.home}/../lib/tools.jar</systemPath>
+            <version>0</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
