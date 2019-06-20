@@ -1,0 +1,9 @@
+version: "2"
+services:
+  javagoof:
+    build: .
+    container_name: javagoof
+    environment:
+      - DOCKER=1
+    ports:
+      - "8080:8080"
