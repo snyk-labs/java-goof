@@ -17,5 +17,11 @@ This repo is still incomplete, a work in progress to support related presentatio
 4.  Browse the following URL : `localhost:8080/`
 5.  You can register a new account or login using the following credentials : foo@bar.org / foobar
 
+## Running with docker-compose
+```bash
+docker-compose up --build
+docker-compose down
+```
+
 ## License
 This repo is available released under the [MIT License](http://opensource.org/licenses/mit-license.php/).
