@@ -10,3 +10,5 @@ RUN mvn install
 EXPOSE 8080
 ENTRYPOINT ["mvn", "tomcat7:run"]
 
+
+
