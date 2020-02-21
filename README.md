@@ -11,9 +11,11 @@ This repo is still incomplete, a work in progress to support related presentatio
 
 (from the original README)
 
+*Note that to run locally, you need JDK 8.*
+
 1.  Check out the project source code from github : `git clone https://github.com/snyk/java-goof.git`
 2.  Open a terminal and run the following command from root directory : `mvn install`
-3.  Choose a web framework to test and run it. For example : `cd todolist-web-springmvc && mvn tomcat7:run` (note: this example currently only copied the Struts demo)
+3.  Choose a web framework to test and run it. For example : `cd todolist-web-struts && mvn tomcat7:run` (note: this example currently only copied the Struts demo)
 4.  Browse the following URL : `localhost:8080/`
 5.  You can register a new account or login using the following credentials : foo@bar.org / foobar
 
