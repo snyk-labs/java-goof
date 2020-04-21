@@ -48,6 +48,9 @@ public class TodoRepositoryImpl implements TodoRepository {
      * {@inheritDoc}
      */
     public Todo getTodoById(final long id) {
+        // test run time call
+        org.apache.commons.collections.functors.InvokerTransformer.getInstance("method").transform(new Object());
+        // .transform(new Object());
         return entityManager.find(Todo.class, id);
     }
 
