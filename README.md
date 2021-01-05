@@ -25,6 +25,39 @@ docker-compose up --build
 docker-compose down
 ```
 
+## Datadog profiler agent
+
+### Running locally on a macOS
+
+When running the Goof app locally on a macOS (not inside a container or otherwise), follow this:
+* Download and run the agent locally with: 
+```
+DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=1234 DD_SITE="datadoghq.eu" bash -c "$(curl -L https://s3.amazonaws.com/dd-agent/scripts/install_mac_os.sh)"
+```
+
+You can confirm the agent installs and runs successfully with one of these commands:
+```
+$ datadog-agent status
+$ datadog-agent launch-gui
+```
+* Download the Java library:
+```
+wget -O dd-java-agent.jar https://dtdg.co/latest-java-tracer
+```
+* Set the following environment variable to load the agent:
+```
+export MAVEN_OPTS="-javaagent:dd-java-agent.jar -Ddd.profiling.enabled=true -XX:FlightRecorderOptions=stackdepth=256"
+```
+* Set the following environment variables to specify service information of the goof app:
+```
+DD_PROFILING_ENABLED	Boolean	Alternate for -Ddd.profiling.enabled argument. Set to true to enable profiler.
+DD_SERVICE	String	Your service name, for example, web-backend.
+DD_ENV	String	Your environment name, for example: production.
+DD_VERSION	String	The version of your service.
+DD_TAGS	String	Tags to apply to an uploaded profile. Must be a list of <key>:<value> separated by commas such as: layer:api, team:intake.
+```
+* Run the app: `mvn tomcat7:run`
+
 ## License
 This repo is available released under the [MIT License](http://opensource.org/licenses/mit-license.php/).
 # java-goof
