@@ -1,7 +1,7 @@
 ## Deploy Java Goof on Heroku
 
-There are multiple ways to deply an application to heroku. 
-Currently the deploying the WAR file works (best)
+There are multiple ways to deploy an application to heroku. 
+Currently deploying the WAR file works (best)
 
 ### Deploying WAR file with the Heroku CLI
 
