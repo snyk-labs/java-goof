@@ -44,6 +44,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import static io.github.todolist.core.Statics.NATIVE2ASCII;
+
 /**
  * Todo entity.
  *
@@ -56,9 +58,7 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "findTodosByTitle", query = "SELECT t FROM Todo t where t.userId = ?1 and upper(t.title) like ?2 order by t.dueDate")
 })
 public class Todo implements Serializable {
-	
-	// If the JAVA_HOME isn't set, use the Heroku Java location
-	static final String NATIVE2ASCII = System.getProperty("JAVA_HOME", "./.jdk") + File.separator + "bin" + File.separator + "native2ascii";  
+
     @Id
     @GeneratedValue
     private long id;
