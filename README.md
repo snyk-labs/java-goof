@@ -25,6 +25,10 @@ docker-compose up --build
 docker-compose down
 ```
 
+## Deploy Application on Heroku
+
+- [Heroku instructions](DEPLOY_HEROKU.md)
+
 ## License
 This repo is available released under the [MIT License](http://opensource.org/licenses/mit-license.php/).
 # java-goof
