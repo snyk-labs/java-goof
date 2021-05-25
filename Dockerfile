@@ -1,15 +1,12 @@
 FROM maven:3-jdk-8-slim as build
 
 RUN mkdir /usr/src/goof
-RUN mkdir /tmp/extracted_files
 COPY . /usr/src/goof
 WORKDIR /usr/src/goof
+RUN --mount=target=$HOME/.m2,type=cache mvn install
 
-RUN mvn install
+FROM tomcat:8.5.21
 
-FROM tomcat:7.0.100
+RUN mkdir /tmp/extracted_files
+COPY --chown=tomcat:tomcat web.xml /usr/local/tomcat/conf/web.xml
 COPY --from=build /usr/src/goof/todolist-web-struts/target/todolist.war /usr/local/tomcat/webapps/todolist.war
-
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
- 
-
