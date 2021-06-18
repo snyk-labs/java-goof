@@ -11,6 +11,8 @@ This repo is still incomplete, a work in progress to support related presentatio
 
 (from the original README)
 
+### Local build and run
+
 *Note that to run locally, you need JDK 8.*
 
 1.  Check out the project source code from github : `git clone https://github.com/snyk/java-goof.git`
@@ -19,7 +21,9 @@ This repo is still incomplete, a work in progress to support related presentatio
 4.  Browse the following URL : `localhost:8080/`
 5.  You can register a new account or login using the following credentials : foo@bar.org / foobar
 
-## Running with docker-compose
+### Build and run with docker-compose
+
+*Note, we run build on and a Tomcat 8.5 image here to support tomcat-rce base image demo.*
 ```bash
 docker-compose up --build
 docker-compose down
@@ -28,6 +32,14 @@ docker-compose down
 ## Deploy Application on Heroku
 
 - [Heroku instructions](DEPLOY_HEROKU.md)
+
+## Open source vulnerability exploit
+
+TODO
+
+## Container base image vulnerability exploit
+
+- [Container base image exploit instructions](exploits/tomcat-rce/README.md)
 
 ## License
 This repo is available released under the [MIT License](http://opensource.org/licenses/mit-license.php/).
