@@ -9,7 +9,7 @@ This repo is still incomplete, a work in progress to support related presentatio
 
 ## Build and run Todolist MVC
 
-(from the original README)
+(And now, something completely different README)
 
 ### Local build and run
 
