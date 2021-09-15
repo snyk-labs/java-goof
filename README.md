@@ -1,4 +1,4 @@
-## Java Goof
+## Java Goof - Nicolas Lopes
 
 A vulnerable demo application, initially based on [Ben Hassine](https://github.com/benas/)'s [TodoMVC](https://github.com/benas/todolist-mvc). 
 
