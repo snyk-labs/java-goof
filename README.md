@@ -48,3 +48,5 @@ This repo is available released under the [MIT License](http://opensource.org/li
 Modificado por Renato Maia - Autotrac
 
 Nova Feature - 15/09
+
+Final
