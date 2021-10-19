@@ -6,11 +6,11 @@
 <div class="well sidebar-nav">
     <ul class="nav nav-list">
         <li class="nav-header">Hi ${sessionScope.user.name} !</li>
-        <li><a href="/user/home"><i class="icon-home"></i> Home</a></li>
-        <li><a href="/user/account"><i class="icon-user"></i> My account</a></li>
-        <li><a href="/todo/new"><i class="icon-file"></i> Create a todo</a></li>
-        <li><a href="/todo/upload"><i class="icon-file"></i> Upload Files</a></li>
-        <li><a href="/user/files"><i class="icon-file"></i> My Files</a></li>
+        <li><a href=<%= response.encodeURL(request.getContextPath() + "/user/home") %>><i class="icon-home"></i> Home</a></li>
+        <li><a href=<%= response.encodeURL(request.getContextPath() + "/user/account") %>><i class="icon-user"></i> My account</a></li>
+        <li><a href=<%= response.encodeURL(request.getContextPath() + "/todo/new") %>><i class="icon-file"></i> Create a todo</a></li>
+        <li><a href=<%= response.encodeURL(request.getContextPath() + "/todo/upload") %>><i class="icon-file"></i> Upload Files</a></li>
+        <li><a href=<%= response.encodeURL(request.getContextPath() + "/user/files") %>><i class="icon-file"></i> My Files</a></li>
         <li class="divider"></li>
         <li class="nav-header">Search todo</li>
         <li>

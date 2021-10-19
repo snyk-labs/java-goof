@@ -22,20 +22,20 @@
 
                     <c:if test="${sessionScope.user == null}">
                     <p>
-                        <a class="btn btn-primary btn-large" href="/login"> Sign in </a> or <a class="btn btn-primary btn-large" href="/register"> Sign up </a>
+                        <a class="btn btn-primary btn-large" href="<%= response.encodeURL(request.getContextPath() + "/login") %>"> Sign in </a> or <a class="btn btn-primary btn-large" href=<%= response.encodeURL(request.getContextPath() + "/register") %>"> Sign up </a>
                     </p>
                     </c:if>
 
                     <c:if test="${sessionScope.user != null}">
                         <p>
-                            <a class="btn btn-primary btn-large" href="/user/home"> Go to my Home page </a>
+                            <a class="btn btn-primary btn-large" href="<%= response.encodeURL(request.getContextPath() + "/user/home") %>"> Go to my Home page </a>
                         </p>
                     </c:if>
 
                 </div>
 
                 <div class="span5">
-                    <img src="/static/img/todolist.jpg" alt="todolist">
+                    <img src="<%= response.encodeURL(request.getContextPath() + "/static/img/todolist.jpg") %>" alt="todolist">
                 </div>
 
             </div>
