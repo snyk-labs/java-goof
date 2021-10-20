@@ -38,7 +38,7 @@
                     </div>
 
                     <div align="center">
-                        You don't have an account yet? <a href="/register">Register here for free!</a>
+                        You don't have an account yet? <a href=<%= response.encodeURL(request.getContextPath() + "/register") %>>Register here for free!</a>
                     </div>
 
                 </fieldset>
