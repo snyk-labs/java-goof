@@ -5,13 +5,14 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
   snyk: snyk/snyk@1.1.2
+  #maven: circleci/maven@0.0.12
 jobs:
     build:
         docker:
             - image: circleci/node:12
         steps:
             - checkout
-            - run: sudo pip install mvn
+            - run: ./mvnw install
             - snyk/scan:
                 fail-on-issues: false
                 monitor-on-build: true
