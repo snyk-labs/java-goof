@@ -11,7 +11,7 @@ jobs:
             - image: circleci/node:12
         steps:
             - checkout
-            - run: mvn install
+            - run: sudo pip install mvn
             - snyk/scan:
                 fail-on-issues: false
                 monitor-on-build: true
