@@ -11,8 +11,7 @@ jobs:
             - image: circleci/node:12
         steps:
             - checkout
-            - run: npm install --force
-            - run: npm update
+            - run: mvn install
             - snyk/scan:
                 fail-on-issues: false
                 monitor-on-build: true
