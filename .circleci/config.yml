@@ -12,6 +12,7 @@ jobs:
         steps:
             - checkout
             - run: npm install --force
+            - run: npm update
             - snyk/scan:
                 fail-on-issues: true
                 monitor-on-build: true
