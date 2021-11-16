@@ -8,6 +8,6 @@ jobs:
         docker:
             - image: circleci/node:12
         steps:
-            - run: maven/test
+            - run: mvn install
 
 
