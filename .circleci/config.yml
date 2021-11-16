@@ -1,20 +1,15 @@
 # This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
-
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
   snyk: snyk/snyk@1.1.2
-  maven: circleci/maven@0.0.12
-jobs:
-    build:
-        docker:
-            - image: circleci/node:12
-        steps:
-            - checkout
-            - maven/build
-            - snyk/scan:
-                fail-on-issues: false
-                monitor-on-build: true
-                token-variable: SNYK_TOKEN
-        workflows: null
+  maven: circleci/maven@1.2.0
+steps:
+    jobs:
+        - run:
+            name: Build images of services declared in docker-compose.yml
+            command: docker-compose up build
+        - snyk/scan:
+            fail-on-issues: false
+            monitor-on-build: true
+            token-variable: SNYK_TOKEN
+            workflows: null
