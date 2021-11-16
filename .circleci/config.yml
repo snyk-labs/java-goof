@@ -3,13 +3,11 @@ version: 2.1
 orbs:
   snyk: snyk/snyk@1.1.2
   maven: circleci/maven@1.2.0
-steps:
-    jobs:
-        - run:
-            name: Build images of services declared in docker-compose.yml
-            command: docker-compose up build
-        - snyk/scan:
-            fail-on-issues: false
-            monitor-on-build: true
-            token-variable: SNYK_TOKEN
-            workflows: null
+jobs:
+    build:
+        docker:
+            - image: circleci/node:12
+        steps:
+            - run: maven/test
+
+
