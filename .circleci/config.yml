@@ -17,13 +17,7 @@ jobs:
     steps:
       - checkout 
       - run:
-          name: clone javagoof from github
-          command: git clone https://github.com/kevin-s31/java-goof.git
-      - run:
-          name: cd into dir
           command: cd todolist-web-struts
-      - run:
-          command: git clone https://github.com/kevin-s31/java-goof.git && cd todolist-web-struts
       - run:    
           name: maven install
           command: sudo apt-get install software-properties-common; sudo apt-add-repository universe; sudo apt-get update; sudo apt-get install maven
