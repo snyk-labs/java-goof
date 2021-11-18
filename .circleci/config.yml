@@ -8,7 +8,6 @@ jobs:
         docker:
             - image: circleci/node:12
         steps:
-            - run: ./mvnw test
             - snyk/scan:
                 fail-on-issues: false
                 monitor-on-build: true
