@@ -21,11 +21,11 @@ jobs:
       - run: 
           command: ls -l
       - run:     
-          name: maven install -x
+          name: maven install 
           command: sudo apt-get install software-properties-common; sudo apt-add-repository universe; sudo apt-get update; sudo apt-get install maven
-      #- run: 
-          #name: start tomcat
-          #command: mvn tomcat7:run 
+      - run: 
+          name: start maven
+          command: mvn install
       - snyk/scan:
                 fail-on-issues: false
                 monitor-on-build: true
