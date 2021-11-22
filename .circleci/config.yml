@@ -7,7 +7,7 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
+  java-goof:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
@@ -21,7 +21,7 @@ jobs:
       - run: 
           command: ls -l
       - run:     
-          name: maven install
+          name: maven install -x
           command: sudo apt-get install software-properties-common; sudo apt-add-repository universe; sudo apt-get update; sudo apt-get install maven
       #- run: 
           #name: start tomcat
@@ -33,6 +33,6 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  java-goof-workflow:
     jobs:
-      - say-hello
+      - java-goof
