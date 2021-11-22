@@ -18,7 +18,7 @@ jobs:
       - checkout 
       - run:
           command: cd todolist-web-struts
-      - run:    
+      - run:     
           name: maven install
           command: sudo apt-get install software-properties-common; sudo apt-add-repository universe; sudo apt-get update; sudo apt-get install maven
 
