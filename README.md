@@ -13,6 +13,7 @@ This repo is still incomplete, a work in progress to support related presentatio
 
 ### Local build and run
 
+
 *Note that to run locally, you need JDK 8.*
 
 1.  Check out the project source code from github : `git clone https://github.com/snyk/java-goof.git`
