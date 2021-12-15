@@ -1,0 +1,12 @@
+io/github/todolist/core/Statics.class
+io/github/todolist/core/domain/User.class
+io/github/todolist/core/repository/api/TodoRepository.class
+io/github/todolist/core/service/api/TodoService.class
+io/github/todolist/core/domain/Priority.class
+io/github/todolist/core/repository/api/UserRepository.class
+io/github/todolist/core/service/impl/UserServiceImpl.class
+io/github/todolist/core/service/api/UserService.class
+io/github/todolist/core/repository/impl/UserRepositoryImpl.class
+io/github/todolist/core/repository/impl/TodoRepositoryImpl.class
+io/github/todolist/core/service/impl/TodoServiceImpl.class
+io/github/todolist/core/domain/Todo.class

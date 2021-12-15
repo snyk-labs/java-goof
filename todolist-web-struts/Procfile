@@ -1,1 +1,0 @@
-web: mvn tomcat7:run target/todolist.war

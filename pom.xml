@@ -3,44 +3,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.snyk</groupId>
-    <artifactId>todolist-mvc</artifactId>
+    <artifactId>java-goof</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Todolist MVC parent module</name>
-    <description>A vulnerable demo application, initially based on Ben Hassine's TodoMVC.</description>
-    <url>https://github.com/snyk/java-goof</url>
-
-    <properties>
-        <spring.version>3.2.6.RELEASE</spring.version>
-        <hibernate.version>4.3.7.Final</hibernate.version>
-        <tapestry.version>5.3.8</tapestry.version>
-        <struts2.version>2.3.20</struts2.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <name>Java Goof</name>
+    <description>A collection of vulnerable Java apps</description>
+    <url>https://github.com/snyk-labs/java-goof</url>
 
     <modules>
-        <module>todolist-core</module>
-        <module>todolist-web-common</module>
-        <module>todolist-web-struts</module>
+        <module>todolist-goof</module>
     </modules>
     <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-    </dependencies>
 
     <licenses>
         <license>
@@ -48,54 +21,4 @@
             <url>http://opensource.org/licenses/mit-license.php</url>
         </license>
     </licenses>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.2</version>
-                    <configuration>
-                        <verbose>true</verbose>
-                        <source>1.7</source>
-                        <target>1.7</target>
-                        <showWarnings>true</showWarnings>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.9</version>
-                    <executions>
-                        <execution>
-                            <id>install</id>
-                            <phase>install</phase>
-                            <goals>
-                                <goal>sources</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.3</version>
-                    <configuration>
-                        <warName>todolist</warName>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
-                    <configuration>
-                        <warFile>target/todolist.war</warFile>
-                        <path>/</path>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
 </project>
