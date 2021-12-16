@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>java-goof</artifactId>
-        <groupId>io.github.snyk</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
   <groupId>io.snyk</groupId>
   <artifactId>log4shell-poc</artifactId>
   <version>0.0.1-SNAPSHOT</version>

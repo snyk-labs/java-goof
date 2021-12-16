@@ -8,7 +8,7 @@ RUN --mount=target=$HOME/.m2,type=cache mvn install
 FROM tomcat:8.5.21
 
 RUN mkdir /tmp/extracted_files
-COPY --chown=tomcat:tomcat todolist-goof/web.xml /usr/local/tomcat/conf/web.xml
-COPY --from=build /usr/src/goof/todolist-goof/todolist-web-struts/target/todolist /usr/local/tomcat/webapps/todolist
+COPY --chown=tomcat:tomcat web.xml /usr/local/tomcat/conf/web.xml
+COPY --from=build /usr/src/goof/todolist-web-struts/target/todolist /usr/local/tomcat/webapps/todolist
 COPY --from=build /usr/local/openjdk-8/bin/native2ascii /docker-java-home/jre/bin/native2ascii
 COPY --from=build /usr/local/openjdk-8/lib/tools.jar /docker-java-home/jre/lib/tools.jar

@@ -1,6 +1,9 @@
-## Log4Shell Proof of Concept
+## Log4Shell Goof
 
 The purpose of this project is to demonstrate the Log4Shell exploit with Log4J versions older than `2.15.0`.
+
+This repo is based on the excellent proof-of-concept published by [BrianV](https://github.com/bmvermeer/log4jexploit/).
+The PoC is a great starting point. This project expands on it by fleshing it out into a fully standalone demo.
 
 For more information about the exploit and the mechanics of how it works, 
 [here is a good blog post](https://snyk.io/blog/log4j-rce-log4shell-vulnerability-cve-2021-4428/).
@@ -20,7 +23,7 @@ Java SDKs newer than those versions don't have the same vulnerability.
 In the root folder, run:
 
 ```
-./mvnw clean install
+mvn clean install
 ```
 
 **NOTE:** This project includes the Maven wrapper, so you don't need to have previously installed Maven.
@@ -46,7 +49,7 @@ Open a terminal window and run the following:
 
 ```
 cd log4shell-server
-../mvnw exec:java -Dexec.mainClass="Server"
+mvn exec:java -Dexec.mainClass="Server"
 ```
 
 You should see output that looks like the following:
@@ -62,7 +65,7 @@ In another terminal window, run the following:
 ```
 cd log4shell-client
 JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home \
-../mvnw exec:java -Dexec.mainClass="Main"
+mvn exec:java -Dexec.mainClass="Main"
 ```
 
 **NOTE:** Referencing `JAVA_HOME` is important as the exploit only fully works with older JDK versions.
