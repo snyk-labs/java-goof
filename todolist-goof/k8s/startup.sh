@@ -10,4 +10,4 @@ kubectl wait --for=condition=ready pod \
              --selector=app=goof \
              --timeout=90s
 
-kubectl port-forward service/goof 8000:80
+echo "Done."
