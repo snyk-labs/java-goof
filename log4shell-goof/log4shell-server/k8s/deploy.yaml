@@ -22,8 +22,8 @@ spec:
         app: log4shell
     spec:
       containers:
-        - image: ${DOCKER_ACCOUNT}/log4shell-server:latest
-          name: ldap
+        - name: ldap
+          image: ${DOCKER_ACCOUNT}/log4shell-server:latest
 ---
 apiVersion: v1
 kind: Service
