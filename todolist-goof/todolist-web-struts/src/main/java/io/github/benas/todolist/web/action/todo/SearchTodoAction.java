@@ -30,18 +30,23 @@ import io.github.todolist.core.domain.Todo;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Action class to search todo list by title.
  *
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class SearchTodoAction extends BaseAction {
+    private static final Logger logger = LogManager.getLogger(SearchTodoAction.class);
 
     private String title;
 
     List<Todo> todoList;
 
     public String execute() {
+        logger.info("Searching for: " + title);
         todoList = todoService.searchTodoListByTitle(getSessionUser().getId(), title);
         return Action.SUCCESS;
     }
