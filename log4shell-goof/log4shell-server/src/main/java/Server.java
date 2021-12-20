@@ -64,6 +64,7 @@ public  class  Server  {
 
             // keep it simple - any request returns our Evil.class
             .setHandler(exchange -> {
+                System.out.println("Send HTTP class byte array result");
                 exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "application/octet-stream");
                 exchange.getResponseSender().send(ByteBuffer.wrap(targetArray));
             }).build();
