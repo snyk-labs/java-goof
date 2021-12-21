@@ -12,3 +12,11 @@ COPY --chown=tomcat:tomcat web.xml /usr/local/tomcat/conf/web.xml
 COPY --from=build /usr/src/goof/todolist-web-struts/target/todolist /usr/local/tomcat/webapps/todolist
 COPY --from=build /usr/local/openjdk-8/bin/native2ascii /docker-java-home/jre/bin/native2ascii
 COPY --from=build /usr/local/openjdk-8/lib/tools.jar /docker-java-home/jre/lib/tools.jar
+
+
+
+
+
+
+#Uncomment the next line for log4shell vulnerability if using base tomcat image > 8.5.33
+#ENV JAVA_OPTS="-Dcom.sun.jndi.ldap.object.trustURLCodebase=true"

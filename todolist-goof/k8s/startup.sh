@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 MYDIR=$(dirname $0)
-read -e -i "${DOCKER_ACCOUNT}" -p "Please enter your DockerHub user/account name: " input
-name="${input:-$DOCKER_ACCOUNT}"
+
+if [[ "$1" == "" ]]; then
+  read -e -i "${DOCKER_ACCOUNT}" -p "Please enter your DockerHub user/account name: " input
+  name="${input:-$DOCKER_ACCOUNT}"
+else
+  DOCKER_ACCOUNT=$1
+fi
 
 cat $MYDIR/java-goof.yaml | envsubst | kubectl apply -f -
 
