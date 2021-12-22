@@ -1,5 +1,6 @@
 FROM maven:3-jdk-8-slim as build
-COPY . .
+COPY pom.xml pom.xml
+COPY src src
 RUN --mount=target=$HOME/.m2,type=cache mvn clean compile assembly:single
 
 FROM openjdk:8 as ldap
