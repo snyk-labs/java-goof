@@ -2,6 +2,8 @@
 
 The purpose of this project is to demonstrate the Log4Shell exploit with Log4J versions older than `2.15.0`.
 
+**NOTE**: Multiple additional vulnerabilities have been disclosed with log4j. Make sure you're using the latest `2.17.x` version.
+
 This repo is based on the excellent proof-of-concept published by [BrianV](https://github.com/bmvermeer/log4jexploit/).
 The PoC is a great starting point. This project expands on it by fleshing it out into a fully standalone demo.
 
