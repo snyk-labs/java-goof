@@ -26,6 +26,7 @@ package io.github.todolist.core.repository.impl;
 
 import io.github.todolist.core.domain.Todo;
 import io.github.todolist.core.repository.api.TodoRepository;
+import org.apache.commons.collections.list.UnmodifiableList;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -57,7 +58,7 @@ public class TodoRepositoryImpl implements TodoRepository {
     public List<Todo> getTodoListByUser(final long userId) {
         TypedQuery<Todo> query = entityManager.createNamedQuery("findTodosByUser", Todo.class);
         query.setParameter(1, userId);
-        return query.getResultList();
+        return UnmodifiableList.decorate(query.getResultList());
     }
 
     /**
@@ -67,7 +68,7 @@ public class TodoRepositoryImpl implements TodoRepository {
         TypedQuery<Todo> query = entityManager.createNamedQuery("findTodosByTitle", Todo.class);
         query.setParameter(1, userId);
         query.setParameter(2, "%" + title.toUpperCase() + "%");
-        return query.getResultList();
+        return UnmodifiableList.decorate(query.getResultList());
     }
 
     /**

@@ -26,8 +26,8 @@ package io.github.benas.todolist.web.action.user;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import io.github.benas.todolist.web.action.BaseAction;
 import io.github.benas.todolist.web.common.form.ChangePasswordForm;
 import io.github.benas.todolist.web.common.form.RegistrationForm;
@@ -45,7 +45,7 @@ import java.util.Set;
  */
 public class AccountAction extends BaseAction {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AccountAction.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(AccountAction.class.getName());
 
     private ChangePasswordForm changePasswordForm;
 

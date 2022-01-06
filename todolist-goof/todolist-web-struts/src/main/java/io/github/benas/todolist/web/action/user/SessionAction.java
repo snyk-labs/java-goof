@@ -25,8 +25,8 @@
 package io.github.benas.todolist.web.action.user;
 
 import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import io.github.benas.todolist.web.action.BaseAction;
 import io.github.benas.todolist.web.common.form.LoginForm;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
@@ -39,7 +39,7 @@ import io.github.todolist.core.domain.User;
  */
 public class SessionAction extends BaseAction {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SessionAction.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(SessionAction.class.getName());
 
     private LoginForm loginForm;
 
@@ -61,6 +61,7 @@ public class SessionAction extends BaseAction {
             session.put(TodoListUtils.SESSION_USER, user);
             return Action.SUCCESS;
         } else {
+            LOGGER.error("Login failed for email: " + loginForm.getEmail());
             error = getText("login.error.global.invalid");
             return Action.INPUT;
         }

@@ -94,6 +94,7 @@ public class TodoListUtils {
      * @param input   text to which apply the style for each matched pattern
      * @param pattern the pattern to highlight
      * @return the transformed text
+     *
      */
     public static String highlight(final String input, final String pattern) {
 
