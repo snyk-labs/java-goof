@@ -41,6 +41,10 @@ TODO
 
 - [Container base image exploit instructions](exploits/tomcat-rce/README.md)
 
+## Log4Shell exploits 
+
+- [Log4Shell exploits explained](exploits/log4shell/README.md)
+
 ## License
 This repo is available released under the [MIT License](http://opensource.org/licenses/mit-license.php/).
 # java-goof

