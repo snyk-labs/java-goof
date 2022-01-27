@@ -1,0 +1,42 @@
+name: Docker Image Java-Goof
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-todolist-image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: todolist-goof
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: todolist-goof
+          push: false
+          tags: java-goof:latest
+
+  build-log4shell-server-image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: log4shell-goof/log4shell-server
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: log4shell-goof/log4shell-server
+          push: false
+          tags: log4shell-server:latest
