@@ -1,8 +1,18 @@
-name: Docker Image Java-Goof
+name: todolost-goof Docker image build and test
 
 on:
   push:
+    branches:
+      - 'main'
+    paths:
+      - 'todolist-goof/**'
+      - '.github/workflows/todolist-goof-docker-image.yaml'
   pull_request:
+    branches:
+      - 'main'
+    paths:
+      - 'todolist-goof/**'
+      - '.github/workflows/todolist-goof-docker-image.yaml'
 
 jobs:
   build-todolist-image:
@@ -32,21 +42,3 @@ jobs:
         
       - name: Cleanup container
         run: docker kill java-goof
-                
-  build-log4shell-server-image:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: log4shell-goof/log4shell-server
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Build
-        uses: docker/build-push-action@v2
-        with:
-          context: log4shell-goof/log4shell-server
-          push: false
-          tags: log4shell-server:latest
