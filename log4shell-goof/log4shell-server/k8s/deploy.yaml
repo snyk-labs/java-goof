@@ -24,6 +24,7 @@ spec:
       containers:
         - name: ldap
           image: ${DOCKER_ACCOUNT}/log4shell-server:latest
+          imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
