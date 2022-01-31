@@ -1,0 +1,44 @@
+name: todolost-goof Docker image build and test
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'todolist-goof/**'
+      - '.github/workflows/todolist-goof-docker-image.yaml'
+  pull_request:
+    branches:
+      - 'main'
+    paths:
+      - 'todolist-goof/**'
+      - '.github/workflows/todolist-goof-docker-image.yaml'
+
+jobs:
+  build-todolist-image:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: todolist-goof
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          load: true
+          context: todolist-goof
+          push: false
+          tags: java-goof:latest
+          
+      - name: Run container
+        run: docker run -d --rm --name java-goof -p 8080:8080 java-goof:latest
+
+      - name: Smoke test container
+        run: sleep 5 && curl -s --retry 5 --retry-delay 1 --retry-max-time 30 http://localhost:8080/todolist/ 
+        
+      - name: Cleanup container
+        run: docker kill java-goof
