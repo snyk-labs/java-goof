@@ -45,3 +45,26 @@ jobs:
 
       - name: Cleanup container
         run: docker kill log4shell-server
+
+      - name: Start minikube
+        uses: medyagh/setup-minikube@master
+        with:
+          cni: calico
+
+      - name: Deploy to minikube
+        run: |
+          sed -i 's/${DOCKER_ACCOUNT}\///' k8s/deploy.yaml
+          sed -i 's/imagePullPolicy: Always/imagePullPolicy: Never/' k8s/deploy.yaml
+          minikube image load log4shell-server:latest
+          kubectl apply -f k8s/deploy.yaml
+
+      - name: Test pods came up cleanly
+        run: |
+          kubectl get all --namespace=darkweb && \
+          kubectl wait --namespace=darkweb --for=condition=ready pod --selector=app=log4shell --timeout=90s
+
+      - name: Dump pod description
+        if: ${{ failure() }}
+        run: |
+          kubectl describe pod --namespace=darkweb --selector=app=log4shell
+          kubectl describe deploy --namespace=darkweb --selector=app=log4shell
