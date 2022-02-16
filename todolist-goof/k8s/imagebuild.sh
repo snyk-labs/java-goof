@@ -7,8 +7,7 @@ else
   DOCKER_ACCOUNT=$1
 fi
 
-echo "📦 Building image ${DOCKER_ACCOUNT}/java-goof:latest ..."
-docker build -t ${DOCKER_ACCOUNT}/java-goof:latest $MYDIR/..
-echo
-echo "🚚 Pushing image to DockerHub..."
-docker push ${DOCKER_ACCOUNT}/java-goof:latest
+echo "📦 Building and pushing image ${DOCKER_ACCOUNT}/java-goof:latest ..."
+docker buildx create --name mybuilder || true
+docker buildx use mybuilder
+docker buildx build --push --platform linux/amd64,linux/arm64 -t ${DOCKER_ACCOUNT}/java-goof:latest $MYDIR/..
