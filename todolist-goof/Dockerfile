@@ -8,7 +8,7 @@ COPY src src
 COPY todolist-core todolist-core
 COPY todolist-web-common todolist-web-common
 COPY todolist-web-struts todolist-web-struts
-RUN --mount=target=$HOME/.m2,type=cache mvn install
+RUN --mount=target=$HOME/.m2,type=cache mvn install -DskipTests
 
 FROM tomcat:8.5.21
 

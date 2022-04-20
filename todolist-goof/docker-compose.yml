@@ -6,5 +6,23 @@ services:
     container_name: javagoof
     environment:
       - DOCKER=1
+      - hibernate.dialect=org.hibernate.dialect.MySQLDialect
+      - hibernate.connection.url=jdbc:mysql://javagoof-db:3306/todolist
+      - hibernate.connection.driver_class=com.mysql.jdbc.Driver
+      - hibernate.connection.username=admin
+      - hibernate.connection.password=changeme
     ports:
       - "8080:8080"
+    depends_on:
+      - javagoof-db
+
+  javagoof-db:
+    image: mysql/mysql-server
+    container_name: javagoof-db
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=changeme
+      - MYSQL_DATABASE=todolist
