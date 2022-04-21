@@ -3,36 +3,40 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: goof
-  name: goof
-  namespace: default
+    app: javagoof
+    tier: webapp
+  name: javagoof
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: goof
+      app: javagoof
+      tier: webapp
   template:
     metadata:
       labels:
-        app: goof
+        app: javagoof
+        tier: webapp
     spec:
       containers:
-      - image: ${DOCKER_ACCOUNT}/java-goof:latest
-        imagePullPolicy: Always
-        name: java-goof
+      - image: ericsmalling/java-goof
+        imagePullPolicy: IfNotPresent
+        name: javagoof
       restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: goof
-  name: goof
+    app: javagoof
+  name: javagoof
 spec:
   type: LoadBalancer
+  sessionAffinity: ClientIP
   ports:
     - port: 80
       protocol: TCP
       targetPort: 8080
   selector:
-    app: goof
+    app: javagoof
+    tier: webapp

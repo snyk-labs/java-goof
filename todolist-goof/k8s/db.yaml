@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: javagoof
+    tier: db
+  name: javagoof-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: javagoof
+      tier: db
+  template:
+    metadata:
+      labels:
+        app: javagoof
+        tier: db
+    spec:
+      containers:
+      - image: mysql/mysql-server
+        imagePullPolicy: Always
+        name: javagoof-db
+        ports:
+          - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: secret
+          - name: MYSQL_USER
+            value: admin
+          - name: MYSQL_PASSWORD
+            value: changeme
+          - name: MYSQL_DATABASE
+            value: todolist
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: javagoof-db
+  name: javagoof-db
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3306
+      protocol: TCP
+  selector:
+    app: javagoof
+    tier: db
