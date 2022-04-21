@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - image: ericsmalling/java-goof
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: javagoof
       restartPolicy: Always
 ---

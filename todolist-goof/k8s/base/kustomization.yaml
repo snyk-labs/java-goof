@@ -1,0 +1,5 @@
+commonLabels:
+  app: javagoof
+resources:
+  - app.yaml
+  - db.yaml

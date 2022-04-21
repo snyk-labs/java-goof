@@ -1,0 +1,19 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: javagoof
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: javagoof
+        imagePullPolicy: Never
+        volumeMounts:
+          - mountPath: /usr/local/tomcat/webapps/todolist
+            name: todolist-src
+      volumes:
+        - name: todolist-src
+          hostPath:
+            path: ${SRC}

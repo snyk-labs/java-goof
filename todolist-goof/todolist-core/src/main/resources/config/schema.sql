@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS todo (
   done boolean DEFAULT FALSE NOT NULL,
   priority tinyint NOT NULL,
   due_date date DEFAULT NULL,
-  FOREIGN KEY (aut_id) REFERENCES user(id)
+  FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 -- alter table todo add constraint user_fk foreign key (user_id) references user(id);

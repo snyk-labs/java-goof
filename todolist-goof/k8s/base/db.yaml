@@ -42,7 +42,6 @@ metadata:
     app: javagoof-db
   name: javagoof-db
 spec:
-  type: LoadBalancer
   ports:
     - port: 3306
       protocol: TCP

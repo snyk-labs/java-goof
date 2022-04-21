@@ -1,0 +1,6 @@
+commonLabels:
+  variant: dev
+resources:
+  - ../../base
+patches:
+  - static-app.yaml
