@@ -8,6 +8,10 @@ else
 fi
 
 echo "📦 Building and pushing image ${DOCKER_ACCOUNT}/java-goof:latest ..."
-docker buildx create --name mybuilder || true
-docker buildx use mybuilder
-docker buildx build --push --platform linux/amd64,linux/arm64 -t ${DOCKER_ACCOUNT}/java-goof:latest $MYDIR/..
+docker buildx create --name multiarch --use
+PLATFORM=linux/amd64
+if [[ $(uname -m) = arm64 ]]; then
+  echo "Found arm64! Building arm64 and amd64 images..."
+  PLATFORM=linux/arm64,linux/amd64
+fi
+docker buildx build --push --platform ${PLATFORM} -t ${DOCKER_ACCOUNT}/java-goof:latest $MYDIR/..
