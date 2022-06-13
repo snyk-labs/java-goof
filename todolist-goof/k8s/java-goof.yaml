@@ -29,7 +29,7 @@ metadata:
     app: goof
   name: goof
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 80
       protocol: TCP
