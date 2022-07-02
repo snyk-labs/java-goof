@@ -1,0 +1,20 @@
+name: Send payload
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - run: >-
+          curl -X POST -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: ${{ secrets.GIT_TOKEN }}' -d '{"event_type": "a", "client_payload":{"org name":"Test org", "repo name": "test2", "default branch": "master"}}' https://api.github.com/repos/swahab-r7/test-repo/dispatches
