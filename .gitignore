@@ -2,3 +2,5 @@
 .idea
 **/target/**
 **/.DS_Store
+**/.dccache
+**/todolist-goof/.dccache
