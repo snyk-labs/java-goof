@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  java-goof:
+    build:
+      context: .
+    volumes:
+       - ..:/app/
+    network_mode: "host" 
+
+  # mock-api:
+  #   image: mockserver/mockserver:latest
+  #   ports:
+  #     - 1080:1080
+  #   environment:
+  #     MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializerJson.json
+  #   volumes:
+  #     - type: bind
+  #       source: ./mock-api.json
+  #       target: /config/initializerJson.json
+  #   network_mode: "host" 
