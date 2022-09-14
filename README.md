@@ -3,7 +3,8 @@
     - Java Goof, 
     - Sonar,
     - OWASP ZAP,
-    - OWASP Juice Shop
+    - OWASP Juice Shop,
+    - Hawkscan
 
 ### Requisistos mínimos:
 
@@ -45,3 +46,12 @@ It's divided into modules, each one having its own README:
     - https://www.zaproxy.org/docs/docker/webswing/
     - https://www.zaproxy.org/docs/docker/about/
     - https://www.zaproxy.org/getting-started/
+
+
+### Hawkscan
+- Passos para rodar:
+    - descomentar o service hawkscan.
+    - alterar o conteúdo do arquivo [stackhawk.yml](stackhawk.yml)
+    - alterar o valor do environment API_KEY no service hawkscan
+- Referência: 
+    - https://www.stackhawk.com/

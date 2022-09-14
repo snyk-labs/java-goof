@@ -31,7 +31,6 @@ services:
       - 3000:3000
     network_mode: "host" 
 
-
   owasp-zap:
     user: zap
     image: owasp/zap2docker-stable
@@ -45,6 +44,15 @@ services:
       - zap_data:/zap
     network_mode: "host" 
 
+  # hawkscan:
+  #   image: stackhawk/hawkscan:latest
+  #   environment:
+  #     - API_KEY=hawk.KuFAAYTkj
+  #   volumes:
+  #     - ./stackhawk.yml:/hawk/stackhawk.yml
+  #   network_mode: "host" 
+  #   depends_on: 
+  #     - juice-shop
 
 volumes:
   sonar_data:
