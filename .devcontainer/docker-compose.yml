@@ -32,6 +32,16 @@ services:
     network_mode: "host" 
 
 
+  owasp-zap:
+    user: zap
+    image: owasp/zap2docker-stable
+    command: zap.sh -daemon -port 8090 -host 0.0.0.0
+    # command: zap-webswing.sh
+    ports:
+      - 8090:8090
+    network_mode: "host" 
+
+
 volumes:
   sonar_data:
     driver: local
