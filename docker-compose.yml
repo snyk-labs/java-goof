@@ -41,9 +41,15 @@ services:
     ports:
       - 8090:8090
       - 8080:8080
+    volumes:
+      - zap_data:/zap
     network_mode: "host" 
 
 
 volumes:
   sonar_data:
     driver: local
+  zap_data:
+    driver: local
+
+    
