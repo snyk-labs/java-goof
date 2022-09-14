@@ -1,7 +1,7 @@
 ## Laboratório DevSecOps
  Laboratório DevSecOps em containers com: 
     - java Goof, 
-    - sonar, 
+    - sonar,
     - OWASP Juice Shop
 
 ### Requisistos mínimos:
@@ -39,4 +39,4 @@ It's divided into modules, each one having its own README:
     ```
 
 ### OWASP Juice Shop
-- Browse to http://localhost:3000 (on macOS and Windows browse to http://192.168.99.100:3000 if you are using docker-machine instead of the native docker installation)
+- http://localhost:3000 
