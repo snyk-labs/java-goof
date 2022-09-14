@@ -1,20 +1,36 @@
 version: "3.7"
 services:
   java-goof:
+    user: "laboratorio"
     build:
       context: .
+    environment:
+      MAVEN_CONFIG: /var/maven/.m2
     volumes:
-       - ..:/app/
+      - /var/run/docker.sock:/var/run/docker-host.sock
+      - ~/.m2:/var/maven/.m2 
+      - ..:/app
+    command: sleep infinity
+    network_mode: "host" 
+    depends_on: 
+      - sonar
+
+  sonar:
+    image: sonarqube:latest
+    ports:
+      - 9000:9000
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
+    volumes:
+      - sonar_data:/opt/sonarqube/data
     network_mode: "host" 
 
-  # mock-api:
-  #   image: mockserver/mockserver:latest
-  #   ports:
-  #     - 1080:1080
-  #   environment:
-  #     MOCKSERVER_INITIALIZATION_JSON_PATH: /config/initializerJson.json
-  #   volumes:
-  #     - type: bind
-  #       source: ./mock-api.json
-  #       target: /config/initializerJson.json
-  #   network_mode: "host" 
+  juice-shop:
+    image: bkimminich/juice-shop
+    ports:
+      - 3000:3000
+    network_mode: "host" 
+
+volumes:
+  sonar_data:
+    driver: local
