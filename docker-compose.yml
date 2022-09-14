@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 services:
   java-goof:
     user: "laboratorio"
@@ -9,7 +9,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker-host.sock
       - ~/.m2:/var/maven/.m2 
-      - ..:/app
+      - .:/app
     command: sleep infinity
     network_mode: "host" 
     depends_on: 
@@ -17,13 +17,17 @@ services:
 
   sonar:
     image: sonarqube:latest
-    ports:
-      - 9000:9000
     environment:
       SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
     volumes:
+      - sonar_conf:/opt/sonarqube/conf
       - sonar_data:/opt/sonarqube/data
-    network_mode: "host" 
+      - sonar_extensions:/opt/sonarqube/extensions
+      - sonar_bundled_plugins:/opt/sonarqube/lib/bundled-plugins
+      - sonar_logs:/opt/sonarqube/logs
+    ports:
+      - 9000:9000
+    network_mode: "host"
 
   juice-shop:
     image: bkimminich/juice-shop
@@ -47,7 +51,7 @@ services:
   # hawkscan:
   #   image: stackhawk/hawkscan:latest
   #   environment:
-  #     - API_KEY=hawk.KuFAAYTkj
+  #     - API_KEY=hawk.KuFAAYTkj8A
   #   volumes:
   #     - ./stackhawk.yml:/hawk/stackhawk.yml
   #   network_mode: "host" 
@@ -56,8 +60,12 @@ services:
 
 volumes:
   sonar_data:
-    driver: local
+  sonar_extensions:
+  sonar_conf:
+  sonar_bundled_plugins:
+  sonar_logs:
+  postgresql:
+  postgresql_data:
   zap_data:
-    driver: local
 
     
