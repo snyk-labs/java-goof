@@ -40,4 +40,5 @@ It's divided into modules, each one having its own README:
 - http://localhost:3000 
 
 ### OWASP ZAP
-- http://localhost:8080
+- http://localhost:8080/zap
+- Referência: https://www.zaproxy.org/docs/docker/webswing/

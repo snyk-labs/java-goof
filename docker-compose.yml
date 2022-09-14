@@ -35,8 +35,9 @@ services:
   owasp-zap:
     user: zap
     image: owasp/zap2docker-stable
-    # command: zap.sh -daemon -port 8090 -host 0.0.0.0
     command: zap-webswing.sh
+    # command: zap.sh -daemon -port 8090 -host 0.0.0.0
+    # command: zap-baseline.py -t http://localhost:3000
     ports:
       - 8090:8090
       - 8080:8080
