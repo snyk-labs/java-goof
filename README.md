@@ -1,7 +1,8 @@
 ## Laboratório DevSecOps
  Laboratório DevSecOps em containers com: 
-    - java Goof, 
-    - sonar,
+    - Java Goof, 
+    - Sonar,
+    - OWASP ZAP,
     - OWASP Juice Shop
 
 ### Requisistos mínimos:
@@ -12,7 +13,7 @@
 
 ### Uso
 - Dentro da pasta clonada executar: 
-    - ```cd .devcontainer```
+    - ``````
     - ```docker-compose up```
 
 ### Extensões recomendadas
@@ -34,9 +35,10 @@ It's divided into modules, each one having its own README:
 - Usuário e senha inicial: **admin**
 - Para entrar no shell do container java-goof execute:
     ```shell
-    cd .devcontainer
     docker-compose exec java-goof bash
     ```
-
 ### OWASP Juice Shop
 - http://localhost:3000 
+
+### OWASP ZAP
+- http://localhost:8080
