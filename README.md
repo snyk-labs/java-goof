@@ -1,5 +1,5 @@
 ## Laboratório DevSecOps
- Laboratório DevSecOps em containers com: 
+- Laboratório DevSecOps em containers com: 
     - Java Goof, 
     - Sonar,
     - OWASP ZAP,
@@ -13,7 +13,6 @@
 
 ### Uso
 - Dentro da pasta clonada executar: 
-    - ``````
     - ```docker-compose up```
 
 ### Extensões recomendadas
