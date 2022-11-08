@@ -20,4 +20,7 @@ Tell them where to go, how often they can expect to get an update on a
 reported vulnerability, what to expect if the vulnerability is accepted or
 declined, etc.
 
-Mande e-mail para super.usuario@meudominio.com.br
+
+## Orientação (curso GHSCD)
+
+> Mande e-mail para super.usuario@meudominio.com.br
