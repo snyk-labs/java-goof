@@ -1,1 +1,3 @@
 Novo arquivo! 
+
+Alterando o arquivo com branch protection!
