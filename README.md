@@ -10,3 +10,5 @@ It's divided into modules, each one having its own README:
 
 Editado por GHSCD 2022! Novo
 
+Testando branch protection!
+
