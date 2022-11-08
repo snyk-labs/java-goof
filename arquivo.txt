@@ -3,3 +3,5 @@ Novo arquivo!
 Alterando o arquivo com branch protection!
 
 Alterando o arquivo mais um a vez, sem burlar!
+
+Alterar 2!
