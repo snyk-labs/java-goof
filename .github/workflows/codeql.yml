@@ -18,7 +18,7 @@ on:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
   schedule:
-    - cron: '38 0 * * 5'
+    - cron: '28 4 * * 4'
 
 jobs:
   analyze:
@@ -30,9 +30,9 @@ jobs:
       security-events: write
 
     strategy:
-    language: [ 'java', 'python']  fail-fast: false
+      fail-fast: false
       matrix:
-        language: [ 'java', 'python']
+        language: [ 'java', 'python' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
