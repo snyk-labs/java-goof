@@ -30,7 +30,7 @@ jobs:
       security-events: write
 
     strategy:
-      fail-fast: false
+    anguage: [ 'java', 'python']  fail-fast: false
       matrix:
         language: [ 'java', 'python']
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
@@ -72,3 +72,12 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
+
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-20.04
+    container:
+      image: returntocorp/semgrep
+    steps:
+    - uses: actions/checkout@v3
+    - run: semgrep ci
