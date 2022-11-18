@@ -80,4 +80,7 @@ jobs:
       image: returntocorp/semgrep
     steps:
     - uses: actions/checkout@v3
-    - run: semgrep ci
+    - run: |
+          semgrep login
+          semgrep --config auto
+          semgrep ci
