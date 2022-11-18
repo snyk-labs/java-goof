@@ -30,7 +30,7 @@ jobs:
       security-events: write
 
     strategy:
-    anguage: [ 'java', 'python']  fail-fast: false
+    language: [ 'java', 'python']  fail-fast: false
       matrix:
         language: [ 'java', 'python']
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
