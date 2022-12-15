@@ -1,0 +1,4 @@
+Teste GoHacking 2022 Code Owners 
+
+
+Regra Branch Protection Teste!
