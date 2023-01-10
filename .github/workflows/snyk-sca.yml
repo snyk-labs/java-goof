@@ -1,47 +1,12 @@
-name: Snyk SCA
-on:
-    # Start scan on any update for pull request (any branch) and push (main || master branch)
-  pull_request: {}
-  push:
-    branches:
-    # Start scan only if in those branches is altered something
-    - master
-    - main
-    ## To limit paths use the syntax below, only changed files/folder within the selected context will be considered as valid to start a scan action
-    # paths:
-    # - .github/workflows/snyk.yml
+name: Example workflow using Snyk with continue on error
+on: push
 jobs:
-  Snyk_Monitor:
+  security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
-      # Change the according to the code language, like "snyk/actions/$PROG_LANGUAGE@master" (double quotes not needed)
-        uses: snyk/actions/java@master
-        env:
-        # Remember to create an env var with the token in https://github.com/$USERNAME/$REPO_NAME/settings/secrets/actions/
-        # Snyk token can be acquired in https://app.snyk.io/account -> API Token (User API)
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: monitor
-  Snyk_Exec:
-    permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-      # Change according to the code language
-        uses: snyk/actions/golang@master
+        uses: snyk/actions/node@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high # --fail-on=upgradable will fail the build only for issues that are upgradable (can be fixed with Snyk fix advice)
-          # https://docs.snyk.io/snyk-cli/test-for-vulnerabilities/advanced-failing-of-builds-in-snyk-cli
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk.sarif
