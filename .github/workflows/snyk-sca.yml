@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
       # Change the according to the code language, like "snyk/actions/$PROG_LANGUAGE@master" (double quotes not needed)
-        uses: snyk/actions/golang@master
+        uses: snyk/actions/java@master
         env:
         # Remember to create an env var with the token in https://github.com/$USERNAME/$REPO_NAME/settings/secrets/actions/
         # Snyk token can be acquired in https://app.snyk.io/account -> API Token (User API)
@@ -25,6 +25,10 @@ jobs:
         with:
           command: monitor
   Snyk_Exec:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
