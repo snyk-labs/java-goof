@@ -25,6 +25,6 @@ jobs:
           args: --sarif-file-output=snyk.sarif # --fail-on=upgradable will fail the build only for issues that are upgradable (can be fixed with Snyk fix advice)
           # https://docs.snyk.io/snyk-cli/test-for-vulnerabilities/advanced-failing-of-builds-in-snyk-cli
       - name: Upload result to Report folder Scanning
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
