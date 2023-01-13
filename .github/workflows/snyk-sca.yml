@@ -1,12 +1,33 @@
-name: Example workflow using Snyk with continue on error
-on: push
+name: Snyk SCA
+on:
+    # Start scan on any update for pull request (any branch) and push (main || master branch)
+  pull_request: {}
+  push:
+    branches:
+    # Start scan only if in those branches is altered something
+    - master
+    - main
+    ## To limit paths use the syntax below, only changed files/folder within the selected context will be considered as valid to start a scan action
+    # paths:
+    # - .github/workflows/snyk.yml
 jobs:
-  security:
+  Snyk_Exec:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Run Snyk to check for vulnerabilities
+      # Change according to the code language
         uses: snyk/actions/maven@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high # --fail-on=upgradable will fail the build only for issues that are upgradable (can be fixed with Snyk fix advice)
+          # https://docs.snyk.io/snyk-cli/test-for-vulnerabilities/advanced-failing-of-builds-in-snyk-cli
+      - name: Upload result to GitHub Code Scanning
+        uses: actions/upload-artifact@master
+        with:
+         name: Depcheck report
+         args: --sarif-file-output=snyk.sarif
+         sarif_file: snyk.sarif
+         path: ${{github.workspace}}/reports
