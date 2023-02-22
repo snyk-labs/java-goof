@@ -1,0 +1,12 @@
+name: Gitleaks Secret Leak Prevention
+on: [push,pull_request] 
+    # paths:
+    # - .github/workflows/gitleaks.yml
+jobs:
+  gitleaks:
+    name: Gitleaks Scan
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: gitleaks-action
+      uses: zricethezav/gitleaks-action@master
