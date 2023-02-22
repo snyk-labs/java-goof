@@ -8,3 +8,5 @@ else
 fi
 $TOP_LEVEL_MYDIR/todolist-goof/k8s/quickstart.sh $DOCKER_ACCOUNT
 $TOP_LEVEL_MYDIR/log4shell-goof/log4shell-server/k8s/quickstart.sh $DOCKER_ACCOUNT
+API_KEY='321651a6s521d651as65d1as61'
+TOKEN='token_teste123123123'
