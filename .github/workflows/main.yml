@@ -1,0 +1,24 @@
+name: Trufflehog Actions Scan
+  # uses: edplato/trufflehog-actions-scan@v0.9l-beta
+on:
+  # Start scan on any update for pull request (any branch) and push (main || master branch)
+  pull_request: {}
+  push:
+    branches:
+    - master
+    - main
+jobs:
+  trufflescan:
+    name: Trufflescan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        ref: ${{ github.head_ref }} // necessary for pull request workflow trigger
+    - name: trufflehog-actions-scan
+      uses: edplato/trufflehog-actions-scan@master
