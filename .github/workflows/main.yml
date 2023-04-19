@@ -59,11 +59,7 @@ jobs:
           snyk auth ${{ secrets.SNYK_TOKEN }}
           snyk iac test --report --sarif --sarif-file-output=snyk-iac.sarif || true
           
-      - name: Upload result to GitHub Code Scanning
+      - name: Upload SARIF Artifacts
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk-iac.sarif
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk-code.sarif
