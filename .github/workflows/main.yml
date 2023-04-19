@@ -51,18 +51,19 @@ jobs:
           # This is where you will need to introduce the Snyk API token created with your Snyk account
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-        # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
-        # Use || true to not fail the pipeline.
-      - name: Snyk IaC test and report
+        # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
+        # Use || true to not fail the pipeline
+        
+      - name: Snyk IAC Test
         run: |
           snyk auth ${{ secrets.SNYK_TOKEN }}
-          snyk iac test --report --sarif --sarif-file-output=snyk-iac.sarif# || true
-
-        # Push the Snyk Code results into GitHub Code Scanning tab
+          snyk iac test --report --sarif --sarif-file-output=snyk-iac.sarif || true
+          
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk-iac.sarif
+      - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk-code.sarif
