@@ -2,7 +2,8 @@ CREATE TABLE user (
   id int IDENTITY NOT NULL PRIMARY KEY,
   name varchar(32) DEFAULT NULL,
   email varchar(32) NOT NULL,
-  password varchar(32) DEFAULT NULL
+  password varchar(32) DEFAULT NULL,
+  picture varchar(32) DEFAULT NULL
 );
 
 ALTER TABLE user ADD CONSTRAINT unique_email UNIQUE (email);

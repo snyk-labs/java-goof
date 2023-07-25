@@ -19,6 +19,32 @@
 
                 <div class="row">
                     <div class="span8">
+                        <s:form cssClass="form-horizontal" namespace="/user" method="post" action="uploadImage.do" enctype="multipart/form-data">
+                            <fieldset>
+                                <legend>Upload profile pic</legend>
+
+                                <s:if test = "user.picture!=null">
+                                    <img alt=":p" src="../userimages/<s:property value='user.picture'/>"/>
+                                </s:if>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="image">Image:</label>
+
+                                    <div class="controls">
+                                        <input id="image" type="file" name="image" accept="image/*" class="form-control-file">
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <s:submit cssClass="btn btn-primary" value="Update image"/>
+                                </div>
+
+                            </fieldset>
+                        </s:form>
+
+                </div>
+
+                <div class="row">
+                    <div class="span8">
                         <s:form cssClass="form-horizontal" namespace="/user" method="post" action="update.do">
                             <fieldset>
                                 <legend>Update my profile <p class="alert-success">${requestScope.updateProfileSuccessMessage}</p></legend>

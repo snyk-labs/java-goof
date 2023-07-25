@@ -26,6 +26,7 @@ package io.github.benas.todolist.web.action.user;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.github.benas.todolist.web.action.BaseAction;
@@ -33,8 +34,11 @@ import io.github.benas.todolist.web.common.form.ChangePasswordForm;
 import io.github.benas.todolist.web.common.form.RegistrationForm;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.User;
+import org.apache.struts2.ServletActionContext;
 
 import javax.validation.ConstraintViolation;
+import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Set;
 
@@ -57,6 +61,10 @@ public class AccountAction extends BaseAction {
 
     private String error, errorName, errorEmail, errorPassword, errorNewPassword,
             errorCurrentPassword, errorConfirmationPassword, errorConfirmationPasswordMatching;
+
+    private File image;
+    private String imageContentType;
+    private String imageFileName;
 
     /**
      * **************
@@ -155,6 +163,33 @@ public class AccountAction extends BaseAction {
             errorName = constraintViolations.iterator().next().getMessage();
             error = getText("register.error.global");
         }
+    }
+
+    /**
+     * Upload image
+     */
+
+    public String doUploadImage() {
+        User user = getSessionUser();
+        String filePath = ServletActionContext.getServletContext().getRealPath("/").concat("userimages");
+
+        if (imageContentType.equals("image/jpg") || imageContentType.equals("image/png") || imageContentType.equals("image/jpeg")) {
+            File publicDir = new File(filePath);
+            if (!publicDir.exists())
+                publicDir.mkdirs();
+            try {
+                LOGGER.info("uploading image");
+                imageFileName = imageFileName.replaceAll(" ", "_");
+                String imageLocation = filePath + "/" + imageFileName;
+                FileUtils.copyFile(image, new File(imageLocation));
+                user.setPicture(imageFileName);
+                userService.update(user);
+            } catch (IOException e) {
+                LOGGER.error(e);
+                return Action.ERROR;
+            }
+        }
+        return account();
     }
 
     /**
@@ -350,6 +385,19 @@ public class AccountAction extends BaseAction {
     public String getErrorCurrentPassword() {
         return errorCurrentPassword;
     }
+
+    public void setImage(File file) {
+        this.image = file;
+    }
+
+    public void setImageContentType(String contentType) {
+        this.imageContentType = contentType;
+    }
+
+    public void setImageFileName(String filename) {
+        this.imageFileName = filename;
+    }
+
 
     /**
      * *************************************

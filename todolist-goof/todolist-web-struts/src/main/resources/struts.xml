@@ -138,6 +138,13 @@
             <result>/WEB-INF/views/user/account.jsp</result>
         </action>
 
+        <action name="uploadImage.do" class="io.github.benas.todolist.web.action.user.AccountAction" method="doUploadImage">
+            <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
+            <result name="input">/WEB-INF/views/user/account.jsp</result>
+            <result>/WEB-INF/views/user/account.jsp</result>
+        </action>
+
     </package>
 
     <package name="public" namespace="/" extends="struts-default">
