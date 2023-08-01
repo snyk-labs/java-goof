@@ -8,7 +8,7 @@ services:
       - DOCKER=1
       - THUMBNAILER_HOST=thumbnailer:5000
     ports:
-      - "8081:8080"
+      - "8080:8080"
   thumbnailer:
     build: ./thumbnailer/vulnerable-app
     image: thumbnailer:latest
