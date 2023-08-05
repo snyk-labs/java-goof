@@ -1,0 +1,25 @@
+# -- stackhawk configuration for localhost --
+app:
+  # -- An applicationId obtained from the StackHawk platform. --
+  applicationId: b2952214-19d4 # (required)
+  # -- The environment for the applicationId defined in the StackHawk platform. --
+  env: Development # (required)
+  # -- The url of your application to scan --
+  host: http://localhost:3000 # (required)
+
+
+# -- Customized Configuration for GraphQL/SOAP/OpenAPI, add here --
+  # openApiConf:
+  #   path: /swagger.json # OR...
+#       filePath: openApi.json
+  # autoPolicy: true
+  # autoInputVectors: true
+  # Configuration Docs: https://docs.stackhawk.com/hawkscan/configuration/
+
+# -- If Authenticated Scanning is needed, add here --
+  # Authenticated Scanning Docs: https://docs.stackhawk.com/hawkscan/authenticated-scanning.html
+  # Authenticated Scanning Repo: https://github.com/kaakaww/scan-configuration/tree/main/Authentication
+
+# -- Help Section --
+  # Docs: https://docs.stackhawk.com/
+  # Contact Support: support@stackhawk.com

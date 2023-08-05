@@ -1,0 +1,71 @@
+version: "3"
+services:
+  java-goof:
+    user: "laboratorio"
+    build:
+      context: .
+    environment:
+      MAVEN_CONFIG: /var/maven/.m2
+    volumes:
+      - /var/run/docker.sock:/var/run/docker-host.sock
+      - ~/.m2:/var/maven/.m2 
+      - .:/app
+    command: sleep infinity
+    network_mode: "host" 
+    depends_on: 
+      - sonar
+
+  sonar:
+    image: sonarqube:latest
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
+    volumes:
+      - sonar_conf:/opt/sonarqube/conf
+      - sonar_data:/opt/sonarqube/data
+      - sonar_extensions:/opt/sonarqube/extensions
+      - sonar_bundled_plugins:/opt/sonarqube/lib/bundled-plugins
+      - sonar_logs:/opt/sonarqube/logs
+    ports:
+      - 9000:9000
+    network_mode: "host"
+
+  juice-shop:
+    image: bkimminich/juice-shop
+    ports:
+      - 3000:3000
+    network_mode: "host" 
+
+  owasp-zap:
+    user: zap
+    image: owasp/zap2docker-stable
+    command: zap-webswing.sh
+    # command: zap.sh -daemon -port 8090 -host 0.0.0.0
+    # command: zap-baseline.py -t http://localhost:3000
+    ports:
+      - 8090:8090
+      - 8080:8080
+    volumes:
+      - zap_data:/zap
+    network_mode: "host" 
+
+  # hawkscan:
+  #   image: stackhawk/hawkscan:latest
+  #   environment:
+  #     - API_KEY=hawk.KuFAAYTkj8A
+  #   volumes:
+  #     - ./stackhawk.yml:/hawk/stackhawk.yml
+  #   network_mode: "host" 
+  #   depends_on: 
+  #     - juice-shop
+
+volumes:
+  sonar_data:
+  sonar_extensions:
+  sonar_conf:
+  sonar_bundled_plugins:
+  sonar_logs:
+  postgresql:
+  postgresql_data:
+  zap_data:
+
+    
