@@ -7,8 +7,11 @@ else
   DOCKER_ACCOUNT=$1
 fi
 
-echo "📦 Building image ${DOCKER_ACCOUNT}/java-goof:latest ..."
-docker build -t ${DOCKER_ACCOUNT}/java-goof:latest $MYDIR/..
-echo
-echo "🚚 Pushing image to DockerHub..."
-docker push ${DOCKER_ACCOUNT}/java-goof:latest
+echo "📦 Building and pushing image ${DOCKER_ACCOUNT}/java-goof:latest ..."
+docker buildx create --name multiarch --use
+PLATFORM=linux/amd64
+if [[ $(uname -m) = arm64 ]]; then
+  echo "Found arm64! Building arm64 and amd64 images..."
+  PLATFORM=linux/arm64,linux/amd64
+fi
+docker buildx build --push --platform ${PLATFORM} -t ${DOCKER_ACCOUNT}/java-goof:latest $MYDIR/..
