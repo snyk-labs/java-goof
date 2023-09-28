@@ -5,6 +5,8 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <!-- Support large profile image uploads -->
+    <constant name="struts.multipart.maxSize" value="15360000" />
 
     <package name="todo" namespace="/todo" extends="struts-default">
 

@@ -26,18 +26,27 @@ package io.github.benas.todolist.web.action.user;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.commons.io.FileUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import io.github.benas.todolist.web.action.BaseAction;
 import io.github.benas.todolist.web.common.form.ChangePasswordForm;
 import io.github.benas.todolist.web.common.form.RegistrationForm;
 import io.github.benas.todolist.web.common.util.TodoListUtils;
 import io.github.todolist.core.domain.User;
+import org.apache.commons.io.FileUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import javax.validation.ConstraintViolation;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Set;
@@ -181,7 +190,9 @@ public class AccountAction extends BaseAction {
                 LOGGER.info("uploading image");
                 imageFileName = imageFileName.replaceAll(" ", "_");
                 String imageLocation = filePath + "/" + imageFileName;
-                FileUtils.copyFile(image, new File(imageLocation));
+                File imageFile = new File(imageLocation);
+                FileUtils.copyFile(image, imageFile);
+                shrinkImage(imageFile);
                 user.setPicture(imageFileName);
                 userService.update(user);
             } catch (IOException e) {
@@ -190,6 +201,44 @@ public class AccountAction extends BaseAction {
             }
         }
         return account();
+    }
+
+    private void shrinkImage(File imageFile) throws IOException {
+        if (System.getenv("THUMBNAILER_HOST") != null) {
+            LOGGER.info("generating thumbnail from " + imageFile.getAbsolutePath());
+            String upload_url = "http://" + System.getenv("THUMBNAILER_HOST") + "/upload";
+            try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+                HttpPost httpPost = new HttpPost(upload_url);
+
+                MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+                builder.addBinaryBody(
+                        "file",
+                        imageFile,
+                        ContentType.create(imageContentType),
+                        imageFile.getName());
+                HttpEntity multipart = builder.build();
+                httpPost.setEntity(multipart);
+
+                HttpResponse response = httpClient.execute(httpPost);
+                int statusCode = response.getStatusLine().getStatusCode();
+                if (statusCode == 200) {
+                    LOGGER.info("thumbnail generated successfully");
+                    HttpEntity responseEntity = response.getEntity();
+                    if (responseEntity != null) {
+                        File thumbnailFile = new File(imageFile.getAbsolutePath());
+                        try (FileOutputStream fos = new FileOutputStream(thumbnailFile)) {
+                            responseEntity.writeTo(fos);
+                        }
+                        EntityUtils.consume(responseEntity);
+                        LOGGER.info("thumbnail saved to " + thumbnailFile.getAbsolutePath());
+                    }
+                } else {
+                    LOGGER.error("error generating thumbnail: " + statusCode);
+                }
+            }
+
+
+        }
     }
 
     /**

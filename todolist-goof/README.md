@@ -13,7 +13,7 @@ This repo is still incomplete, a work in progress to support related presentatio
 
 ### Local build and run
 
-*Note that to run locally, you need JDK 8.*
+*Note that to run locally, you need JDK 8 (or Docker).*
 
 1.  Check out the project source code from github : `git clone https://github.com/snyk/java-goof.git`
 2.  Open a terminal and run the following command from root directory : `mvn install`
@@ -23,9 +23,15 @@ This repo is still incomplete, a work in progress to support related presentatio
 
 ### Build and run with docker-compose
 
-*Note, we run build on and a Tomcat 8.5 image here to support tomcat-rce base image demo.*
+Notes:
+1. We run on and a Tomcat 8.5 image here to support tomcat-rce base image demo.
+1. The docker-compose build starts a second service used for creating thumbnails of user profile pictures. See [Container base image vulnerability exploit](#container-base-image-vulnerability-exploit) for more details.
+
 ```bash
-docker-compose up --build
+# start up
+docker-compose up --build # or "docker compose" (no hyphen) on newer Docker Desktop installs
+
+# shut down
 docker-compose down
 ```
 

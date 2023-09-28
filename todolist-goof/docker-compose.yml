@@ -2,9 +2,17 @@ version: "2"
 services:
   javagoof:
     build: .
-    image: javagoof:orig
+    image: javagoof:latest
     container_name: javagoof
     environment:
       - DOCKER=1
+      - THUMBNAILER_HOST=thumbnailer:5000
     ports:
       - "8080:8080"
+  thumbnailer:
+    build: ./thumbnailer/vulnerable-app
+    image: thumbnailer:latest
+    container_name: thumbnailer
+    ports:
+      - "5001:5000"
+    hostname: thumbnailer
