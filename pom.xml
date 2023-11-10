@@ -14,7 +14,10 @@
         <module>log4shell-goof</module>
     </modules>
     <packaging>pom</packaging>
-
+         <properties>
+           <sonar.organization>leobonn1sonar.organization>
+           <sonar.host.url>https://sonarcloud.iosonar.host.url>
+         properties>
 
     <licenses>
         <license>
