@@ -17,7 +17,7 @@
          <properties>
            <sonar.organization>leobonn1sonar.organization>
            <sonar.host.url>https://sonarcloud.iosonar.host.url>
-         properties>
+         <properties>
 
     <licenses>
         <license>
