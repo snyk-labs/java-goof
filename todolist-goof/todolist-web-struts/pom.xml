@@ -50,7 +50,7 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <!-- Struts 2 -->
+        <!-- Struts 2 testchange -->
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
