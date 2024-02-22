@@ -35,6 +35,14 @@
             <version>2.7</version>
         </dependency>
 
+        <!--vulnerable commons collections (deserialization) -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+
         <!-- javaee web api -->
         <dependency>
             <groupId>javax</groupId>
