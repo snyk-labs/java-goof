@@ -1,10 +1,6 @@
 name: "Snyk Code Test"
 
-on:
-  push:
-    branches:
-    - master
-
+on: push
 jobs:
   Pipeline-Job:
     # Configure Environment
