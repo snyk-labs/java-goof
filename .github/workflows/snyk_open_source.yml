@@ -11,7 +11,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=./todolist-goof/todolist-web-struts/pom.xml --sarif-file-output=snyk.sarif
+          args: --file=./log4shell-goof/log4shell-server/pom.xml --sarif-file-output=snyk.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
         with:
