@@ -22,13 +22,10 @@ jobs:
     - name: Install Snyk & Authenticate
       run: |
          sudo npm install -g snyk
-         wget https://raw.githubusercontent.com/metalstormbass/snyk-code-helper/main/snyk-code-helper-nc.sh
-         chmod +x ./snyk-code-helper-nc.sh
          snyk auth ${SNYK_TOKEN}
     # Run Snyk Code
     - name: Run Snyk Code
       run: |
-         snyk code test --json | ./snyk-code-helper-nc.sh
          snyk code test --sarif  > results.sarif 
          
       continue-on-error: true
