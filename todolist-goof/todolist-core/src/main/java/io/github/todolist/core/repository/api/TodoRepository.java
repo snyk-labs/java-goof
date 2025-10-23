@@ -83,4 +83,11 @@ public interface TodoRepository {
      */
     void remove(final Todo todo);
 
+    /**
+     * Wibble a todo.
+     *
+     * @param todo the todo to wibble
+     */
+    void wibble(final Todo todo);
+
 }

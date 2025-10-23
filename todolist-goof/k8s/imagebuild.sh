@@ -8,7 +8,7 @@ else
 fi
 
 echo "📦 Building image ${DOCKER_ACCOUNT}/java-goof:latest ..."
-docker build -t ${DOCKER_ACCOUNT}/java-goof:latest $MYDIR/..
+docker build --platform linux/arm64 -t ${DOCKER_ACCOUNT}/java-goof:latest $MYDIR/..
 echo
 echo "🚚 Pushing image to DockerHub..."
-docker push ${DOCKER_ACCOUNT}/java-goof:latest
+docker push --platform linux/arm64 ${DOCKER_ACCOUNT}/java-goof:latest

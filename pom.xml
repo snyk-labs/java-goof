@@ -4,7 +4,7 @@
 
     <groupId>io.github.snyk</groupId>
     <artifactId>java-goof</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>Java Goof</name>
     <description>A collection of vulnerable Java apps</description>
     <url>https://github.com/snyk-labs/java-goof</url>

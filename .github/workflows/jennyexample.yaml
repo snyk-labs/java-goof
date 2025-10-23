@@ -1,0 +1,247 @@
+name: Snyk Security Scan for NX Monorepo
+
+on:
+  pull_request:
+    branches: [ main, master, develop ]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+  checks: write
+
+jobs:
+  snyk-scan:
+    runs-on: ubuntu-latest
+    name: Snyk Security Scan
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install NX CLI
+        run: npm install -g @nrwl/cli
+
+      - name: Setup Snyk CLI
+        uses: snyk/actions/setup@master
+
+      - name: Authenticate Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Run Snyk Open Source Scan
+        id: snyk-open-source
+        run: |
+          echo "## 🔍 Snyk Open Source Vulnerability Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Create output file for open source scan
+          OPEN_SOURCE_OUTPUT=$(mktemp)
+          
+          # Run Snyk test for all projects in the monorepo
+          if snyk test --all-projects --detection-depth=6 --json > "$OPEN_SOURCE_OUTPUT" 2>&1; then
+            echo "✅ No open source vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+            echo "open_source_status=success" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Open source vulnerabilities detected" >> $GITHUB_STEP_SUMMARY
+            echo "open_source_status=failure" >> $GITHUB_OUTPUT
+            
+            # Parse and format the JSON output for better readability
+            if command -v jq &> /dev/null; then
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "### Vulnerability Summary:" >> $GITHUB_STEP_SUMMARY
+              jq -r '.vulnerabilities[] | "- **\(.title)** (Severity: \(.severity | ascii_upcase)) in \(.packageName)@\(.version)"' "$OPEN_SOURCE_OUTPUT" | head -20 >> $GITHUB_STEP_SUMMARY || true
+              
+              # Add remediation advice
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "### 💡 Remediation Advice:" >> $GITHUB_STEP_SUMMARY
+              jq -r '.vulnerabilities[] | select(.upgradePath != null and .upgradePath != []) | "- Upgrade \(.packageName) to version \(.upgradePath[-1])"' "$OPEN_SOURCE_OUTPUT" | sort -u | head -10 >> $GITHUB_STEP_SUMMARY || true
+            else
+              cat "$OPEN_SOURCE_OUTPUT" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+          
+          # Save output for PR comment
+          cp "$OPEN_SOURCE_OUTPUT" open_source_results.json
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Run Snyk Code Scan
+        id: snyk-code
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🔍 Snyk Code Security Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Create output file for code scan
+          CODE_OUTPUT=$(mktemp)
+          
+          # Run Snyk code test for the entire repository
+          if snyk code test --json > "$CODE_OUTPUT" 2>&1; then
+            echo "✅ No code security issues found" >> $GITHUB_STEP_SUMMARY
+            echo "code_status=success" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Code security issues detected" >> $GITHUB_STEP_SUMMARY
+            echo "code_status=failure" >> $GITHUB_OUTPUT
+            
+            # Parse and format the JSON output for better readability
+            if command -v jq &> /dev/null; then
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "### Security Issues Summary:" >> $GITHUB_STEP_SUMMARY
+              jq -r '.runs[0].results[]? | "- **\(.ruleId)** (Severity: \(.level | ascii_upcase)) in \(.locations[0].physicalLocation.artifactLocation.uri):\(.locations[0].physicalLocation.region.startLine)"' "$CODE_OUTPUT" | head -20 >> $GITHUB_STEP_SUMMARY || true
+              
+              # Add remediation advice for code issues
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "### 💡 Code Security Recommendations:" >> $GITHUB_STEP_SUMMARY
+              jq -r '.runs[0].results[]? | "- \(.message.text) (File: \(.locations[0].physicalLocation.artifactLocation.uri))"' "$CODE_OUTPUT" | head -10 >> $GITHUB_STEP_SUMMARY || true
+            else
+              cat "$CODE_OUTPUT" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+          
+          # Save output for PR comment
+          cp "$CODE_OUTPUT" code_results.json
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Install jq for JSON parsing
+        if: steps.snyk-open-source.outputs.open_source_status == 'failure' || steps.snyk-code.outputs.code_status == 'failure'
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Create PR Comment with Results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let comment = '## 🛡️ Snyk Security Scan Results\n\n';
+            
+            // Read open source results
+            let openSourceStatus = '${{ steps.snyk-open-source.outputs.open_source_status }}';
+            let codeStatus = '${{ steps.snyk-code.outputs.code_status }}';
+            
+            // Open Source Results
+            comment += '### 📦 Open Source Dependencies\n';
+            if (openSourceStatus === 'success') {
+              comment += '✅ No vulnerabilities found in open source dependencies\n\n';
+            } else {
+              comment += '❌ Vulnerabilities found in open source dependencies\n\n';
+              
+              try {
+                const openSourceData = fs.readFileSync('open_source_results.json', 'utf8');
+                const openSourceJson = JSON.parse(openSourceData);
+                
+                if (openSourceJson.vulnerabilities && openSourceJson.vulnerabilities.length > 0) {
+                  comment += '#### Top Vulnerabilities:\n';
+                  openSourceJson.vulnerabilities.slice(0, 5).forEach(vuln => {
+                    comment += `- **${vuln.title}** (${vuln.severity.toUpperCase()}) in ${vuln.packageName}@${vuln.version}\n`;
+                  });
+                  comment += '\n';
+                  
+                  // Add upgrade recommendations
+                  const upgrades = openSourceJson.vulnerabilities
+                    .filter(v => v.upgradePath && v.upgradePath.length > 0)
+                    .slice(0, 3);
+                  
+                  if (upgrades.length > 0) {
+                    comment += '#### 💡 Recommended Upgrades:\n';
+                    upgrades.forEach(vuln => {
+                      comment += `- Upgrade ${vuln.packageName} to ${vuln.upgradePath[vuln.upgradePath.length - 1]}\n`;
+                    });
+                    comment += '\n';
+                  }
+                }
+              } catch (e) {
+                comment += 'Error parsing open source scan results\n\n';
+              }
+            }
+            
+            // Code Security Results
+            comment += '### 🔒 Code Security\n';
+            if (codeStatus === 'success') {
+              comment += '✅ No code security issues found\n\n';
+            } else {
+              comment += '❌ Code security issues found\n\n';
+              
+              try {
+                const codeData = fs.readFileSync('code_results.json', 'utf8');
+                const codeJson = JSON.parse(codeData);
+                
+                if (codeJson.runs && codeJson.runs[0] && codeJson.runs[0].results) {
+                  comment += '#### Top Security Issues:\n';
+                  codeJson.runs[0].results.slice(0, 5).forEach(result => {
+                    const location = result.locations[0].physicalLocation;
+                    comment += `- **${result.ruleId}** (${result.level.toUpperCase()}) in ${location.artifactLocation.uri}:${location.region.startLine}\n`;
+                    comment += `  ${result.message.text}\n`;
+                  });
+                  comment += '\n';
+                }
+              } catch (e) {
+                comment += 'Error parsing code scan results\n\n';
+              }
+            }
+            
+            // Overall status
+            const overallStatus = (openSourceStatus === 'success' && codeStatus === 'success') ? 'success' : 'failure';
+            
+            if (overallStatus === 'success') {
+              comment += '### ✅ Overall Status: PASSED\nNo security vulnerabilities detected in this PR.\n';
+            } else {
+              comment += '### ❌ Overall Status: FAILED\nSecurity vulnerabilities detected. Please review and address the issues above.\n';
+            }
+            
+            comment += '\n---\n*Powered by [Snyk](https://snyk.io) 🐍*';
+            
+            // Post comment
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Set Check Status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const openSourceStatus = '${{ steps.snyk-open-source.outputs.open_source_status }}';
+            const codeStatus = '${{ steps.snyk-code.outputs.code_status }}';
+            const overallStatus = (openSourceStatus === 'success' && codeStatus === 'success') ? 'success' : 'failure';
+            
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Snyk Security Scan',
+              head_sha: context.payload.pull_request.head.sha,
+              status: 'completed',
+              conclusion: overallStatus,
+              output: {
+                title: overallStatus === 'success' ? 'Security scan passed' : 'Security vulnerabilities found',
+                summary: overallStatus === 'success' 
+                  ? 'No security vulnerabilities detected in open source dependencies or code.'
+                  : 'Security vulnerabilities detected. Check the PR comment for details.'
+              }
+            });
+
+      - name: Fail if vulnerabilities found
+        if: steps.snyk-open-source.outputs.open_source_status == 'failure' || steps.snyk-code.outputs.code_status == 'failure'
+        run: |
+          echo "Security vulnerabilities detected. Please review the scan results."
+          exit 1

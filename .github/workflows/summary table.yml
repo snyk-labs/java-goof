@@ -1,0 +1,62 @@
+name: Snyk Security Scan
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    # Scan on pull requests to get results before merge
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - master
+
+jobs:
+  snyk:
+    runs-on: ubuntu-latest
+    
+    # Use environment variables for easier management
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (or your required version)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      # ➡️ FIX FOR MAVEN DEPENDENCY RESOLUTION ERROR ⬅️
+      # Builds all modules and installs artifacts to the local Maven repository
+      # (e.g., todolist-core and todolist-web-common) so subsequent modules can find them.
+      - name: Maven Build and Install
+        run: mvn -B install -DskipTests
+        # If your build requires specific settings.xml, ensure it's configured here.
+
+      # ➡️ FIX FOR SNYK & JQ SUMMARY ERROR ⬅️
+      # Uses the official Snyk action to scan, generate SARIF, and create a Job Summary.
+      - name: Snyk Security Test
+        uses: snyk/actions/maven@master
+        id: snyk
+        with:
+          args: --all-projects --sarif-file-output=snyk-results.sarif --severity-threshold=low
+          # The Snyk action automatically uses the SNYK_TOKEN environment variable.
+
+      # Uploads the SARIF file to GitHub Code Scanning for a rich summary and alerts.
+      - name: Upload SARIF file for GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk-results.sarif
+          
+      # Add a step to fail the build if vulnerabilities are found, 
+      # only if the previous Snyk step did not already fail.
+      - name: Fail if Snyk found critical vulnerabilities (Optional)
+        if: steps.snyk.outputs.vulnerabilities > 0
+        run: |
+          echo "Snyk found ${{ steps.snyk.outputs.vulnerabilities }} vulnerabilities. See the detailed summary and Code Scanning tab for details."
+          exit 1
