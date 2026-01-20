@@ -1,0 +1,95 @@
+name: Snyk Progressive Training Enforcement
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  snyk_check_progress:
+    runs-on: ubuntu-latest
+    
+    env:
+      SNYK_ORG_ID: ${{ secrets.SNYK_ORG_ID }}
+      SNYK_API_VERSION: "2025-11-05"
+      # Configuration
+      RECENCY_THRESHOLD_MONTHS: 6
+      BLOCK_ON_FAILURE: "true" # Set to "false" for WARN only
+      REQUIRED_COURSES: >
+        {
+          "70bf3b62-4a92-479c-0b27-7e866cedfbe2": "SQL Injection",
+          "6a6dfe46-5d86-4acf-8430-50a35d5dd6e9": "Prototype Pollution",
+          "be4a2ece-6507-4ed1-f3f1-d5d8d949c899": "Directory Traversal"
+        }
+
+    steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Extract Emails
+        id: extract
+        run: |
+          EMAILS=$(git log --format=%ae ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} | sort -u | tr '\n' ',' | sed 's/,$//')
+          echo "emails_list=$EMAILS" >> $GITHUB_OUTPUT
+
+      - name: Validate Training and Check PR Issues
+        run: |
+          ALL_EMAILS="${{ steps.extract.outputs.emails_list }}"
+          SNYK_TOKEN="${{ secrets.SNYK_TOKEN }}"
+          ORG_ID="${{ env.SNYK_ORG_ID }}"
+          
+          # 1. Fetch Current Progress (Existing Logic)
+          ENCODED_EMAILS=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$ALL_EMAILS', safe=','))")
+          PROGRESS_RESP=$(curl -s -H "Authorization: token $SNYK_TOKEN" \
+            "https://api.snyk.io/rest/orgs/$ORG_ID/learn/progress/users?emails=$ENCODED_EMAILS&version=${{ env.SNYK_API_VERSION }}&limit=100")
+
+          # 2. Check for High/Critical Code Issues in this PR 
+          # Note: This assumes you are using Snyk CLI or API to find PR findings
+          # For this example, we'll simulate finding 'true' if issues exist
+          HAS_CRITICAL_ISSUES=true # Replace with actual logic/CLI check
+          
+          IFS=',' read -r -a EMAIL_ARRAY <<< "$ALL_EMAILS"
+          REQUIRED_IDS=$(echo '${{ env.REQUIRED_COURSES }}' | jq -r 'keys[]')
+          FAILED_VALIDATION=false
+          CURRENT_DATE_SEC=$(date +%s)
+          THRESHOLD_SEC=$(( ${{ env.RECENCY_THRESHOLD_MONTHS }} * 30 * 24 * 60 * 60 ))
+
+          for EMAIL in "${EMAIL_ARRAY[@]}"; do
+            echo "--- Checking: $EMAIL ---"
+            
+            for COURSE_ID in $REQUIRED_IDS; do
+              COURSE_NAME=$(echo '${{ env.REQUIRED_COURSES }}' | jq -r ".\"$COURSE_ID\"")
+              
+              # Extract status and completion date
+              USER_DATA=$(echo "$PROGRESS_RESP" | jq -r ".data[] | select(.relationships.user.data.attributes.email==\"$EMAIL\" and .relationships.catalog.data.id==\"$COURSE_ID\")")
+              STATUS=$(echo "$USER_DATA" | jq -r ".attributes.status // \"not_started\"")
+              COMPLETED_AT=$(echo "$USER_DATA" | jq -r ".attributes.completed_at // \"null\"")
+
+              NEEDS_ASSIGNMENT=false
+
+              if [ "$STATUS" != "completed" ]; then
+                echo "  ❌ $COURSE_NAME: Incomplete"
+                NEEDS_ASSIGNMENT=true
+              elif [ "$COMPLETED_AT" != "null" ]; then
+                # Check Recency
+                COMP_SEC=$(date -d "$COMPLETED_AT" +%s)
+                AGE=$(( CURRENT_DATE_SEC - COMP_SEC ))
+                if [ "$AGE" -gt "$THRESHOLD_SEC" ] && [ "$HAS_CRITICAL_ISSUES" = true ]; then
+                  echo "  ⚠️ $COURSE_NAME: Completed, but expired (> ${{ env.RECENCY_THRESHOLD_MONTHS }} months) & PR has issues."
+                  NEEDS_ASSIGNMENT=true
+                else
+                  echo "  ✅ $COURSE_NAME: Current"
+                fi
+              fi
+
+              if [ "$NEEDS_ASSIGNMENT" = true ]; then
+                FAILED_VALIDATION=true
+                echo "  🚀 Assigning $COURSE_NAME to $EMAIL..."
+                # Snyk API Call to assign training
+                curl -s -X POST "https://api.snyk.io/rest/orgs/$ORG_ID/learn/assignments?version=${{ env.SNYK_API_VERSION }}" \
+                  -H "Authorization: token $SNYK_TOKEN" \
+                  -H "Content-Type: application/vnd.api
