@@ -1,0 +1,111 @@
+name: Snyk Progressive Training Enforcement
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  snyk_check_progress:
+    runs-on: ubuntu-latest
+    
+    env:
+      SNYK_ORG_ID: ${{ secrets.SNYK_ORG_ID }}
+      SNYK_API_VERSION: "2025-11-05"
+      RECENCY_THRESHOLD_MONTHS: 6
+      MAX_OUTSTANDING_ASSIGNMENTS: 5
+      BLOCK_ON_FAILURE: "true" 
+      REQUIRED_COURSES: '{"70bf3b62-4a92-479c-0b27-7e866cedfbe2": "SQL Injection", "6a6dfe46-5d86-4acf-8430-50a35d5dd6e9": "Prototype Pollution", "be4a2ece-6507-4ed1-f3f1-d5d8d949c899": "Directory Traversal"}'
+
+    steps:
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
+      - name: Extract Emails
+        id: extract
+        run: |
+          EMAILS=$(git log --format=%ae ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }} | sort -u | tr '\n' ',' | sed 's/,$//')
+          echo "emails_list=$EMAILS" >> $GITHUB_OUTPUT
+
+      - name: Validate Training and Check PR Compliance
+        run: |
+          ALL_EMAILS="${{ steps.extract.outputs.emails_list }}"
+          TOKEN="${{ secrets.SNYK_TOKEN }}"
+          
+          # 1. URL Encode emails
+          ENCODED_EMAILS=$(python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1], safe=','))" "$ALL_EMAILS")
+          
+          # 2. Fetch Progress
+          PROGRESS_RESP=$(curl -s -H "Authorization: token $TOKEN" \
+            "https://api.snyk.io/rest/orgs/$SNYK_ORG_ID/learn/progress/users?emails=$ENCODED_EMAILS&version=$SNYK_API_VERSION&limit=100")
+
+          HAS_CRITICAL_ISSUES=true 
+          
+          IFS=',' read -r -a EMAIL_ARRAY <<< "$ALL_EMAILS"
+          REQUIRED_IDS=$(echo "$REQUIRED_COURSES" | jq -r 'keys[]')
+          FAILED_VALIDATION=false
+          
+          CURRENT_DATE_SEC=$(date +%s)
+          THRESHOLD_SEC=$(( $RECENCY_THRESHOLD_MONTHS * 30 * 24 * 60 * 60 ))
+
+          for EMAIL in "${EMAIL_ARRAY[@]}"; do
+            echo "================================================"
+            echo "CONTRIBUTOR: $EMAIL"
+            
+            # Backlog Check with Integer Safety
+            OUTSTANDING_COUNT=$(echo "$PROGRESS_RESP" | jq -r "[.data[] | select(.relationships.user.data.attributes.email==\"$EMAIL\" and .attributes.status!=\"completed\")] | length // 0")
+            [[ $OUTSTANDING_COUNT =~ ^[0-9]+$ ]] || OUTSTANDING_COUNT=0
+            echo "Outstanding Assignments: $OUTSTANDING_COUNT"
+            
+            if [ "$OUTSTANDING_COUNT" -gt "$MAX_OUTSTANDING_ASSIGNMENTS" ]; then
+              echo "  ❌ FAILURE: Backlog too high ($OUTSTANDING_COUNT)."
+              FAILED_VALIDATION=true
+            fi
+
+            for COURSE_ID in $REQUIRED_IDS; do
+              COURSE_NAME=$(echo "$REQUIRED_COURSES" | jq -r ".\"$COURSE_ID\"")
+              
+              USER_DATA=$(echo "$PROGRESS_RESP" | jq -r ".data[] | select(.relationships.user.data.attributes.email==\"$EMAIL\" and .relationships.catalog.data.id==\"$COURSE_ID\")")
+              STATUS=$(echo "$USER_DATA" | jq -r ".attributes.status // \"not_started\"")
+              COMP_AT=$(echo "$USER_DATA" | jq -r ".attributes.completed_at // \"null\"")
+
+              NEEDS_TRIGGER=false
+
+              if [ "$STATUS" != "completed" ]; then
+                echo "  ❌ $COURSE_NAME: Incomplete"
+                NEEDS_TRIGGER=true
+              elif [ "$COMP_AT" != "null" ]; then
+                COMP_SEC=$(date -d "$COMP_AT" +%s)
+                AGE=$(( CURRENT_DATE_SEC - COMP_SEC ))
+                if [ "$AGE" -gt "$THRESHOLD_SEC" ] && [ "$HAS_CRITICAL_ISSUES" = true ]; then
+                  echo "  ⚠️ $COURSE_NAME: Expired & PR has issues."
+                  NEEDS_TRIGGER=true
+                else
+                  echo "  ✅ $COURSE_NAME: Current"
+                fi
+              fi
+
+              if [ "$NEEDS_TRIGGER" = true ]; then
+                FAILED_VALIDATION=true
+                echo "     🚀 Triggering Assignment for $COURSE_NAME..."
+                
+                # DEBUG: Capture and print raw API response for assignment
+                ASSIGN_RESP=$(curl -s -X POST "https://api.snyk.io/rest/orgs/$SNYK_ORG_ID/learn/assignments?version=$SNYK_API_VERSION" \
+                  -H "Authorization: token $TOKEN" \
+                  -H "Content-Type: application/vnd.api+json" \
+                  -d "{ \"data\": { \"type\": \"assignment\", \"attributes\": { \"resource_id\": \"$COURSE_ID\", \"user_email\": \"$EMAIL\" } } }")
+                
+                echo "     📡 Assignment API Response: $ASSIGN_RESP"
+              fi
+            done
+          done
+
+          if [ "$FAILED_VALIDATION" = true ] && [ "$BLOCK_ON_FAILURE" = "true" ]; then
+             echo "================================================"
+             echo "❌ ERROR: PR fails security training requirements."
+             exit 1
+          fi
