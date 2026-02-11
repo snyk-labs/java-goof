@@ -213,7 +213,7 @@ public class AccountAction extends BaseAction {
 
     /**
      * *******************
-     * Change password
+     * Change passwords
      * *******************
      */
 
