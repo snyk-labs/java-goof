@@ -1,6 +1,6 @@
 ## Java Goof
 
-This is a collection of Java demo apps that are vulnerable in different ways.
+This is a collection of Java demo apps that are vulnerable in different waysss.
 
 It's divided into modules, each one having its own README:
 
