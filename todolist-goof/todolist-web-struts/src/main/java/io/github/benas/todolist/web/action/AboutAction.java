@@ -21,10 +21,14 @@
  *   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *   THE SOFTWARE.
  */
-
 package io.github.benas.todolist.web.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Action class to redirect to about page.
@@ -32,10 +36,35 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
  */
 public class AboutAction extends ActionSupport {
+
     public static final String ACTIVE = "active";
+
+    private String feedback;
 
     public String getAboutTabStyle() {
         return ACTIVE;
     }
 
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
+    public String execute() throws Exception {
+        if (feedback != null) {
+            searchFeedback(feedback);
+        }
+        return SUCCESS;
+    }
+
+    private ResultSet searchFeedback(String keyword) throws Exception {
+        Connection connection = DriverManager.getConnection(
+                "jdbc:h2:mem:todolist", "sa", "");
+        Statement statement = connection.createStatement();
+        String sql = "SELECT * FROM feedback WHERE comment = '" + keyword + "'";
+        return statement.executeQuery(sql);
+    }
 }

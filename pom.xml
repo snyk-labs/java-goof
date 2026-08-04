@@ -13,7 +13,8 @@
         <module>todolist-goof</module>
         <module>log4shell-goof</module>
     </modules>
-    <packaging>pom</packaging>
+    <comment>test</comment>
+         <packaging>pom</packaging>
 
 
     <licenses>
