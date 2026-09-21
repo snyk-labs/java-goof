@@ -21,5 +21,14 @@
                 </div>
             </s:form>
         </li>
+        <li class="nav-header">Search users</li>
+        <li>
+            <s:form cssClass="form-search" namespace="/user" action="search" id="searchUserForm" method="get">
+                <div class="input-append">
+                    <s:textfield name="email" cssClass="input-small search-query" placeholder="search by email" required="required"/>
+                    <s:submit cssClass="btn" value="Go!" />
+                </div>
+            </s:form>
+        </li>
     </ul>
 </div>

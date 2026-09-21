@@ -81,6 +81,15 @@ public class UserRepositoryImpl implements UserRepository {
     /**
      * {@inheritDoc}
      */
+    public List<User> searchUsersByEmail(final String email) {
+        TypedQuery<User> query = entityManager.createNamedQuery("findUsersByEmail", User.class);
+        query.setParameter("p_email", "%" + email.toUpperCase() + "%");
+        return query.getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean login(final String email, final String password) {
         TypedQuery<User> query = entityManager.createNamedQuery("findUserByEmailAndPassword", User.class);
         query.setParameter("p_email", email);

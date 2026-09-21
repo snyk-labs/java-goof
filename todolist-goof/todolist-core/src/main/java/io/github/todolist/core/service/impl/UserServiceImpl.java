@@ -31,6 +31,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Implementation of the {@link UserService}.
  *
@@ -70,6 +72,14 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public User getUserByEmail(final String email) {
         return userRepository.getUserByEmail(email);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Transactional(readOnly = true)
+    public List<User> searchUsersByEmail(final String email) {
+        return userRepository.searchUsersByEmail(email);
     }
 
     /**

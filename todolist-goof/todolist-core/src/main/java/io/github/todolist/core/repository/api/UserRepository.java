@@ -26,6 +26,8 @@ package io.github.todolist.core.repository.api;
 
 import io.github.todolist.core.domain.User;
 
+import java.util.List;
+
 /**
  * Interface for user repository.
  *
@@ -40,6 +42,14 @@ public interface UserRepository {
      * @return the user with the given email or null if no such user
      */
     User getUserByEmail(final String email);
+
+    /**
+     * Search users by (partial) email.
+     *
+     * @param email the email fragment to search for
+     * @return the list of users whose email contains the given fragment
+     */
+    List<User> searchUsersByEmail(final String email);
 
     /**
      * Check user's email and password.

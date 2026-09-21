@@ -138,6 +138,12 @@
             <result>/WEB-INF/views/user/account.jsp</result>
         </action>
 
+        <action name="search" class="io.github.benas.todolist.web.action.user.SearchUserAction">
+            <interceptor-ref name="loginInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
+            <result>/WEB-INF/views/user/search.jsp</result>
+        </action>
+
     </package>
 
     <package name="public" namespace="/" extends="struts-default">

@@ -35,7 +35,8 @@ import java.io.Serializable;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "findUserByEmail", query = "SELECT u FROM User u where u.email = :p_email"),
-        @NamedQuery(name = "findUserByEmailAndPassword", query = "SELECT u FROM User u where u.email = :p_email and u.password = :p_password")
+        @NamedQuery(name = "findUserByEmailAndPassword", query = "SELECT u FROM User u where u.email = :p_email and u.password = :p_password"),
+        @NamedQuery(name = "findUsersByEmail", query = "SELECT u FROM User u where UPPER(u.email) LIKE :p_email")
 })
 public class User implements Serializable {
 
