@@ -1,0 +1,15 @@
+   name: Snyk IaC gate
+   on:
+     pull_request:
+       paths: ['terraform/**']
+
+   jobs:
+     iac:
+       runs-on: ubuntu-latest
+       env:
+         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+       steps:
+         - uses: actions/checkout@v4
+         - uses: snyk/actions/setup@master
+         - name: Scan Terraform
+           run: snyk iac test terraform/ --severity-threshold=high
